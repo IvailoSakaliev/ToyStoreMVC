@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToyStore", "WebApplication1\ToyStore.csproj", "{AA15E356-3D10-43DC-A101-8CCD1BE364F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToyStore", "WebApplication1\ToyStore.csproj", "{AA15E356-3D10-43DC-A101-8CCD1BE364F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectToyStore.Data", "ProjectToyStore.Data\ProjectToyStore.Data.csproj", "{13F46E0A-A968-44F7-93A3-7C79FD1B2E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectToyStore.Data", "ProjectToyStore.Data\ProjectToyStore.Data.csproj", "{13F46E0A-A968-44F7-93A3-7C79FD1B2E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectToyStore.Servise", "ProjectToyStore.Servise\ProjectToyStore.Servise.csproj", "{7AF2A660-8FBD-41F5-A2CF-5269879A1990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectToyStore.Servise", "ProjectToyStore.Servise\ProjectToyStore.Servise.csproj", "{7AF2A660-8FBD-41F5-A2CF-5269879A1990}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toy", "Toy\Toy.csproj", "{10F8A3C9-92FB-4101-BDB8-F63D3A2177E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7AF2A660-8FBD-41F5-A2CF-5269879A1990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AF2A660-8FBD-41F5-A2CF-5269879A1990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AF2A660-8FBD-41F5-A2CF-5269879A1990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F8A3C9-92FB-4101-BDB8-F63D3A2177E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F8A3C9-92FB-4101-BDB8-F63D3A2177E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F8A3C9-92FB-4101-BDB8-F63D3A2177E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F8A3C9-92FB-4101-BDB8-F63D3A2177E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
