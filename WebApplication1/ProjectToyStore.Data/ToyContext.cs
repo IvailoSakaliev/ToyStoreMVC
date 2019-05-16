@@ -29,7 +29,7 @@ namespace ProjectToyStore.Data
 
         public new void SaveChanges()
         {
-            base.SaveChangesAsync();
+            base.SaveChanges();
         }
 
     }

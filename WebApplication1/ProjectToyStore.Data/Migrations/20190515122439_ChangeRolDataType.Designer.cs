@@ -2,19 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectToyStore.Data;
 
 namespace ProjectToyStore.Data.Migrations
 {
     [DbContext(typeof(ToyContext))]
-    partial class ToyContextModelSnapshot : ModelSnapshot
+    [Migration("20190515122439_ChangeRolDataType")]
+    partial class ChangeRolDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -45,9 +47,14 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<int>("Role");
 
+                    b.Property<int>("UserID");
+
                     b.Property<bool>("isRegisted");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("Logins");
                 });
@@ -100,8 +107,6 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("LoginID");
-
                     b.Property<string>("SecondName");
 
                     b.Property<string>("Telephone");
@@ -109,6 +114,14 @@ namespace ProjectToyStore.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjectToyStore.Data.Models.Login", b =>
+                {
+                    b.HasOne("ProjectToyStore.Data.Models.User")
+                        .WithOne("LoginID")
+                        .HasForeignKey("ProjectToyStore.Data.Models.Login", "UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

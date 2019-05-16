@@ -51,12 +51,12 @@ namespace ProjectToyStore.Data.Repository
             }
 
         }
-        public IList<Tentity> GetAll()
+        public List<Tentity> GetAll()
         {
             return _set.ToList();
         }
 
-        public IList<Tentity> GetAll(Expression<Func<Tentity, bool>> filter)
+        public List<Tentity> GetAll(Expression<Func<Tentity, bool>> filter)
         {
             if (filter != null)
             {

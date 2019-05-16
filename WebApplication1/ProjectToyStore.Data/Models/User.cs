@@ -12,8 +12,7 @@ namespace ProjectToyStore.Data.Models
         public string SecondName { get; set; }
         public string City { get; set; }
         public string Adress { get; set; }
-        public Role Role { get; set; }
         public string  Telephone { get; set; }
-        public Login LoginID { get; set; }
+        public int LoginID { get; set; }
     }
 }

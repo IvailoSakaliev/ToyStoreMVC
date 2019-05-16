@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectToyStore.Data;
 
 namespace ProjectToyStore.Data.Migrations
 {
     [DbContext(typeof(ToyContext))]
-    partial class ToyContextModelSnapshot : ModelSnapshot
+    [Migration("20190515121441_ChangeLoginParameters")]
+    partial class ChangeLoginParameters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +47,14 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<int>("Role");
 
+                    b.Property<int>("UserID");
+
                     b.Property<bool>("isRegisted");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("UserID")
+                        .IsUnique();
 
                     b.ToTable("Logins");
                 });
@@ -100,8 +107,6 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("LoginID");
-
                     b.Property<string>("SecondName");
 
                     b.Property<string>("Telephone");
@@ -109,6 +114,14 @@ namespace ProjectToyStore.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjectToyStore.Data.Models.Login", b =>
+                {
+                    b.HasOne("ProjectToyStore.Data.Models.User")
+                        .WithOne("LoginID")
+                        .HasForeignKey("ProjectToyStore.Data.Models.Login", "UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

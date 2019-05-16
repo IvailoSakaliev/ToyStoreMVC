@@ -7,7 +7,7 @@ namespace ProjectToyStore.Servise.ProjectServise
 {
     public class EncriptServises : IEncriptServises
     {
-        private string hash = "f0xle@rn";
+        private string hash = "f0xlebarn";
 
         public string EncryptData(string toEncrypted)
         {

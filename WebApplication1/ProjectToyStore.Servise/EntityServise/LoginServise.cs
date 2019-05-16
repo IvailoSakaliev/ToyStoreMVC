@@ -10,6 +10,7 @@ namespace ProjectToyStore.Servise.EntityServise
         :GenericServise<Login>
     {
         public IEncriptServises _encritp { get; set; }
+        public AuthenticationServises authenticateService { get; set; }
         public LoginServise()
             :base()
         {
@@ -52,6 +53,8 @@ namespace ProjectToyStore.Servise.EntityServise
             return null;
         }
 
-       
+        
+
+
     }
 }

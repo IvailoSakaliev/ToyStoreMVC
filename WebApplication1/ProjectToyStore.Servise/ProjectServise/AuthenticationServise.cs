@@ -7,8 +7,7 @@ namespace ProjectToyStore.Servise.ProjectServise
     public class AuthenticationServises
         : GenericServise<Login>
     {
-        public Login LoggedUser { get; set; }
-        public int Login_id { get; set; }
+        public Login _LoggedUser { get; set; }
         private List<Login> list { get; set; }
         public LoginServise singIn { get; set; }
         private IEncriptServises _encript { get; set; }
@@ -16,8 +15,9 @@ namespace ProjectToyStore.Servise.ProjectServise
         public AuthenticationServises()
         {
             this.singIn = new LoginServise();
+            _encript = new EncriptServises();
         }
-        public bool AuthenticateUser(string email, string password, int state)
+        public int AuthenticateUser(string email, string password, int state, int mode)
         {
             string decriptedEmail = "";
             string decriptedPassword = "";
@@ -26,64 +26,67 @@ namespace ProjectToyStore.Servise.ProjectServise
             {
                 decriptedEmail = _encript.DencryptData(item.Email);
                 decriptedPassword = _encript.DencryptData(item.Password);
-                if (decriptedEmail == email && decriptedPassword == password)
+                if (mode ==1)
                 {
-                    this.LoggedUser = item;
-                    
-                    return AddSession(state); ;
+                    if (decriptedEmail == email && decriptedPassword == password)
+                    {
+                        _LoggedUser = item;
+
+                        return AddSession(state); ;
+                    }
+                    else
+                    {
+                        _LoggedUser = null;
+
+                    }
                 }
-                else
-                {
-                    this.LoggedUser = null;
-                   
+                else if(mode == 2){
+                    if (decriptedEmail == email)
+                    {
+                        _LoggedUser = item;
+
+                        return AddSession(state); ;
+                    }
+                    else
+                    {
+                        _LoggedUser = null;
+
+                    }
                 }
             }
 
-            return false;
+            return 0;
 
         }
 
-        private bool AddSession(int state)
+        private int AddSession(int state)
         {
-            if (this.LoggedUser != null)
+            if (_LoggedUser != null)
             {
                 if (state == 1)
                 {
-                    if (singIn.IsConfirmRegistartion(this.LoggedUser) == true)
+                    if (singIn.IsConfirmRegistartion(_LoggedUser) == true)
                     {
-                        return true;
+                        return ReturnIdFromUser();
                     }
+                    else
+                    {
+                        return -1;
+                    }
+                      
                 }
                 else if (state == 2)
                 {
-                    ReturnIdFromUser();
+                   return ReturnIdFromUser();
                 }
             }
-            return false;
+            return 0;
         }
-        private void ReturnIdFromUser()
+        private int ReturnIdFromUser()
         {
-            this.Login_id = LoggedUser.ID;
+            return _LoggedUser.ID;
         }
 
-        private void GoToSession()
-        {
-
-            //HttpContext.Current.Session["LoggedUser"] = LoggedUser.Role;
-            //HttpContext.Current.Session["UserFirstName"] = this.singIn.EncriptServise.DencryptData(LoggedUser.Name);
-            //HttpContext.Current.Session["User_ID"] = LoggedUser.ID;
-        }
-
-        public void LoggOut()
-        {
-
-            this.LoggedUser = null;
-            //HttpContext.Current.Session["LoggedUser"] = null;
-            //HttpContext.Current.Session["UserFirstName"] = "";
-            //HttpContext.Current.Session["User_ID"] = null;
-            //CoockieServises cookie = new CoockieServises();
-            //cookie.DeleteCoockie("UserInformation");
-
-        }
+        
     }
 }

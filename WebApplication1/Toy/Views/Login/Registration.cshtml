@@ -1,0 +1,90 @@
+﻿@model Toy.Models.ViewModels.Login.RegistrationVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <title>Index</title>
+</head>
+<body>
+
+    <div class="container login">
+        <h3>Registration</h3>
+
+
+        <form method="post" asp-controller="Login" asp-action="Registration">
+            <div class="registrationErrors" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label asp-for="@Model.FirstName"></label>
+                <input class="form-control" asp-for="@Model.FirstName" placeholder="First Name">
+                <span asp-validation-for="@Model.FirstName"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.SecondName"></label>
+                <input class="form-control" asp-for="@Model.SecondName" placeholder="Second Name">
+                <span asp-validation-for="@Model.SecondName"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Email"></label>
+                <input class="form-control" asp-for="@Model.Email" placeholder="Email">
+                <span asp-validation-for="@Model.Email"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Password"></label>
+                <input type="password" class="form-control" asp-for="@Model.Password" placeholder="Password">
+                <span asp-validation-for="@Model.Password"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.ConfirmPassword"></label>
+                <input type="password" class="form-control" asp-for="@Model.ConfirmPassword" placeholder="Confirm Password">
+                <span asp-validation-for="@Model.ConfirmPassword"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.City"></label>
+                <input class="form-control" asp-for="@Model.City" placeholder="City">
+                <span asp-validation-for="@Model.City"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Adress"></label>
+                <input class="form-control" asp-for="@Model.Adress" placeholder="Adress">
+                <span asp-validation-for="@Model.Adress"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Telephone"></label>
+                <input class="form-control" asp-for="@Model.Telephone" placeholder="Telephone">
+                <span asp-validation-for="@Model.Telephone"></span>
+
+            </div>
+
+            <input type="submit" class="btn btn-primary loginButton" value="Registration" />
+        </form>
+
+    </div>
+
+</body>
+</html>

@@ -27,13 +27,13 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             _admin = GetDecriptedInformationForAdmin();
             _encript = new EncriptServises();
-            _userEmail = _encript.DencryptData(user.Email);
+            _userEmail = user.Email;
             _userID = user.ID;
             _smtpClient = new SmtpClient();
             _basicCredential =
                 new NetworkCredential(_admin.Email, _admin.Password);
             _message = new MailMessage();
-            _fromAddress = new MailAddress(_userEmail);
+            _fromAddress = new MailAddress(_admin.Email);
         }
 
         public void SendEmail(int mode)
@@ -42,7 +42,7 @@ namespace ProjectToyStore.Servise.ProjectServise
             _smtpClient.UseDefaultCredentials = false;
             _smtpClient.Credentials = _basicCredential;
             _smtpClient.EnableSsl = true;
-            _smtpClient.Port = 587;
+            _smtpClient.Port = 465;
 
             _message.From = _fromAddress;
             _message.IsBodyHtml = true;
@@ -81,8 +81,8 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             var admin = GetByID(1);
             Login result = new Login();
-            result.Email = _encript.DencryptData(admin.Email);
-            result.Password = _encript.DencryptData(admin.Password);
+            result.Email = "ivo.sakaliev1996@gmail.com";
+            result.Password = "bachiivo1996";
             return result;
         }
     }

@@ -35,3 +35,91 @@ body {
         display: none;
     }
 }
+
+
+.container.login {
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 10%;
+}
+
+.login {
+    margin: 0 auto;
+}
+
+    .login h3 {
+        text-align: center;
+    }
+
+.loginButton {
+    width: 100%;
+}
+span
+{
+    color:red;
+}
+
+.registrationErrors
+{
+    color:red;
+}
+.viewButtons img:hover
+{
+    cursor:pointer;
+}
+
+.dropdown-item
+{
+    color:black !important;
+}
+
+/*produc style*/
+.productGalery
+{
+	margin-top: 20px;
+	border:1px solid #cccccc;
+	width: 24%;
+	padding-left: 20px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	display: inline-block;
+	margin-right: 5px;
+}
+.productGalery .img  img
+{
+	width: 91%;
+	height: 200px;
+}
+.productGalery .price h4{
+	color:red;
+}
+.productGalery .button button
+{
+	width: 90%;
+}
+
+/*list products*/
+.productList
+{
+	padding: 5px;
+	margin-top: 10px;
+	border:1px solid #cccccc;
+
+}
+.productList .img img
+{
+	width: 100%;
+}
+.productList .price h4{
+	color:red;
+}
+.productList .button button
+{
+	margin-top: 10px;
+	width: 100%;
+}
+.productList .col-md-7
+{
+	height: 140px;
+	border-right: 1px solid #cccccc;
+}

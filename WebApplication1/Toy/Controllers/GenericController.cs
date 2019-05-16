@@ -132,47 +132,8 @@ namespace ToyStore.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TEntity entity = new TEntity();
-                string nameOfModel = entity.GetType().Name;
-                if (nameOfModel == "Lecture" || nameOfModel == "Student")
-                {
-                    LoginServise registerService = new LoginServise();
-                    AuthenticationServises authenticate = new AuthenticationServises();
-                    try
-                    {
-                        if (CheckForExitedUserInDB(model))
-                        {
-
-                            Login register = new Login();
-                            register = PopulateRegisterInfomationInModel(register, model);
-                            if (register != null)
-                            {
-                                registerService.Save(register);
-                            }
-                            else
-                            {
-                                return View(model);
-                            }
-                            authenticate.AuthenticateUser(_encript.DencryptData(register.Email), _encript.DencryptData(register.Password), 2);
-                            this.login_id = authenticate.Login_id;
-                            AddInformation(entity, model);
-                            if (nameOfModel == "Student")
-                            {
-                                EmailServises email = new EmailServises(register);
-                                //email.SendEmail(1);
-                                return RedirectToAction("GoToConfirm");
-                            }
-                        }
-
-                    }
-                    catch (NullReferenceException)
-                    {
-                        Add(model);
-                    }
-
-                }
-                AddInformation(entity, model);
-                return RedirectToAction("Index");
+              
+                
             }
             return View(model);
         }

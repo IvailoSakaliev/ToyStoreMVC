@@ -28,7 +28,7 @@ namespace ProjectToyStore.Servise
         }
         public List<TEntity> GetAll()
         {
-            return (List<TEntity>)_repo.GetAll();
+            return _repo.GetAll();
         }
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
         {

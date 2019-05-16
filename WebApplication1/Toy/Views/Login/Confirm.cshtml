@@ -1,0 +1,38 @@
+﻿@model Toy.Models.ViewModels.Login.ForgotPassM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <title>Congirm</title>
+
+
+</head>
+<body>
+
+    <div class="container login" style="width: 400px;text-align:center">
+        <h3>Confirm</h3>
+        <p>Please go to your e-mail to confirm your registration</p>
+
+        <a href="../../">Go to Home</a>
+        
+
+    </div>
+
+</body>
+</html>
