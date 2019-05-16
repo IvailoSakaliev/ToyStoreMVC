@@ -197,7 +197,7 @@ namespace Toy.Controllers
         public void CreateCookie(LoginVM model)
         {
             var cookie = new CookieOptions();
-            cookie.Expires = DateTime.Now.AddMinutes(10);
+            cookie.Expires = DateTime.Now.AddMonths(1);
             Response.Cookies.Append("UserEmail", model.Email, cookie);
             Response.Cookies.Append("Userpassword", model.Password);
         }

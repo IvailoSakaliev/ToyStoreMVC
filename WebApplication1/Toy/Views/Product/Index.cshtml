@@ -19,10 +19,10 @@
             
             <div class="col-md-3 viewButtons">
                 <div class="col-md-2">
-                    <img src="~/images/list.png" width="30px"  alt="Alternate Text" />
+                    <img onclick="ChangeView(1)" src="~/images/list.png" width="30px"  alt="Alternate Text" />
                 </div>
                 <div class="col-md-2">
-                    <img src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
+                    <img  onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
                 </div>
                 <div class="col-md-8" style="padding-right:5px;">
                     <div class="dropdown">
@@ -39,8 +39,8 @@
             </div>
 
         </div>
-        <div class="row">
-            @Html.Partial("_lsitProducts");
+        <div class="row products">
+            @Html.Partial("GaleryProduct");
 
 
         </div>
