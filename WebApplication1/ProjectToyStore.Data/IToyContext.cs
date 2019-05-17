@@ -9,7 +9,7 @@ namespace ProjectToyStore.Data
         DbSet<User> Users { get; set; }
         DbSet<Order> Orders { get; set; }
         DbSet<Images> Images { get; set; }
-        DbSet<Subject> Subjects { get; set; }
+        DbSet<Product> Subjects { get; set; }
 
 
         void SaveChanges();

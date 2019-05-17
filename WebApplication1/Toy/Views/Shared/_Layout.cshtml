@@ -36,6 +36,7 @@
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a href="Product/Index?Curentpage=1" >Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -51,7 +52,118 @@
 
         </div>
     </nav>
+    <div class="row">
+        <div class="container herder">
+            <div class="col-md-7">
 
+
+
+            </div>
+            <div class="col-md-5 search">
+                <form action="../Product" method="Index">
+                    <div class="col-md-9">
+                        <input class="form-control searchFiels"  type="text" name="search" />
+                    </div>
+                    <div class="col-md-3">
+                        <button class="form-control"><img src="~/images/search.png" alt="Search" /></button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="secondNAvigation">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Играчки
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Превозни средства</a></li>
+                            <li><a href="#">Кукли и аксесоари</a></li>
+                            <li><a href="#">Фигури</a></li>
+                            <li><a href="#">С дистанционно управление</a></li>
+                            <li><a href="#">Лаптопи и таблети</a></li>
+                            <li><a href="#">Конструктор и сглобяеми играчки</a></li>
+                            <li><a href="#">Аркадни</a></li>
+                            <li><a href="#">За игра на професии</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Образователни игри
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">За предучилищна подготовка </a></li>
+                            <li><a href="#">Музикални играчки</a></li>
+                            <li><a href="#">Настолни игри</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Contact">За бебета </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Спорт и игра на открито
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Спортни играчки</a></li>
+                            <li><a href="#">Игра на открито</a></li>
+                            <li><a href="#">Детски тротинетки</a></li>
+                            <li><a href="#">Ролери и скейтбордове</a></li>
+                            <li><a href="#">Колела и триколки</a></li>
+                            <li><a href="#">Колички и мотори </a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Пъзели
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu d1">
+                            <li><a href="#">Aвтoмoбили и мoтopи</a></li>
+                            <li><a href="#">Aнимaциoнни гepoи</a></li>
+                            <li><a href="#">Глeдки и пeйзaжи</a></li>
+                            <li><a href="#">Гopи, цвeтя и гpaдини</a></li>
+                            <li><a href="#">Дeцa и бeбeтa </a></li>
+                            <li><a href="#">Динoзaвpи </a></li>
+                            <li><a href="#">Живoтни </a></li>
+                            <li><a href="#">Зaмъци и xpaмoвe </a></li>
+                            <li><a href="#">Koнe </a></li>
+                            <li><a href="#">Kopaби и лoдки </a></li>
+                            <li><a href="#">Kocмoc </a></li>
+
+                        </ul>
+                        <ul class="dropdown-menu d2">
+                            
+                            <li><a href="#">Koтки </a></li>
+                            <li><a href="#">Kyчeтa </a></li>
+                            <li><a href="#">клaнини и eзepa </a></li>
+                            <li><a href="#">кoдвoдeн cвят </a></li>
+                            <li><a href="#">кoжapнa и пoлиция </a></li>
+                            <li><a href="#">ктици </a></li>
+                            <li><a href="#">Peки и вoдoпaди </a></li>
+                            <li><a href="#">Caмoлeти и бaлoни </a></li>
+                            <li><a href="#">Cгpaди и пocтpoйки</a></li>
+                            <li><a href="#">Фaнтacтикa </a></li>
+                            <li><a href="#">Фoтoгpaфии</a></li>
+                        </ul>
+                        </li>
+<li><a asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">

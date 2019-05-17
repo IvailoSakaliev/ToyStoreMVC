@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Enum;
 using ProjectToyStore.Data.Models;
@@ -24,6 +26,7 @@ namespace ToyStore.Controllers
         protected int login_id { get; set; }
         private LoginServise _singin { get; set; }
         private IEncriptServises _encript;
+        ProductServise _productServise = new ProductServise();
 
         public GenericController()
         {
@@ -31,14 +34,24 @@ namespace ToyStore.Controllers
             _singin = new LoginServise();
         }
 
+        [HttpGet]
         [AuthenticationFilter]
         public ActionResult Index(int Curentpage)
         {
             TlistVM itemVM = new TlistVM();
             itemVM.Filter = new Tfilter();
             itemVM = PopulateIndex(itemVM, Curentpage);
+            string controllerNAme = GetControlerName();
+            if (controllerNAme == "Product")
+            {
+                var cookie = new CookieOptions();
+                cookie.Expires = DateTime.Now.AddMonths(1);
+                Response.Cookies.Append("ViewProducr", "2");
+            }
             return View(itemVM);
         }
+
+
 
         protected virtual TlistVM PopulateIndex(TlistVM itemVM, int curentPage)
         {
@@ -80,6 +93,7 @@ namespace ToyStore.Controllers
             return this.ControllerContext.RouteData.Values["controller"].ToString();
         }
 
+        
         [HttpGet]
         [AuthenticationFilter]
         public ActionResult Edit(int id)

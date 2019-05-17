@@ -14,7 +14,7 @@ namespace ProjectToyStore.Data
         public DbSet<Login> Logins { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Images> Images { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Product> Subjects { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

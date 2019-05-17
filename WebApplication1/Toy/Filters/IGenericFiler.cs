@@ -4,10 +4,10 @@ using ProjectToyStore.Data.Models;
 
 namespace ToyStore.Filters
 {
-    public interface IGenericFiler<Tentity> where Tentity : BaseModel, new()
+    public interface IGenericFiler<Tentity> where Tentity : BaseModel
     {
         string Prefix { get; set; }
 
-        
+        Expression<Func<Tentity, bool>> BildFilter();
     }
 }

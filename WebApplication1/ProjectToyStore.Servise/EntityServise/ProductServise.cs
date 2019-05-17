@@ -5,13 +5,13 @@ using System.Text;
 
 namespace ProjectToyStore.Servise.EntityServise
 {
-    public class SubjectServise
+    public class ProductServise
         :GenericServise<Product>
     {
-        public SubjectServise()
+        public ProductServise()
             :base()
         {
-
+                
         }
     }
 }
