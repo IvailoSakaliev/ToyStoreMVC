@@ -164,11 +164,11 @@ namespace Toy.Controllers
 
         private void GoToSession()
         {
-            HttpContext.Session.SetString("LoggedUser", _aut._LoggedUser.Role.ToString());
+            HttpContext.Session.SetString("LoggedUser", _encript.EncryptData(_aut._LoggedUser.Role.ToString()));
             
-            HttpContext.Session.SetString("UserFirstName",_aut._LoggedUser.Email);
+            HttpContext.Session.SetString("UserFirstName", _encript.EncryptData(_aut._LoggedUser.Email));
 
-            HttpContext.Session.SetString("User_ID", _aut._LoggedUser.ID.ToString());
+            HttpContext.Session.SetString("User_ID", _encript.EncryptData(_aut._LoggedUser.ID.ToString()));
         }
 
         public void LoggOut()

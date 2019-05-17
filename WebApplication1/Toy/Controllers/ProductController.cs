@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
@@ -12,7 +14,7 @@ using ToyStore.Controllers;
 
 namespace Toy.Controllers
 {
-    public class ProductController : GenericController<Product, ProductVM,ProducLIst, PruductFilter, ProductServise>
+    public class ProductController : GenericController<Product, ProductVM, ProducLIst, PruductFilter, ProductServise>
     {
         ProductServise _productServise = new ProductServise();
 
@@ -94,5 +96,22 @@ namespace Toy.Controllers
         {
             throw new NotImplementedException();
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+      [HttpPost]
+        public IActionResult Create(ProductVM model, IFormFile[] photo)
+        {
+            ImageServise _img = new ImageServise();
+            string isUploadet= _img.UploadImages(photo);
+            ModelState.AddModelError(string.Empty, isUploadet);
+            return View();
+        }
+
+      
     }
 }

@@ -15,6 +15,7 @@ namespace ProjectToyStore.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Images> Images { get; set; }
         public DbSet<Product> Subjects { get; set; }
+        public DbSet<Hash> Hashs { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

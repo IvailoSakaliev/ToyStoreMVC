@@ -7,5 +7,6 @@ namespace Toy.Models.ViewModels.Product
 {
     public class ProductVM
     {
+        public List<string> Image { get; set; }
     }
 }
