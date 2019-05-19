@@ -40,9 +40,17 @@
 
         </div>
         <div class="row products">
-            @Html.Partial("GaleryProduct");
+            @if (ViewBag.Cookie == "1")
+            {
+                @Html.Partial("ListProduct");
+            }
+            else
+            {
+                @Html.Partial("GaleryProduct");
+            }
 
-           
+
+
         </div>
         <div class="pageVM">
             @Html.Partial("_pageVm");

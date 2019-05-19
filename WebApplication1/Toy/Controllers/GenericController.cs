@@ -43,13 +43,10 @@ namespace ToyStore.Controllers
             itemVM.Filter = new Tfilter();
             itemVM = PopulateIndex(itemVM, Curentpage);
             string controllerNAme = GetControlerName();
-
-            if (controllerNAme == "Product")
-            {
-                var cookie = new CookieOptions();
-                cookie.Expires = DateTime.Now.AddMonths(1);
-                Response.Cookies.Append("ViewProducr", "2");
-            }
+            
+           
+            string cookieValue = Request.Cookies["ViewProducr"];
+            ViewBag.Cookie = cookieValue;
             return View(itemVM);
         }
 
@@ -63,16 +60,16 @@ namespace ToyStore.Controllers
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
             itemVM.AllItems = _Servise.GetAll();
-            itemVM.Pages = itemVM.AllItems.Count / 10;
-            double doublePages = itemVM.AllItems.Count / 10.0;
+            itemVM.Pages = itemVM.AllItems.Count / 12;
+            double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
             {
                 itemVM.Pages++;
             }
-            itemVM.StartItem = 10 * curentPage;
+            itemVM.StartItem = 12 * curentPage;
             try
             {
-                for (int i = itemVM.StartItem - 10; i < itemVM.StartItem; i++)
+                for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
                     itemVM.Items.Add(itemVM.AllItems[i]);
                 }
