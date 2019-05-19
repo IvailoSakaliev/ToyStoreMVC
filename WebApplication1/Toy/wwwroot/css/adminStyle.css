@@ -1,0 +1,22 @@
+﻿body {
+}
+
+
+.navigation {
+    width: 100%;
+    background-color: black ;
+    height:800px;
+}
+.navMenu
+{
+    list-style:none;
+
+}
+.navMenu li{
+    padding:7px;
+}
+.navMenu li a {
+    color: white;
+    
+
+}

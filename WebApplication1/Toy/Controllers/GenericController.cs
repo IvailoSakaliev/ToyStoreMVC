@@ -32,6 +32,7 @@ namespace ToyStore.Controllers
         {
             _Servise = new Tservise();
             _singin = new LoginServise();
+            
         }
 
         [HttpGet]
@@ -42,6 +43,7 @@ namespace ToyStore.Controllers
             itemVM.Filter = new Tfilter();
             itemVM = PopulateIndex(itemVM, Curentpage);
             string controllerNAme = GetControlerName();
+
             if (controllerNAme == "Product")
             {
                 var cookie = new CookieOptions();
@@ -75,7 +77,7 @@ namespace ToyStore.Controllers
                     itemVM.Items.Add(itemVM.AllItems[i]);
                 }
             }
-            catch (Exception)
+            catch (ArgumentOutOfRangeException ex)
             {
 
             }

@@ -5,21 +5,30 @@
 
 
 function ChangeView(id) {
-    GetCheck(id);
+    var fullURL = window.location.href;
+    var page = fullURL.substr(fullURL.length - 1);
+    GetCheck(id, page );
 }
 
-function GetCheck(id) {
+function GetCheck(id, page) {
+    
     $.ajax({
         url: '/Product/ChangeViewProducts',
         type: 'POST',
         dataType: 'json',
-        data: { id: id },
+        data: { id:id,page:page },
         success: function (data) {
+            var fullURL = window.location.href;
+            var page = fullURL.substr(fullURL.length - 1);
             if (data == "1") {
-                $('.products').load("Product/ListProduct")
+                
+                var url= "../Product/ListProduct?Curentpage=" + page;
+                $('.products').load(url)
             }
+
             else if (data == "2") {
-                $('.products').load("Product/GaleryProduct");
+                var url = "../Product/GaleryProduct?Curentpage=" + page;
+                $('.products').load(url);
             } 
 
             

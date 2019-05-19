@@ -57,13 +57,13 @@
         <div class="container herder">
             <div class="col-md-7">
 
-
+                <a href="~/Home/Index"><img src="~/images/Vavilonci.png" width="350px" ="Home" /></a>
 
             </div>
             <div class="col-md-5 search">
                 <form action="../Product" method="post">
                     <div class="col-md-9">
-                        <input class="form-control searchFiels"  type="text" name="search" />
+                        <input class="form-control searchFiels"  type="text" name="search" placeholder="Search ...."/>
                     </div>
                     <div class="col-md-3">
                         <button class="form-control"><img src="~/images/search.png" alt="Search" /></button>
@@ -170,9 +170,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2019 - Toy</p>
-        </footer>
+        
     </div>
 
     <environment include="Development">
@@ -198,4 +196,41 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footerMenu">
+                <ul class="footerNav">
+                    <h3>Menu</h3>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a href="../Product/Index?Curentpage=1">Product</a></li>
+                    <li><a href="../Product/Create">Create</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 secondnavFooter">
+                <ul class="footerNav">
+                    <h3>Products</h3>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Играчки</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Образователни игри</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">За бебета</a></li>
+                    <li><a href="../Product/Index?Curentpage=1">Спорт и игра на открито</a></li>
+                    <li><a href="../Product/Create">Пъзели</a></li>
+                    <li><a href="../Product/Create">Настолни игри и забавления</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 social-link">
+                <h3>Follow us</h3>
+                <a href="#"><img src="~/images/social/facebook.png"width="50px" alt="facebook" /></a>
+            </div>
+
+        </div>
+        <div class="row copyright">
+            <a href="#">©2019 VavilonIT Всички права запазени</a>
+        </div>
+    </div>
+
+</footer>
 </html>

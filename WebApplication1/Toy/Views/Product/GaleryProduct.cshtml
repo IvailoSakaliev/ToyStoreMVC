@@ -1,4 +1,4 @@
-﻿
+﻿@model Toy.Models.ViewModels.Product.ProducLIst
 @{
     Layout = null;
 }
@@ -23,61 +23,22 @@
     </environment>
 </head>
 <body>
-    <div class="productGalery">
-        <div class="row img">
-            <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
+    @foreach (var item in Model.Items)
+    {
+        <div class="productGalery">
+            <div class="row img">
+                <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
+            </div>
+            <div class="row title">
+                <p>@item.Title</p>
+            </div>
+            <div class="row price">
+                <h4>@item.Price</h4>
+            </div>
+            <div class="row button ">
+                <button class="btn btn-success">Info</button>
+            </div>
         </div>
-        <div class="row title">
-            <p>Lenovo thinkpad CArbon X1</p>
-        </div>
-        <div class="row price">
-            <h4>1400lv</h4>
-        </div>
-        <div class="row button ">
-            <button class="btn btn-success">Info</button>
-        </div>
-    </div>
-    <div class="productGalery">
-        <div class="row img">
-            <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
-        </div>
-        <div class="row title">
-            <p>Lenovo thinkpad CArbon X1</p>
-        </div>
-        <div class="row price">
-            <h4>1400lv</h4>
-        </div>
-        <div class="row button">
-            <button class="btn btn-success">Info</button>
-        </div>
-    </div>
-    <div class="productGalery">
-        <div class="row img">
-            <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
-        </div>
-        <div class="row title">
-            <p>Lenovo thinkpad CArbon X1</p>
-        </div>
-        <div class="row price">
-            <h4>1400lv</h4>
-        </div>
-        <div class="row button">
-            <button class="btn btn-success">Info</button>
-        </div>
-    </div>
-    <div class="productGalery">
-        <div class="row img">
-            <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
-        </div>
-        <div class="row title">
-            <p>Lenovo thinkpad CArbon X1</p>
-        </div>
-        <div class="row price">
-            <h4>1400lv</h4>
-        </div>
-        <div class="row button ">
-            <button class="btn btn-success">Info</button>
-        </div>
-    </div>
+    }
 </body>
 </html>

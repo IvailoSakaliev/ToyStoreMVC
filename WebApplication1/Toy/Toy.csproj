@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ProjectToyStore.Servise\ProjectToyStore.Servise.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\social\" />
+  </ItemGroup>
+
 </Project>

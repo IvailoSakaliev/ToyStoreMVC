@@ -5,12 +5,16 @@ body {
     padding-bottom: 20px;
     background-color: #eeeeee;
 }
+.dropdown-menu li a:hover {
+    background-color: #cccccc;
+}
 
 
-.herder
-{
-    padding:10px;
-    height:150px;
+
+
+.herder {
+    padding: 10px;
+    height: 150px;
 }
 .search
 {
@@ -94,7 +98,9 @@ body {
 .container.login {
     width: 350px;
     margin: 0 auto;
-    padding-top: 10%;
+    padding-top: 5%;
+    background-color:white;
+    padding:15px;
 }
 
 .login {
@@ -176,4 +182,42 @@ span
 {
 	height: 140px;
 	border-right: 1px solid #cccccc;
+}
+
+/*footer*/
+footer{
+    background-color:black;
+    padding:10px;
+}
+
+.footerNav {
+    list-style: none;
+}
+.footerNav li {
+    padding:5px;
+    
+}
+.footerNav li a {
+   color:white
+}
+.footerNav h3{
+    color:#999
+}
+
+.social-link h3 {
+    color: #999
+}
+.copyright
+{
+    padding-top:20px;
+    text-align:center;
+   
+}
+    .copyright a {
+        color: white;
+    }
+
+
+.pageVM {
+    text-align:right
 }

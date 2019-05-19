@@ -6,78 +6,99 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using Toy.Filters.EntityFilter;
 using Toy.Models.ViewModels.Product;
 using ToyStore.Controllers;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace Toy.Controllers
 {
     public class ProductController : GenericController<Product, ProductVM, ProducLIst, PruductFilter, ProductServise>
     {
         ProductServise _productServise = new ProductServise();
-
+        private List<Product> list;
         [HttpPost]
         public IActionResult Index(string search)
         {
             if (search != null)
             {
                 string[] keys = search.Split(" ");
-                List<Product> list = new List<Product>();
-                try
+                list = new List<Product>();
+                
+                list = _productServise.GetAll(x => x.Title.Contains(keys[0]));
+                ProducLIst itemVM = new ProducLIst();
+                itemVM.Filter = new PruductFilter();
+                if (keys.Length == 1)
                 {
-                    list = _productServise.GetAll(x => x.Title.Contains(keys[0]));
+                    foreach (var item in list)
+                    {
+                        itemVM.Items.Add(item);
+                    }
                 }
-                catch
+                else
                 {
-
+                    itemVM = Check(keys, list, 1, itemVM);
                 }
-                Check(keys, list, 1);
+                
+                return View(itemVM);
             }
 
             return View();
         }
 
-        private void Check(string[] keys, List<Product> list, int i)
+        public ProducLIst Check(string[] keys, List<Product> list, int i, ProducLIst itemVM)
         {
             try
             {
-                list = _productServise.GetAll(x => x.Title.Contains(keys[i]));
+                List<Product> newResult = new List<Product>();
+                newResult = list.Where(x => x.Title.Contains(keys[i])).ToList();
                 if (i == keys.Length - 1)
                 {
-                    return;
+                    foreach (var item in newResult)
+                    {
+                        itemVM.Items.Add(item);
+                    }
+                    return itemVM;
                 }
-                Check(keys, list, i++);
+                    i++;
+                    Check(keys, newResult, i, itemVM);
+                
+                
             }
             catch (ArgumentOutOfRangeException ex)
             {
 
             }
+            return itemVM;
 
         }
 
 
 
-        public IActionResult ListProduct()
+
+        public IActionResult ListProduct(string Curentpage)
         {
-            return View();
+            int page = int.Parse(Curentpage);
+            return Index(page);
         }
-        public IActionResult GaleryProduct()
+        public IActionResult GaleryProduct(string Curentpage)
         {
-            return View();
+            int page = int.Parse(Curentpage);
+            return Index(page);
         }
         [HttpPost]
         public JsonResult ChangeViewProducts(int id)
         {
             if (id == 1)
             {
-                Response.Cookies.Append("ViewProducr", "2");
-                RedirectToAction("ListProduct");
+                Response.Cookies.Append("ViewProducr", "1");
             }
             else
             {
-                Response.Cookies.Append("ViewProducr", "1");
+                Response.Cookies.Append("ViewProducr", "2");
             }
             return Json(id);
         }
