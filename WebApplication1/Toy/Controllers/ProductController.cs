@@ -28,7 +28,7 @@ namespace Toy.Controllers
                 string[] keys = search.Split(" ");
                 list = new List<Product>();
                 
-                list = _productServise.GetAll(x => x.Title.Contains(keys[0]));
+                list = _productServise.GetAll(x => x.Title.ToLower().Contains(keys[0].ToLower()));
                 ProducLIst itemVM = new ProducLIst();
                 itemVM.Filter = new PruductFilter();
                 if (keys.Length == 1)
@@ -54,7 +54,7 @@ namespace Toy.Controllers
             try
             {
                 List<Product> newResult = new List<Product>();
-                newResult = list.Where(x => x.Title.Contains(keys[i])).ToList();
+                newResult = list.Where(x => x.Title.ToLower().Contains(keys[i].ToLower())).ToList();
                 if (i == keys.Length - 1)
                 {
                     foreach (var item in newResult)
