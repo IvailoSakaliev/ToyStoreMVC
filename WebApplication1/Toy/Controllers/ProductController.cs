@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using Toy.Filters.EntityFilter;
 using Toy.Models.ViewModels.Product;
+using ToyStore.Authentication;
 using ToyStore.Controllers;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace Toy.Controllers
 {
     public class ProductController : GenericController<Product, ProductVM, ProducLIst, PruductFilter, ProductServise>
     {
         ProductServise _productServise = new ProductServise();
-        private List<Product> list;
+        public static List<Product> list = new List<Product>();
+        
+        
+
         [HttpPost]
         public IActionResult Index(string search)
         {
@@ -134,5 +133,6 @@ namespace Toy.Controllers
         }
 
 
+      
     }
 }

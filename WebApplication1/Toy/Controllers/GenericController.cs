@@ -26,7 +26,8 @@ namespace ToyStore.Controllers
         protected int login_id { get; set; }
         private LoginServise _singin { get; set; }
         private IEncriptServises _encript;
-        ProductServise _productServise = new ProductServise();
+
+
 
         public GenericController()
         {

@@ -53,12 +53,20 @@ function ChangeProductByFilter(element) {
         url: '/Product/Filters',
         type: 'POST',
         dataType: 'json',
-        data: { element: element },
+        data: { element: element , mode:1},
         success: function (data) {
             var fullURL = window.location.href;
             var page = fullURL.substr(fullURL.length - 1);
-            var url = "../Product/Index?Curentpage=" + page;
-            $('.products').load(url)
+            if (data == "1") {
+
+                var url = "../Product/ListProduct?Curentpage=" + page;
+                $('.products').load(url)
+            }
+
+            else if (data == "2") {
+                var url = "../Product/GaleryProduct?Curentpage=" + page;
+                $('.products').load(url);
+            } 
         }
         
     });
