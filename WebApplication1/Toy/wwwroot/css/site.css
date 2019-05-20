@@ -1,4 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
     padding-top: 50px;
@@ -123,9 +125,13 @@ span
 {
     color:red;
 }
-.viewButtons img:hover
+
+.infoField .col-md-3
 {
-    cursor:pointer;
+    padding-left:70px;
+}
+.viewButtons img:hover {
+    cursor: pointer;
 }
 
 .dropdown-item
@@ -144,6 +150,7 @@ span
 	padding-top: 5px;
 	display: inline-block;
 	margin-right: 5px;
+    background-color:white;
 }
 .productGalery .img  img
 {
@@ -164,6 +171,7 @@ span
 	padding: 5px;
 	margin-top: 10px;
 	border:1px solid #cccccc;
+    background-color:white
 
 }
 .productList .img img
@@ -220,4 +228,13 @@ footer{
 
 .pageVM {
     text-align:right
+}
+
+.filters
+{
+    padding-top:30px;
+}
+.singleFilter .col-md-6 {
+    padding: 0px;
+    padding-right:5px;
 }

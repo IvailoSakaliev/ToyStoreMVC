@@ -38,3 +38,33 @@ function GetCheck(id, page) {
         }
     });
 }
+
+function ChangePrice()
+{
+    var element = parseInt($("#PriceTo").val());
+    if (element < 0) {
+        alert("Price to can't negative");
+    }
+    ChangeProductByFilter(element)
+}
+function ChangeProductByFilter(element) {
+
+    $.ajax({
+        url: '/Product/Filters',
+        type: 'POST',
+        dataType: 'json',
+        data: { element: element },
+        success: function (data) {
+            var fullURL = window.location.href;
+            var page = fullURL.substr(fullURL.length - 1);
+            var url = "../Product/Index?Curentpage=" + page;
+            $('.products').load(url)
+        }
+        
+    });
+}
+
+
+function Search() {
+   var element =  $(".searchFiels").val();
+}

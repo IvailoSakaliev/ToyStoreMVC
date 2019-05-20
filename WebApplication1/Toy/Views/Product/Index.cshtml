@@ -7,53 +7,100 @@
 
 
 <div class="container" style="padding-top:20px;">
-    <div class="col-md-2">
-        filters
-    </div>
-    <div class="col-md-10">
-        <div class="row">
-            <div class="col-md-9">
-                @* free space for another functinos *@
-            </div>
-            
-            
-            <div class="col-md-3 viewButtons">
-                <div class="col-md-2">
-                    <img onclick="ChangeView(1)" src="~/images/list.png" width="30px"  alt="Alternate Text" />
-                </div>
-                <div class="col-md-2">
-                    <img  onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
-                </div>
-                <div class="col-md-8" style="padding-right:5px;">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown button
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a></br>
-                            <a class="dropdown-item" href="#">Another action</a></br>
-                            <a class="dropdown-item" href="#">Something else here</a></br>
+    <div class="row infoField">
+        <div class="col-md-9">
+            @* free space for another functinos *@
+        </div>
+        <div class="col-md-3">
+                <div class=" viewButtons">
+                    <div class="col-md-2">
+                        <img onclick="ChangeView(1)" src="~/images/list.png" width="30px" alt="Alternate Text" />
+                    </div>
+                    <div class="col-md-2">
+                        <img onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
+                    </div>
+                    <div class="col-md-8" style="padding-right:5px;">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a></br>
+                                <a class="dropdown-item" href="#">Another action</a></br>
+                                <a class="dropdown-item" href="#">Something else here</a></br>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+            
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-2 filters">
+                <form action="Filter" method="post">
+
+                    <div class="singleFilter">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Цена от</label>
+                                <input type="number" class="form-control" id="prifeOF" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Цена до</label>
+                                <input type="number" class="form-control" id="PriceTo" onblur="ChangePrice()">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="singleFilter">
+                        <h4>Подходящо за </h4>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Бебета</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Възрастни</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Момичета</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Момчета</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Семейство</label>
+                        </div>
+                    </div>
+                    <div class="singleFilter">
+                    </div>
+                </form>
             </div>
 
-        </div>
-        <div class="row products">
-            @if (ViewBag.Cookie == "1")
-            {
-                @Html.Partial("ListProduct");
-            }
-            else
-            {
-                @Html.Partial("GaleryProduct");
-            }
+            <div class="col-md-10 products">
+                @if (ViewBag.Cookie == "1")
+                {
+                    @Html.Partial("ListProduct");
+                }
+                else
+                {
+                    @Html.Partial("GaleryProduct");
+                }
 
 
 
-        </div>
-        <div class="pageVM">
-            @Html.Partial("_pageVm");
+            </div>
+            <div class="pageVM">
+                @Html.Partial("_pageVm");
+            </div>
         </div>
     </div>
 </div>

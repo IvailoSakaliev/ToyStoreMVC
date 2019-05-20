@@ -32,7 +32,7 @@ namespace ToyStore.Controllers
         {
             _Servise = new Tservise();
             _singin = new LoginServise();
-            
+
         }
 
         [HttpGet]
@@ -43,8 +43,8 @@ namespace ToyStore.Controllers
             itemVM.Filter = new Tfilter();
             itemVM = PopulateIndex(itemVM, Curentpage);
             string controllerNAme = GetControlerName();
-            
-           
+
+
             string cookieValue = Request.Cookies["ViewProducr"];
             ViewBag.Cookie = cookieValue;
             return View(itemVM);
@@ -92,7 +92,7 @@ namespace ToyStore.Controllers
             return this.ControllerContext.RouteData.Values["controller"].ToString();
         }
 
-        
+
         [HttpGet]
         [AuthenticationFilter]
         public ActionResult Edit(int id)
@@ -128,7 +128,7 @@ namespace ToyStore.Controllers
             try
             {
                 model = PopilateSelectListIthem(model);
-                
+
             }
             catch (NullReferenceException)
             {
@@ -145,8 +145,8 @@ namespace ToyStore.Controllers
         {
             if (!ModelState.IsValid)
             {
-              
-                
+
+
             }
             return View(model);
         }

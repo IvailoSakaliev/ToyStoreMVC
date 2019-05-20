@@ -27,7 +27,7 @@ namespace Toy.Controllers
             {
                 string[] keys = search.Split(" ");
                 list = new List<Product>();
-                
+
                 list = _productServise.GetAll(x => x.Title.ToLower().Contains(keys[0].ToLower()));
                 ProducLIst itemVM = new ProducLIst();
                 itemVM.Filter = new PruductFilter();
@@ -42,7 +42,7 @@ namespace Toy.Controllers
                 {
                     itemVM = Check(keys, list, 1, itemVM);
                 }
-                
+
                 return View(itemVM);
             }
 
@@ -63,10 +63,10 @@ namespace Toy.Controllers
                     }
                     return itemVM;
                 }
-                    i++;
-                    Check(keys, newResult, i, itemVM);
-                
-                
+                i++;
+                Check(keys, newResult, i, itemVM);
+
+
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -124,15 +124,15 @@ namespace Toy.Controllers
             return View();
         }
 
-      [HttpPost]
+        [HttpPost]
         public IActionResult Create(ProductVM model, IFormFile[] photo)
         {
             ImageServise _img = new ImageServise();
-            string isUploadet= _img.UploadImages(photo);
+            string isUploadet = _img.UploadImages(photo);
             ModelState.AddModelError(string.Empty, isUploadet);
             return View();
         }
 
-      
+
     }
 }
