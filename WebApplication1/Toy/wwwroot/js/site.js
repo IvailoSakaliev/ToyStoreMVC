@@ -56,16 +56,15 @@ function ChangeProductByFilter(element) {
         data: { element: element , mode:1},
         success: function (data) {
             var fullURL = window.location.href;
-            var page = fullURL.substr(fullURL.length - 1);
             if (data == "1") {
 
-                var url = "../Product/ListProduct?Curentpage=" + page;
-                $('.products').load(url)
+
+                $('.products').load(fullURL)
             }
 
             else if (data == "2") {
-                var url = "../Product/GaleryProduct?Curentpage=" + page;
-                $('.products').load(url);
+
+                $('.products').load(fullURL);
             } 
         }
         
@@ -74,5 +73,17 @@ function ChangeProductByFilter(element) {
 
 
 function Search() {
-   var element =  $(".searchFiels").val();
+    var fullURL;
+    var element = $(".searchFiels").val();
+    var baseUrl = window.location.href;
+    if (baseUrl.includes("Product/Index?Curentpage=1")) {
+        fullURL = baseUrl + "&search = " + element;
+        
+    }
+    else {
+        baseUrl = "https://localhost:44329/Product/Index?Curentpage=1"
+        fullURL = baseUrl + "&search = " + element;
+    } 
+    
+    $('.products').load(fullURL)
 }

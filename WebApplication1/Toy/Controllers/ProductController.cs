@@ -16,14 +16,33 @@ namespace Toy.Controllers
     {
         ProductServise _productServise = new ProductServise();
         public static List<Product> list = new List<Product>();
-        
-        
 
-        [HttpPost]
-        public IActionResult Index(string search)
+
+        [HttpGet]
+        [AuthenticationFilter]
+        public ActionResult Index(int Curentpage, string search)
         {
+            ProducLIst itemVM = new ProducLIst();
+            itemVM.Filter = new PruductFilter();
             if (search != null)
             {
+                itemVM = GetProduct(search);
+            }
+            else
+            {
+                itemVM = PopulateIndex(itemVM, Curentpage);
+            }
+            
+
+
+            string cookieValue = Request.Cookies["ViewProducr"];
+            ViewBag.Cookie = cookieValue;
+            return View(itemVM);
+        }
+        
+        public ProducLIst GetProduct(string search)
+        {
+            
                 string[] keys = search.Split(" ");
                 list = new List<Product>();
 
@@ -42,10 +61,8 @@ namespace Toy.Controllers
                     itemVM = Check(keys, list, 1, itemVM);
                 }
 
-                return View(itemVM);
-            }
-
-            return View();
+                return itemVM;
+           
         }
 
         public ProducLIst Check(string[] keys, List<Product> list, int i, ProducLIst itemVM)
@@ -78,15 +95,15 @@ namespace Toy.Controllers
 
 
 
-        public IActionResult ListProduct(string Curentpage)
+        public IActionResult ListProduct(string Curentpage, string search)
         {
             int page = int.Parse(Curentpage);
-            return Index(page);
+            return Index(page, search);
         }
-        public IActionResult GaleryProduct(string Curentpage)
+        public IActionResult GaleryProduct(string Curentpage, string search)
         {
             int page = int.Parse(Curentpage);
-            return Index(page);
+            return Index(page, search);
         }
         [HttpPost]
         public JsonResult ChangeViewProducts(int id)
