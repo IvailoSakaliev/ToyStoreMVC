@@ -61,12 +61,12 @@
 
             </div>
             <div class="col-md-5 search">
-                <form>
+                <form action="../Product" method="post">
                     <div class="col-md-9">
-                        <input class="form-control searchFiels"  type="text" name="search" placeholder="Search ...."/>
+                        <input class="form-control searchFiels" type="text" name="search" placeholder="Search ...." />
                     </div>
                     <div class="col-md-3">
-                        <button onclick="Search()" class="form-control"><img src="~/images/search.png" alt="Search" /></button>
+                        <button class="form-control"><img src="~/images/search.png" alt="Search" /></button>
                     </div>
 
                 </form>
@@ -146,7 +146,7 @@
 
                         </ul>
                         <ul class="dropdown-menu d2">
-                            
+
                             <li><a href="#">Koтки </a></li>
                             <li><a href="#">Kyчeтa </a></li>
                             <li><a href="#">клaнини и eзepa </a></li>
@@ -159,8 +159,8 @@
                             <li><a href="#">Фaнтacтикa </a></li>
                             <li><a href="#">Фoтoгpaфии</a></li>
                         </ul>
-                        </li>
-<li><a asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
+                    </li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
                 </ul>
             </div>
         </div>
@@ -170,7 +170,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        
+
     </div>
 
     <environment include="Development">
@@ -223,7 +223,7 @@
             </div>
             <div class="col-md-4 social-link">
                 <h3>Follow us</h3>
-                <a href="#"><img src="~/images/social/facebook.png"width="50px" alt="facebook" /></a>
+                <a href="#"><img src="~/images/social/facebook.png" width="50px" alt="facebook" /></a>
             </div>
 
         </div>

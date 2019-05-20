@@ -15,39 +15,22 @@ namespace Toy.Controllers
     public class ProductController : GenericController<Product, ProductVM, ProducLIst, PruductFilter, ProductServise>
     {
         ProductServise _productServise = new ProductServise();
-        public static List<Product> list = new List<Product>();
+        public static string _search { get; set; }
+        public static int _priceFrom { get; set; }
+        public static int _priceTo { get; set; }
+        public static string _subType { get; set; }
 
-
-        [HttpGet]
-        [AuthenticationFilter]
-        public ActionResult Index(int Curentpage, string search)
+        [HttpPost]
+        public IActionResult Index(string search)
         {
             ProducLIst itemVM = new ProducLIst();
-            itemVM.Filter = new PruductFilter();
             if (search != null)
             {
-                itemVM = GetProduct(search);
-            }
-            else
-            {
-                itemVM = PopulateIndex(itemVM, Curentpage);
-            }
-            
-
-
-            string cookieValue = Request.Cookies["ViewProducr"];
-            ViewBag.Cookie = cookieValue;
-            return View(itemVM);
-        }
-        
-        public ProducLIst GetProduct(string search)
-        {
-            
+                _search = search;
                 string[] keys = search.Split(" ");
-                list = new List<Product>();
+                List<Product> list = new List<Product>();
 
                 list = _productServise.GetAll(x => x.Title.ToLower().Contains(keys[0].ToLower()));
-                ProducLIst itemVM = new ProducLIst();
                 itemVM.Filter = new PruductFilter();
                 if (keys.Length == 1)
                 {
@@ -61,8 +44,10 @@ namespace Toy.Controllers
                     itemVM = Check(keys, list, 1, itemVM);
                 }
 
-                return itemVM;
-           
+                return View(itemVM);
+            }
+
+            return View(itemVM);
         }
 
         public ProducLIst Check(string[] keys, List<Product> list, int i, ProducLIst itemVM)
@@ -95,15 +80,77 @@ namespace Toy.Controllers
 
 
 
-        public IActionResult ListProduct(string Curentpage, string search)
+        public IActionResult ListProduct(string Curentpage)
         {
-            int page = int.Parse(Curentpage);
-            return Index(page, search);
+            ProducLIst itemVM = new ProducLIst();
+            itemVM.Filter = new PruductFilter();
+            itemVM = GetElement(itemVM, int.Parse(Curentpage));
+            return View(itemVM);
         }
-        public IActionResult GaleryProduct(string Curentpage, string search)
+
+
+        private ProducLIst GetElement(ProducLIst itemVM, int curentPage)
         {
-            int page = int.Parse(Curentpage);
-            return Index(page, search);
+            string controllerName = GetControlerName();
+            string actionname = GetActionName();
+
+            itemVM.ControllerName = controllerName;
+            itemVM.ActionName = actionname;
+            if (_priceTo != 0)
+            {
+                itemVM.AllItems = _Servise.GetAll(x => x.Price < _priceTo);
+            }
+            else if (_priceFrom != 0)
+            {
+                itemVM.AllItems = _Servise.GetAll(x => x.Price > _priceFrom);
+            }
+            else if (_priceFrom != 0 && _priceTo != 0)
+            {
+                itemVM.AllItems = _Servise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo);
+            }
+            else
+            {
+                itemVM.AllItems = _Servise.GetAll();
+            }
+            
+
+            itemVM.Pages = itemVM.AllItems.Count / 12;
+            double doublePages = itemVM.AllItems.Count / 12.0;
+            if (doublePages > itemVM.Pages)
+            {
+                itemVM.Pages++;
+            }
+            itemVM.StartItem = 12 * curentPage;
+            try
+            {
+                for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
+                {
+                    itemVM.Items.Add(itemVM.AllItems[i]);
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+
+            }
+
+            return itemVM;
+        }
+        private string GetActionName()
+        {
+            return this.ControllerContext.RouteData.Values["action"].ToString();
+        }
+
+        private string GetControlerName()
+        {
+            return this.ControllerContext.RouteData.Values["controller"].ToString();
+        }
+
+        public IActionResult GaleryProduct(string Curentpage)
+        {
+            ProducLIst itemVM = new ProducLIst();
+            itemVM.Filter = new PruductFilter();
+            itemVM = GetElement(itemVM, int.Parse(Curentpage));
+            return View(itemVM);
         }
         [HttpPost]
         public JsonResult ChangeViewProducts(int id)
@@ -149,7 +196,25 @@ namespace Toy.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult FilterPriceTo(string element)
+        {
+            _priceTo = int.Parse(element);
+            return Json(Request.Cookies["ViewProducr"]);
+        }
+        
 
-      
+        [HttpPost]
+        public JsonResult FilterPriceFrom(string element)
+        {
+            _priceFrom = int.Parse(element);
+            return Json(Request.Cookies["ViewProducr"]);
+        }
+        [HttpPost]
+        public JsonResult ChangeFiltredResult(int id)
+        {
+            return Json(Request.Cookies["ViewProducr"]);
+        }
+
     }
 }

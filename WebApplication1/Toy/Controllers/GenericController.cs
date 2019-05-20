@@ -36,13 +36,20 @@ namespace ToyStore.Controllers
 
         }
 
-        
+        [HttpGet]
+        [AuthenticationFilter]
+        public ActionResult Index(int Curentpage)
+        {
+            TlistVM itemVM = new TlistVM();
+            itemVM.Filter = new Tfilter();
+            itemVM = PopulateIndex(itemVM, Curentpage);
+            string controllerNAme = GetControlerName();
 
-        
-        
 
-
-
+            string cookieValue = Request.Cookies["ViewProducr"];
+            ViewBag.Cookie = cookieValue;
+            return View(itemVM);
+        }
 
 
 

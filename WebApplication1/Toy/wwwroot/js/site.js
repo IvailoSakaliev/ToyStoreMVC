@@ -7,31 +7,31 @@
 function ChangeView(id) {
     var fullURL = window.location.href;
     var page = fullURL.substr(fullURL.length - 1);
-    GetCheck(id, page );
+    GetCheck(id, page);
 }
 
 function GetCheck(id, page) {
-    
+
     $.ajax({
         url: '/Product/ChangeViewProducts',
         type: 'POST',
         dataType: 'json',
-        data: { id:id,page:page },
+        data: { id: id, page: page },
         success: function (data) {
             var fullURL = window.location.href;
             var page = fullURL.substr(fullURL.length - 1);
             if (data == "1") {
-                
-                var url= "../Product/ListProduct?Curentpage=" + page;
+
+                var url = "../Product/ListProduct?Curentpage=" + page;
                 $('.products').load(url)
             }
 
             else if (data == "2") {
                 var url = "../Product/GaleryProduct?Curentpage=" + page;
                 $('.products').load(url);
-            } 
+            }
 
-            
+
         },
         error: function () {
             alert('error');
@@ -39,9 +39,42 @@ function GetCheck(id, page) {
     });
 }
 
-function ChangePrice()
-{
+function ChangePriceTo() {
     var element = parseInt($("#PriceTo").val());
+    ChangeProductByFilter(element)
+}
+function ChangeProductByFilter(element) {
+
+    $.ajax({
+        url: '/Product/FilterPriceTo',
+        type: 'POST',
+        dataType: 'json',
+        data: { element: element },
+        success: function (data) {
+            var fullURL = window.location.href;
+            var page = fullURL.substr(fullURL.length - 1);
+            if (data == "1") {
+
+                var url = "../Product/ListProduct?Curentpage=" + page;
+                $('.products').load(url)
+            }
+
+            else if (data == "2") {
+                var url = "../Product/GaleryProduct?Curentpage=" + page;
+                $('.products').load(url);
+            }
+
+
+        },
+        error: function () {
+            alert('error');
+        }
+    });
+}
+
+
+function ChangePriceFrom() {
+    var element = parseInt($("#prifeOF").val());
     if (element < 0) {
         alert("Price to can't negative");
     }
@@ -50,40 +83,59 @@ function ChangePrice()
 function ChangeProductByFilter(element) {
 
     $.ajax({
-        url: '/Product/Filters',
+        url: '/Product/FilterPriceFrom',
         type: 'POST',
         dataType: 'json',
-        data: { element: element , mode:1},
+        data: { element: element },
         success: function (data) {
             var fullURL = window.location.href;
+            var page = fullURL.substr(fullURL.length - 1);
             if (data == "1") {
 
-
-                $('.products').load(fullURL)
+                var url = "../Product/ListProduct?Curentpage=" + page;
+                $('.products').load(url)
             }
 
             else if (data == "2") {
+                var url = "../Product/GaleryProduct?Curentpage=" + page;
+                $('.products').load(url);
+            }
 
-                $('.products').load(fullURL);
-            } 
+
+        },
+        error: function () {
+            alert('error');
         }
-        
     });
 }
 
 
-function Search() {
-    var fullURL;
-    var element = $(".searchFiels").val();
-    var baseUrl = window.location.href;
-    if (baseUrl.includes("Product/Index?Curentpage=1")) {
-        fullURL = baseUrl + "&search = " + element;
-        
-    }
-    else {
-        baseUrl = "https://localhost:44329/Product/Index?Curentpage=1"
-        fullURL = baseUrl + "&search = " + element;
-    } 
-    
-    $('.products').load(fullURL)
+
+
+function PagerJ(id) {
+    $.ajax({
+        url: '/Product/ChangeFiltredResult',
+        type: 'POST',
+        dataType: 'json',
+        data: { id: id },
+        success: function (data) {
+            var fullURL = window.location.href;
+            var page = fullURL.substr(fullURL.length - 1);
+            if (data == "1") {
+
+                var url = "../Product/ListProduct?Curentpage=" + page;
+                $('.products').load(url)
+            }
+
+            else if (data == "2") {
+                var url = "../Product/GaleryProduct?Curentpage=" + page;
+                $('.products').load(url);
+            }
+
+
+        },
+        error: function () {
+            alert('error');
+        }
+    });
 }
