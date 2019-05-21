@@ -22,6 +22,17 @@ namespace ProjectToyStore.Servise.EntityServise
             user.isRegisted = true;
             Save(user);
         }
+
+        public bool CheckForAdmin()
+        {
+            List <Login> admin = GetAll(x => x.Role == 1);
+            if (admin.Count != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool IsConfirmRegistartion(Login user)
         {
             if (user.isRegisted)

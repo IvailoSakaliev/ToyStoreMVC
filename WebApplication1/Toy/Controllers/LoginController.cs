@@ -150,8 +150,18 @@ namespace Toy.Controllers
             if (reg.Password == reg.ConfirmPassword)
             {
                 login.Password = _encript.EncryptData(reg.Password);
-                login.isRegisted = false;
-                login.Role = 2;
+                
+                if (!_servise.CheckForAdmin())
+                {
+                    login.isRegisted = true;
+                    login.Role = 1;
+                }
+                else
+                {
+                    login.isRegisted = false;
+                    login.Role = 2;
+                }
+                
                 _servise.Save(login);
             }
             else

@@ -20,3 +20,14 @@
     
 
 }
+
+/*admin page*/
+.deleteImg {
+    float:right;
+}
+
+.siteIMG {
+    width: 200px;
+    height: 200px;
+    background-size: 100%
+}

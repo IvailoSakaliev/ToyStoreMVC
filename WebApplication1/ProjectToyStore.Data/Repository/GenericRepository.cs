@@ -30,27 +30,6 @@ namespace ProjectToyStore.Data.Repository
             _set = _context.Set<Tentity>();
         }
 
-
-        public IList<Tentity> GetAll(Expression<Func<Tentity, bool>> filter, int page = 1, int pageSize = 10)
-        {
-            IQueryable<Tentity> query = _set;
-            if (filter != null)
-            {
-                return _set.Where(filter)
-                    .OrderBy(x => x.ID)
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-            }
-            else
-            {
-                return _set.OrderBy(x => x.ID)
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-            }
-
-        }
         public List<Tentity> GetAll()
         {
             return _set.ToList();
@@ -71,6 +50,11 @@ namespace ProjectToyStore.Data.Repository
         public Tentity GetByID(int? id)
         {
             return _set.Find(id);
+        }
+
+        public Tentity GetLastElement()
+        {
+            return _set.LastOrDefault();
         }
 
         public void Delete(Tentity entity)
@@ -117,5 +101,17 @@ namespace ProjectToyStore.Data.Repository
             Delete(entity);
             _context.SaveChanges();
         }
+
+        public void Delete(Expression<Func<Tentity, bool>> filter)
+        {
+            List<Tentity> list = _set.Where(filter).ToList();
+            foreach (var item in list)
+            {
+                _set.Remove(item);
+                Updatestation(item, EntityState.Deleted);
+            }
+        }
+
+        
     }
 }

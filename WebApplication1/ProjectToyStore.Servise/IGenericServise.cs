@@ -15,8 +15,9 @@ namespace ProjectToyStore.Servise
         void Delete(TEntity entity);
         void DeleteById(int id);
         List<TEntity> GetAll();
-        IList<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, int page = 1, int pageSize = 1);
+        TEntity GetLastElement();
         List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter);
+        void Delete(Expression<Func<TEntity, bool>> filter);
         TEntity GetByID(int? id);
         void Save(TEntity entity);
     }

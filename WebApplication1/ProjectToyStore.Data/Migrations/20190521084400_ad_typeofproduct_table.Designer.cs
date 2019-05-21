@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectToyStore.Data;
 
 namespace ProjectToyStore.Data.Migrations
 {
     [DbContext(typeof(ToyContext))]
-    partial class ToyContextModelSnapshot : ModelSnapshot
+    [Migration("20190521084400_ad_typeofproduct_table")]
+    partial class ad_typeofproduct_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,11 +92,7 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<string>("Code");
 
-                    b.Property<string>("Date");
-
                     b.Property<string>("Description");
-
-                    b.Property<string>("Image");
 
                     b.Property<double>("Price");
 

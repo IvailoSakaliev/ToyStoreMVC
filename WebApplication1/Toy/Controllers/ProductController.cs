@@ -25,7 +25,6 @@ namespace Toy.Controllers
 
         
         [HttpGet]
-        [AuthenticationFilter]
         public ActionResult Index(int Curentpage)
         {
             itemVM = new ProducLIst();
@@ -183,23 +182,6 @@ namespace Toy.Controllers
             return Json(id);
         }
 
-       
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(ProductVM model, IFormFile[] photo)
-        {
-            ImageServise _img = new ImageServise();
-            string isUploadet = _img.UploadImages(photo);
-            ModelState.AddModelError(string.Empty, isUploadet);
-            return View();
-        }
-
         [HttpPost]
         public JsonResult FilterPriceTo(string element)
         {
@@ -227,6 +209,10 @@ namespace Toy.Controllers
             _subType = null;
             return Json(true);
         }
+
+
+
+
 
     }
 }

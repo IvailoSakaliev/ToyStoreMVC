@@ -5,14 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectToyStore.Data.Models;
+using ProjectToyStore.Servise.EntityServise;
 using Toy.Models;
+using ToyStore.Authentication;
 
 namespace Toy.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
+            LoginServise _login = new LoginServise();
+            if (!_login.CheckForAdmin())
+            {
+                return Redirect("Login/Registration");
+            }
             return View();
         }
 

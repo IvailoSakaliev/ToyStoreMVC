@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Toy.Models.ViewModels.Product
+namespace Toy.Models.ViewModels.Order
 {
-    public class ProductVM
+    public class OrderVM
     {
         [Required]
         public string Code { get; set; }
@@ -17,22 +20,14 @@ namespace Toy.Models.ViewModels.Product
 
         [Required]
         public double Price { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        public string Date { get; set; }
-
-        [Required]
-        public int Quantity { get; set; }
         
-        [Required]
-        public IEnumerable<SelectListItem> Type { get; set; }
+        public string FromtImage { get; set; }
 
         [Required]
         public List<string> Image { get; set; }
 
 
-        public ProductVM()
+        public OrderVM()
         {
             Image = new List<string>();
         }

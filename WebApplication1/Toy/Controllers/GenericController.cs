@@ -7,6 +7,7 @@ using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
+using Toy.Authenticatiion;
 using ToyStore.Authentication;
 using ToyStore.Filters;
 using ToyStore.Models;
@@ -37,7 +38,6 @@ namespace ToyStore.Controllers
         }
 
         [HttpGet]
-        [AuthenticationFilter]
         public ActionResult Index(int Curentpage)
         {
             TlistVM itemVM = new TlistVM();
@@ -160,7 +160,7 @@ namespace ToyStore.Controllers
         }
 
         [HttpGet]
-        [AuthenticationFilter]
+        [UserFilter]
         public ActionResult Details(int id)
         {
             TEntity entity = new TEntity();

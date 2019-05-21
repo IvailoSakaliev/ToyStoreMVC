@@ -1,0 +1,50 @@
+﻿@model Toy.Models.ViewModels.Order.OrderVM
+
+@{
+    ViewData["Title"] = "EditProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 style="padding-top:20px">@Model.Title</h2>
+<hr/>
+<div class="row order">
+    <div class="container">
+        <div class="col-md-6 image">
+            <div class="row">
+                <div class="main_image" style="background-image:url(@Model.FromtImage); background-size:100%">
+
+                </div>
+            </div>
+            <div class="row subImage">
+                @foreach (var item in Model.Image)
+            {
+                <div class="col-md-3 ">
+                    <img src="../@item" width="100%" alt="Alternate Text" />
+                </div>
+            }
+
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="row">
+                <h4>Code:@Model.Code</h4>
+                <div class="desc">@Model.Description</div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4 bying">
+                        <h3>Цена: @Model.Price лв.</h3>
+                        <form action="Details" method="post">
+                            <input class="btn btn-primary orderBY" type="submit" name="by" value="Добави в количката" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                asdasdasdadsad
+            </div>
+        </div>
+    </div>
+</div>
+
+

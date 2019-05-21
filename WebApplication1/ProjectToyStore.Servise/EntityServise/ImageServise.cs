@@ -18,7 +18,7 @@ namespace ProjectToyStore.Servise.EntityServise
 
        
 
-        public string UploadImages(IFormFile[] photo)
+        public string UploadImages(IFormFile[] photo, int productID)
         {
             if (photo == null || photo.Length == 0)
             {
@@ -28,11 +28,12 @@ namespace ProjectToyStore.Servise.EntityServise
             {
                 foreach (IFormFile item in photo)
                 {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", item.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Galery/", item.FileName);
                     var stream = new FileStream(path, FileMode.Create);
                     item.CopyToAsync(stream);
                     Images img = new Images();
-                    img.Path = path;
+                    img.Path = "../images/Galery/"+ item.FileName;
+                    img.Subject_id = productID;
                     Save(img);
                     
                 }

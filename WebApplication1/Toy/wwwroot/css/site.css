@@ -160,7 +160,7 @@ span
 .productGalery .price h4{
 	color:red;
 }
-.productGalery .button button
+.productGalery .button a
 {
 	width: 90%;
 }
@@ -237,4 +237,53 @@ footer{
 .singleFilter .col-md-6 {
     padding: 0px;
     padding-right:5px;
+}
+
+
+
+
+/*admin page*/
+.delteImage
+{
+    display:none;
+    float:right
+}
+
+
+
+.desc{
+    width:100%
+}
+.bying
+{
+    text-align:right
+}
+.bying h3 {
+}
+
+.orderBY {
+    width: 100%;
+    padding:10px;
+}
+.main_image
+{
+    width:100%;
+    height:500px;
+
+}
+.subImage {
+    height: 150px;
+}
+.subImage .col-md-3
+{
+    width:22%;
+    margin:5px;
+    height:70%;
+}
+.col-md-6 .row{
+    padding:10px;
+}
+
+.order .container{
+    background-color:white
 }

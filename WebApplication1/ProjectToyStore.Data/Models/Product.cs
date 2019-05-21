@@ -13,5 +13,7 @@ namespace ProjectToyStore.Data.Models
         public double Price { get; set; }
         public string Type { get; set; }
         public int Quantity { get; set; }
+        public string Date { get; set; }
+        public string Image { get; set; }
     }
 }

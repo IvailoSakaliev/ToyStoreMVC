@@ -27,7 +27,7 @@
     {
         <div class="productGalery">
             <div class="row img">
-                <img src="~/images/Galery/carbon.jpg" alt="Alternate Text" />
+                <img src="@item.Image" alt="Alternate Text" />
             </div>
             <div class="row title">
                 <p>@item.Title</p>
@@ -36,7 +36,7 @@
                 <h4>@item.Price</h4>
             </div>
             <div class="row button ">
-                <button class="btn btn-success">Info</button>
+                <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
             </div>
         </div>
     }

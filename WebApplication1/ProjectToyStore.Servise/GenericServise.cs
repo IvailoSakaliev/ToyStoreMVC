@@ -34,16 +34,16 @@ namespace ProjectToyStore.Servise
         {
             return (List<TEntity>)_repo.GetAll(filter);
         }
-        public IList<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, int page = 1, int pageSize = 1)
-        {
-            return _repo.GetAll(filter, page, pageSize);
-        }
+        
 
         public TEntity GetByID(int? id)
         {
             return _repo.GetByID(id);
         }
-
+        public TEntity GetLastElement()
+        {
+            return _repo.GetLastElement();
+        }
 
         public void Save(TEntity entity)
         {
@@ -75,6 +75,18 @@ namespace ProjectToyStore.Servise
             try
             {
                 _repo.DeleteById(id);
+                _unit.Commit();
+            }
+            catch (Exception)
+            {
+                _unit.Rowback();
+            }
+        }
+        public void Delete(Expression<Func<TEntity, bool>> filter)
+        {
+            try
+            {
+                _repo.Delete(filter);
                 _unit.Commit();
             }
             catch (Exception)
