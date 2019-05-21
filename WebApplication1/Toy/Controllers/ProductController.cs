@@ -12,13 +12,30 @@ using ToyStore.Controllers;
 
 namespace Toy.Controllers
 {
-    public class ProductController : GenericController<Product, ProductVM, ProducLIst, PruductFilter, ProductServise>
+    public class ProductController
+        :Controller
     {
         ProductServise _productServise = new ProductServise();
         public static string _search { get; set; }
         public static int _priceFrom { get; set; }
         public static int _priceTo { get; set; }
         public static string _subType { get; set; }
+        public static  List<Product> _list { get; set; }
+        public static ProducLIst itemVM = new ProducLIst();
+
+        
+        [HttpGet]
+        [AuthenticationFilter]
+        public ActionResult Index(int Curentpage)
+        {
+            itemVM = new ProducLIst();
+            itemVM.Filter = new PruductFilter();
+            itemVM = GetElement(itemVM, Curentpage);
+            ViewBag.Cookie = Request.Cookies["ViewProducr"];
+            ViewBag.priceTO = _priceTo;
+            ViewBag.priceFrom = _priceFrom;
+            return View(itemVM);
+        }
 
         [HttpPost]
         public IActionResult Index(string search)
@@ -79,10 +96,16 @@ namespace Toy.Controllers
 
 
 
-
+        public IActionResult GaleryProduct(string Curentpage)
+        {
+            itemVM = new ProducLIst();
+            itemVM.Filter = new PruductFilter();
+            itemVM = GetElement(itemVM, int.Parse(Curentpage));
+            return View(itemVM);
+        }
         public IActionResult ListProduct(string Curentpage)
         {
-            ProducLIst itemVM = new ProducLIst();
+            itemVM = new ProducLIst();
             itemVM.Filter = new PruductFilter();
             itemVM = GetElement(itemVM, int.Parse(Curentpage));
             return View(itemVM);
@@ -96,21 +119,21 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            if (_priceTo != 0)
+            if (_priceFrom != 0 && _priceTo != 0)
             {
-                itemVM.AllItems = _Servise.GetAll(x => x.Price < _priceTo);
+                itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo);
+            }
+            else if (_priceTo != 0)
+            {
+                itemVM.AllItems = _productServise.GetAll(x => x.Price < _priceTo);
             }
             else if (_priceFrom != 0)
             {
-                itemVM.AllItems = _Servise.GetAll(x => x.Price > _priceFrom);
-            }
-            else if (_priceFrom != 0 && _priceTo != 0)
-            {
-                itemVM.AllItems = _Servise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo);
+                itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom);
             }
             else
             {
-                itemVM.AllItems = _Servise.GetAll();
+                itemVM.AllItems = _productServise.GetAll();
             }
             
 
@@ -145,13 +168,7 @@ namespace Toy.Controllers
             return this.ControllerContext.RouteData.Values["controller"].ToString();
         }
 
-        public IActionResult GaleryProduct(string Curentpage)
-        {
-            ProducLIst itemVM = new ProducLIst();
-            itemVM.Filter = new PruductFilter();
-            itemVM = GetElement(itemVM, int.Parse(Curentpage));
-            return View(itemVM);
-        }
+       
         [HttpPost]
         public JsonResult ChangeViewProducts(int id)
         {
@@ -166,20 +183,7 @@ namespace Toy.Controllers
             return Json(id);
         }
 
-        public override Product PopulateItemToModel(ProductVM model, Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ProductVM PopulateModelToItem(Product entity, ProductVM model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Product PopulateEditItemToModel(ProductVM model, Product entity, int id)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         [HttpGet]
         public IActionResult Create()
@@ -214,6 +218,14 @@ namespace Toy.Controllers
         public JsonResult ChangeFiltredResult(int id)
         {
             return Json(Request.Cookies["ViewProducr"]);
+        }
+        [HttpPost]
+        public JsonResult RestorePage(int id)
+        {
+            _priceFrom = 0;
+            _priceTo = 0;
+            _subType = null;
+            return Json(true);
         }
 
     }

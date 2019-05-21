@@ -34,108 +34,91 @@ function GetCheck(id, page) {
 
         },
         error: function () {
-            alert('error');
         }
     });
 }
 
 function ChangePriceTo() {
-    var element = parseInt($("#PriceTo").val());
-    ChangeProductByFilter(element)
-}
-function ChangeProductByFilter(element) {
+    var element = $("#PriceTo").val();
+    if (element == 0) {
+        alert("Please enter number > 0");
+    }
+    else {
+        $.ajax({
+            url: '/Product/FilterPriceTo',
+            type: 'POST',
+            dataType: 'json',
+            data: { element: element },
+            success: function (data) {
+                var fullURL = window.location.href;
+                var page = fullURL.substr(fullURL.length - 1);
+                if (data == "1") {
 
-    $.ajax({
-        url: '/Product/FilterPriceTo',
-        type: 'POST',
-        dataType: 'json',
-        data: { element: element },
-        success: function (data) {
-            var fullURL = window.location.href;
-            var page = fullURL.substr(fullURL.length - 1);
-            if (data == "1") {
+                    var url = "../Product/ListProduct?Curentpage=" + page;
+                    $('.products').load(url)
+                }
 
-                var url = "../Product/ListProduct?Curentpage=" + page;
-                $('.products').load(url)
+                else if (data == "2") {
+                    var url = "../Product/GaleryProduct?Curentpage=" + page;
+                    $('.products').load(url);
+                }
+
+
+            },
+            error: function () {
             }
-
-            else if (data == "2") {
-                var url = "../Product/GaleryProduct?Curentpage=" + page;
-                $('.products').load(url);
-            }
-
-
-        },
-        error: function () {
-            alert('error');
-        }
-    });
+        });
+    }
 }
 
 
 function ChangePriceFrom() {
-    var element = parseInt($("#prifeOF").val());
+    var element = $("#priceOF").val();
     if (element < 0) {
         alert("Price to can't negative");
+    } else {
+        $.ajax({
+            url: '/Product/FilterPriceFrom',
+            type: 'POST',
+            dataType: 'json',
+            data: { element: element },
+            success: function (data) {
+                var fullURL = window.location.href;
+                var page = fullURL.substr(fullURL.length - 1);
+                if (data == "1") {
+
+                    var url = "../Product/ListProduct?Curentpage=" + page;
+                    $('.products').load(url)
+                }
+
+                else if (data == "2") {
+                    var url = "../Product/GaleryProduct?Curentpage=" + page;
+                    $('.products').load(url);
+                }
+
+
+            },
+            error: function () {
+            }
+        });
     }
-    ChangeProductByFilter(element)
-}
-function ChangeProductByFilter(element) {
-
-    $.ajax({
-        url: '/Product/FilterPriceFrom',
-        type: 'POST',
-        dataType: 'json',
-        data: { element: element },
-        success: function (data) {
-            var fullURL = window.location.href;
-            var page = fullURL.substr(fullURL.length - 1);
-            if (data == "1") {
-
-                var url = "../Product/ListProduct?Curentpage=" + page;
-                $('.products').load(url)
-            }
-
-            else if (data == "2") {
-                var url = "../Product/GaleryProduct?Curentpage=" + page;
-                $('.products').load(url);
-            }
-
-
-        },
-        error: function () {
-            alert('error');
-        }
-    });
 }
 
 
 
 
-function PagerJ(id) {
+function Restore() {
     $.ajax({
-        url: '/Product/ChangeFiltredResult',
+        url: '/Product/RestorePage',
         type: 'POST',
         dataType: 'json',
-        data: { id: id },
+        data: { id :1 },
         success: function (data) {
-            var fullURL = window.location.href;
-            var page = fullURL.substr(fullURL.length - 1);
-            if (data == "1") {
-
-                var url = "../Product/ListProduct?Curentpage=" + page;
-                $('.products').load(url)
-            }
-
-            else if (data == "2") {
-                var url = "../Product/GaleryProduct?Curentpage=" + page;
-                $('.products').load(url);
-            }
+            
 
 
         },
         error: function () {
-            alert('error');
         }
     });
 }

@@ -6,20 +6,20 @@
     else
     {
         int page = (Model.StartItem / 10) - 1;
-        string link = "../" + Model.ControllerName + "/" + Model.ActionName + "?" + "Curentpage=" + page;
+        string link = "../" + Model.ControllerName + "/Index?" + "Curentpage=" + page;
         <li class="page-item"><a class="page-link" href="@link">Previous</a></li>
     }
 
     @for (int i = 1; i <= Model.Pages; i++)
     {
-        string link = "../" + Model.ControllerName + "/" + Model.ActionName + "?" + "Curentpage=" + i;
+        string link = "../" + Model.ControllerName + "/Index?" + "Curentpage=" + i;
         if (i == Model.StartItem / 10)
         {
             <li class="page-item disabled"><a class="page-link" href="@link">@i</a></li>
         }
         else
         {
-            <li class="page-item"><a class="page-link" href="@link">@i</a></li>
+            <li class="page-item"><a class="page-link"  href="@link">@i</a></li>
         }
     }
 
@@ -31,7 +31,7 @@
     else
     {
         int page = (Model.StartItem / 10) + 1;
-        string link = "../" + Model.ControllerName + "/" + Model.ActionName + "?" + "Curentpage=" + page;
+        string link = "../" + Model.ControllerName + "/Index?" + "Curentpage=" + page;
         <li class="page-item"><a class="page-link" href="@link">Next</a></li>
     }
 </ul>
