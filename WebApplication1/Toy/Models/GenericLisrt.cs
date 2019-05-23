@@ -16,11 +16,13 @@ namespace Toy.Models
         public int StartItem { get; set; }
         public string ActionName { get; set; }
         public Tfilter Filter { get; set; }
+        public List<int> QuantityList { get; set; }
 
         public GenericList()
         {
             this.Filter = new Tfilter();
             this.Items = new List<Tentity>();
+            this.QuantityList = new List<int>();
         }
 
 

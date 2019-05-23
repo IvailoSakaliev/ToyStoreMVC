@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
 using Toy.Models.ViewModels.Order;
+using Toy.Models.ViewModels.Product;
 
 namespace Toy.Controllers
 {
@@ -58,13 +57,21 @@ namespace Toy.Controllers
             if (orderSession == null || orderSession == ""
                 && quantity == null || quantity =="")
             {
-                orderSession = page;
-                quantityPro = quantity; 
+                orderSession = page + ",";
+                quantityPro = quantity + ","; 
             }
             else
             {
-                orderSession += "," + page;
-                quantityPro += "," + quantity;
+                if (orderSession.Contains(page))
+                {
+                    return Json("colision");
+                }
+                else
+                {
+                    orderSession += page + ",";
+                    quantityPro += quantity + ",";
+                }
+                
             }
             
              HttpContext.Session.SetString("OrderProduct", orderSession);
@@ -76,7 +83,37 @@ namespace Toy.Controllers
         [HttpGet]
         public IActionResult Orders()
         {
-            return View();
+            Random rd = new Random();
+            ViewData["NumberOfOrder"] = rd.Next(0, 999999);
+            string productsId = HttpContext.Session.GetString("OrderProduct");
+            string quantities = HttpContext.Session.GetString("ProductQuantity");
+            ProducLIst itemVM = new ProducLIst();
+
+            if (productsId == null || productsId == ""
+                && quantities == null || quantities == "")
+            {
+                
+                return View(itemVM);
+
+            }
+            else
+            {
+                string[] keyProduct = productsId.Split(",");
+                string[] keyQuantity = quantities.Split(",");
+                
+
+                for (int i = 0; i < keyProduct.Length - 1; i++)
+                {
+                    itemVM.Items.Add(_product.GetByID(int.Parse(keyProduct[i])));
+                    itemVM.Items[i].Quantity = int.Parse(keyQuantity[i]);
+                }
+
+                string cookieValue = Request.Cookies["ViewProducr"];
+                ViewBag.Cookie = cookieValue;
+                return View(itemVM);
+            }
         }
+
+       
     }
 }

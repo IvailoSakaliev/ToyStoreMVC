@@ -66,7 +66,7 @@ namespace Toy.Controllers
 
         private string GetImagePath(IFormFile[] photo)
         {
-            return "/images/Galery/" + photo[0].FileName;
+            return "../images/Galery/" + photo[0].FileName;
         }
 
         private void Addimage(IFormFile[] photo, int id)

@@ -1,27 +1,53 @@
-﻿
+﻿@model Toy.Models.ViewModels.Product.ProducLIst;
 @{
     ViewData["Title"] = "Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Поръчка №</h2>
-<div class="row">
-    <div class="container">
-        <div class="col-md-9">
-            <div class="listOrders">
+<h2>Поръчка № @ViewData["NumberOfOrder"]</h2>
+<div class="row order">
+
+    <div class="col-md-9 orderElement">
+        @{
+            if (Model.Items.Count == 0)
+            {
+                <h3>Нямате продукти във вашата кошница</h3>
+            }
+            else
+            {
+                foreach (var item in Model.Items)
+                {
+
                 <div class="col-md-3">
-                    asdasda
+                    <img width="150px" src="../@item.Image" alt="Alternate Text" />
                 </div>
                 <div class="col-md-9">
-                    <div class="infoOrderProduct">Info</div>
-                    <div class="priceOrderProduct">Price</div>
+                    <div class="infoOrderProduct">
+                        <h4>@item.Title</h4>
+                        <h5>Code: @item.Code</h5>
+                        <p>@item.Description</p>
+                    </div>
+                    <div class="priceOrderProduct">
+                        Количество: @item.Quantity *   Единична цена :@item.Price лв. = Общо: @(item.Price * item.Quantity)
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <h3 class="totalOrder">Total:</h3>
-            <a class="btn btn-primary makeOrder" href="#">Направи поръчка</a>
-        </div>
+                    }
+                }
+
+            }
+
+    </div>
+    <div class="col-md-3">
+        @{
+            double totalPrice = 0;
+            @foreach (var item in @Model.Items)
+            {
+                totalPrice += (item.Price * item.Quantity);
+            }
+            <h3 class="totalOrder">Total:@totalPrice</h3>
+        }
+
+        <a class="btn btn-primary makeOrder" href="#">Направи поръчка</a>
     </div>
 </div>
 

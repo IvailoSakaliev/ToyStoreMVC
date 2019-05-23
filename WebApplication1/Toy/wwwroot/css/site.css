@@ -347,3 +347,17 @@ footer{
     display:none;
     border:1px solid black;
 }
+
+
+/*order page*/
+.order
+{
+    background-color: white;
+    padding: 20px;
+}
+.orderElement .col-md-3 , .orderElement .col-md-9 
+{
+    padding: 10px;
+    min-height:  140px;
+    border-bottom: 1px solid #ccc;
+}
