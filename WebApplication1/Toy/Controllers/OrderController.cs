@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
+using Toy.Models.ViewModels.Login;
 using Toy.Models.ViewModels.Order;
 using Toy.Models.ViewModels.Product;
 
@@ -114,6 +115,21 @@ namespace Toy.Controllers
             }
         }
 
-       
+        [HttpGet]
+        public IActionResult MakeOrder()
+        {
+            RegistrationVM model = new RegistrationVM();
+            return View(model);
+              
+        }
+
+
+        [HttpGet]
+        public IActionResult CungratOrder()
+        {
+            return View();
+        }
+
+
     }
 }

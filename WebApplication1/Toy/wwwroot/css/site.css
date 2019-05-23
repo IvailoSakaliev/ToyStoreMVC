@@ -361,3 +361,24 @@ footer{
     min-height:  140px;
     border-bottom: 1px solid #ccc;
 }
+
+/*==================*/
+.infoForOrder
+{
+    margin-top: 20px;
+}
+.infoForOrder .col-md-8 .col-md-6
+{
+    padding: 0px;
+}
+
+
+.cungratiolation
+{
+    margin-top: 40px;
+    text-align: center;
+}
+.cungratiolation img
+{
+    width: 100px;
+}
