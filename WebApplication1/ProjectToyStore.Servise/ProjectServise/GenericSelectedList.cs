@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ProjectToyStore.Servise.ProjectServise
 {
-    public class GenericSelectedList<T> where  T:TypeSubject, new()
+    public class GenericSelectedList<T> where T : BaseModel, new()
     {
         private EncriptServises _encript = new EncriptServises();
         public IEnumerable<SelectListItem> GetSelectedListIthem(List<T> result)
@@ -26,14 +26,29 @@ namespace ProjectToyStore.Servise.ProjectServise
                 {
                     selectedList.Add(new SelectListItem
                     {
-                        Value = result[i].Type.ToString(),
-                        Text = result[i].Type.ToString()
+                        Value = result[i].Name.ToString(),
+                        Text = result[i].Name.ToString()
                     });
                 }
             }
 
             return selectedList;
         }
-        
+
+        public IEnumerable<SelectListItem> GetSelectedListIthemQuantity(int quantity)
+        {
+            var selectedList = new List<SelectListItem>();
+            for (int i = 1; i < quantity; i++)
+            {
+
+                selectedList.Add(new SelectListItem
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString()
+                });
+
+            }
+            return selectedList;
+        }
     }
 }

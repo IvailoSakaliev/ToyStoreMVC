@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using Toy.Filters.EntityFilter;
 using Toy.Models.ViewModels.Product;
-using ToyStore.Authentication;
-using ToyStore.Controllers;
 
 namespace Toy.Controllers
 {

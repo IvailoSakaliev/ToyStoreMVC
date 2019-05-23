@@ -8,6 +8,7 @@ using ProjectToyStore.Data.Enum;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
+using Toy.Authenticatiion;
 using Toy.Models.ViewModels;
 using Toy.Models.ViewModels.Login;
 
@@ -219,5 +220,18 @@ namespace Toy.Controllers
             login.Password = Request.Cookies["Userpassword"];
             return login;
         }
+
+        [HttpGet]
+        [UserFilter]
+        public IActionResult Details(int id)
+        {
+            //TEntity entity = new TEntity();
+            //TeidtVM model = new TeidtVM();
+            //entity = _Servise.GetByID(id);
+            //model = PopulateModelToItem(entity, model);
+            return View();
+        }
+
+
     }
 }

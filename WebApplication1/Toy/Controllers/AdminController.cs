@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
+using Toy.Authentication;
 using Toy.Models.ViewModels.Product;
-using ToyStore.Authentication;
 
 namespace Toy.Controllers
 {
     [AuthenticationFilter]
     public class AdminController : Controller
     {
-        private TypeServise _type = new TypeServise();
-        private ProductServise _product = new ProductServise();
-        private ImageServise _image = new ImageServise();
-        private string type;
+        private ProductServise _product { get; set; }
+        private ImageServise _image { get; set; }
+        private TypeServise _type { get; set; }
+        private static string type;
+        private static string frontImage;
+        private static int _idElement;
 
-
+        public AdminController()
+        {
+            _product = new ProductServise();
+            _image = new ImageServise();
+            _type = new TypeServise();
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -51,8 +55,11 @@ namespace Toy.Controllers
             entity.Type = Request.Form["type"].ToString();
             entity.Date = DateTime.Today.ToString();
             entity.Image = GetImagePath(photo);
+
             _product.Save(entity);
-            Addimage(photo);
+            Product item = _product.GetLastElement();
+
+            Addimage(photo, item.ID);
             ViewBag.success = "Product is added successfuly !";
             return Redirect("Product");
         }
@@ -62,14 +69,30 @@ namespace Toy.Controllers
             return "/images/Galery/" + photo[0].FileName;
         }
 
-        private void Addimage(IFormFile[] photo)
+        private void Addimage(IFormFile[] photo, int id)
         {
-            Product item = _product.GetLastElement();
             ImageServise _img = new ImageServise();
-            string isUploadet = _img.UploadImages(photo, item.ID);
+            string isUploadet = _img.UploadImages(photo,id);
             ModelState.AddModelError(string.Empty, isUploadet);
 
         }
+
+        [HttpPost]
+        public JsonResult DeleteImage(int id)
+        {
+            string result = "";
+            try
+            {
+                _image.DeleteById(id);
+                result = "ok";
+            }
+            catch (Exception)
+            {
+                result = "no";
+            }
+            return Json(result);
+        }
+
 
         [HttpGet]
         public ActionResult ProductIndex(int Curentpage)
@@ -83,8 +106,6 @@ namespace Toy.Controllers
             ViewBag.Cookie = cookieValue;
             return View(itemVM);
         }
-
-
 
         protected virtual ProducLIst PopulateIndex(ProducLIst itemVM, int curentPage)
         {
@@ -131,19 +152,22 @@ namespace Toy.Controllers
         {
             ProductVM model = new ProductVM();
             Product entity = _product.GetByID(id);
+            _idElement = id;
             model.Code = entity.Code;
             model.Description = entity.Description;
             model.Price = entity.Price;
             model.Quantity = entity.Quantity;
-            type = entity.Type;
+            model.Title = entity.Title;
+            model.DateOfEdit = entity.Date;
+            type= entity.Type;
+            frontImage= entity.Image;
 
             List<Images> img = new List<Images>();
             img = _image.GetAll(x => x.Subject_id == id);
             foreach (var item in img)
             {
-                model.Image.Add(item.Path);
+                model.ImageS.Add(item);
             }
-
 
             return View(model);
         }
@@ -151,8 +175,27 @@ namespace Toy.Controllers
         [HttpPost]
         public IActionResult EditProduct(ProductVM model, IFormFile[] photo)
         {
+            Product entity = new Product();
+            entity.Code = model.Code;
+            entity.Title = model.Title;
+            entity.Description = model.Description;
+            entity.Price = model.Price;
+            entity.Quantity = model.Quantity;
+            entity.Date = DateTime.Today.ToString();
+            entity.ID = _idElement;
+            entity.Type = type;
+            entity.Image = frontImage;
+
+            _product.Save(entity);
+            if (photo.Length != 0)
+            {
+                Addimage(photo, _idElement);
+            }
+            
+            ViewBag.success = "Product is updated successfuly !";
             return Redirect("../ProductIndex?Curentpage=1");
         }
+        
 
         [HttpGet]
         public IActionResult DeleteProduct(int id)
@@ -162,7 +205,7 @@ namespace Toy.Controllers
             return Redirect("../ProductIndex?Curentpage=1");
         }
 
-
+       
 
     }
 }

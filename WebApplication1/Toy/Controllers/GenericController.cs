@@ -8,11 +8,11 @@ using ProjectToyStore.Servise;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
 using Toy.Authenticatiion;
-using ToyStore.Authentication;
-using ToyStore.Filters;
-using ToyStore.Models;
+using Toy.Authentication;
+using Toy.Filters;
+using Toy.Models;
 
-namespace ToyStore.Controllers
+namespace Toy.Controllers
 {
     public abstract class GenericController<TEntity, TeidtVM, TlistVM, Tfilter, Tservise> : Controller
          where TEntity : BaseModel, new()
@@ -146,7 +146,9 @@ namespace ToyStore.Controllers
         {
             if (!ModelState.IsValid)
             {
-
+                TEntity entity = new TEntity();
+                entity = PopulateItemToModel(model, entity);
+                _Servise.Save(entity);
 
             }
             return View(model);

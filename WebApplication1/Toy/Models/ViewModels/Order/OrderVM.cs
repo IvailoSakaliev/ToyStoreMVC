@@ -17,6 +17,8 @@ namespace Toy.Models.ViewModels.Order
 
         [Required]
         public string Description { get; set; }
+        
+        public IEnumerable<SelectListItem> Quantity { get; set; }
 
         [Required]
         public double Price { get; set; }

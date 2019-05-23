@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjectToyStore.Data.Models;
 
 namespace Toy.Models.ViewModels.Product
 {
     public class ProductVM
     {
+
+        public ProductVM()
+        {
+            Image = new List<string>();
+            ImageS = new List<Images>();
+        }
+
+
         [Required]
         public string Code { get; set; }
 
@@ -18,6 +27,7 @@ namespace Toy.Models.ViewModels.Product
         [Required]
         public double Price { get; set; }
 
+
         [Required]
         [DataType(DataType.Date)]
         public string Date { get; set; }
@@ -28,13 +38,20 @@ namespace Toy.Models.ViewModels.Product
         [Required]
         public IEnumerable<SelectListItem> Type { get; set; }
 
+
+        // next line of code is for edit pages
+
+        public string FrontImage { get; set; }
+
+        public string TypeString { get; set; }
+
         [Required]
+        public string DateOfEdit { get; set; }
+
+        public List<Images> ImageS { get; set; }
+
+        [Display(Name = "Add new image")]
         public List<string> Image { get; set; }
 
-
-        public ProductVM()
-        {
-            Image = new List<string>();
-        }
     }
 }

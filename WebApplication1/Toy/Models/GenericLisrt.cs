@@ -1,8 +1,8 @@
 ﻿using ProjectToyStore.Data.Models;
 using System.Collections.Generic;
-using ToyStore.Filters;
+using Toy.Filters;
 
-namespace ToyStore.Models
+namespace Toy.Models
 {
     public class GenericList<Tentity, Tfilter> 
         : IGenericList<Tentity, Tfilter>

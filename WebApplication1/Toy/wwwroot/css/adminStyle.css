@@ -1,11 +1,15 @@
-﻿body {
+﻿
+body {
 }
 
-
+.siteIMG
+{
+    display:inline-block
+}
 .navigation {
     width: 100%;
-    background-color: black ;
-    height:800px;
+    background-color: black;
+    height: 1000px;
 }
 .navMenu
 {
@@ -23,11 +27,16 @@
 
 /*admin page*/
 .deleteImg {
+    position:relative;
+    right:40px;
     float:right;
+}
+.deleteImg:hover {
+    cursor:pointer
 }
 
 .siteIMG {
     width: 200px;
-    height: 200px;
+    height: 150px;
     background-size: 100%
 }

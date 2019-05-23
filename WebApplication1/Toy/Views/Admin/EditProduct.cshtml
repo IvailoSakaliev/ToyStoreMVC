@@ -9,10 +9,17 @@
 
 <h4>ProductVM</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4" >
-        <form asp-action="EditProduct">
+<form asp-action="EditProduct" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" class="form-control" value="@Model.FrontImage" />
+                <input type="hidden" class="form-control" value="@Model.TypeString" />
+
+            </div>
+
             <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
                 <input asp-for="Code" class="form-control" />
@@ -34,36 +41,43 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <label asp-for="DateOfEdit" class="control-label"></label>
+                <input asp-for="DateOfEdit" class="form-control" />
+                <span asp-validation-for="DateOfEdit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-12">
             <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @foreach (var item in Model.Image)
+                <label>Images</label>
+                </br>
+                @foreach (var item in Model.ImageS)
                 {
-                    <div style="background-image:url('../../@item')" class="siteIMG">
-                        <img width="40px" src="~/images/delete.png" alt="Alternate Text" class="deleteImg" />
+                    <div class="siteIMG">
+                        <img width="150" src="../../@item.Path" alt="Alternate Text" />
+                        <img width="20px" src="~/images/delete.png" alt="Alternate Text" onclick="DeleteImage(@item.ID)" class="deleteImg" />
 
                     </div>
                 }
             </div>
-
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="Image" class="control-label"></label>
+                <input type="file" name="photo" class="form-control" multiple />
+                <span asp-validation-for="Image"></span>
             </div>
-        </form>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-warning" />
+            </div>
+        </div>
     </div>
-</div>
+</form>
+
 
 <div>
     <a href="../ProductIndex?Curentpage=1">Back to List</a>

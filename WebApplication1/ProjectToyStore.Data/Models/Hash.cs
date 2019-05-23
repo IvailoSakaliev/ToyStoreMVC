@@ -7,6 +7,5 @@ namespace ProjectToyStore.Data.Models
     public class Hash
         :BaseModel
     {
-        public string HashString { get; set; }
     }
 }

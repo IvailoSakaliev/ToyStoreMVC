@@ -7,6 +7,5 @@ namespace ProjectToyStore.Data.Models
     public class TypeSubject
         :BaseModel
     {
-        public string Type { get; set; }
     }
 }

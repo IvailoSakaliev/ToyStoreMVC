@@ -265,11 +265,27 @@ footer{
     width: 100%;
     padding:10px;
 }
+
+.closeGalery:hover
+{
+    cursor:pointer;
+}
+.makeOrder
+{
+    width: 100%;
+}
+
+
+
 .main_image
 {
     width:100%;
-    height:500px;
+    height:400px;
 
+}
+.main_image:hover
+{
+    cursor: pointer;    
 }
 .subImage {
     height: 150px;
@@ -286,4 +302,48 @@ footer{
 
 .order .container{
     background-color:white
+}
+
+.galery {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    width: 100%;
+    min-height: 100% !important;
+    background-color: rgba(0,0,0,0.6);
+    display:none;
+}
+.item
+{
+    min-height:100% !important;
+    text-align:center;
+}
+.item img {
+    margin:0 auto;
+    margin-top:5%;
+    height:45%;
+    width: 70%
+}
+
+.totalOrder {
+    float: right
+}
+
+.infoOrderProduct {
+    height: 70% !important;
+}
+
+.priceOrderProduct {
+    height: 30% !important;
+    float: right;
+}
+.alertBox
+{
+    position: fixed;
+    top: 100px;
+    width: 400px;
+    margin-left:30% !important;
+    display:none;
+    border:1px solid black;
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using Toy.Models;
-using ToyStore.Authentication;
 
 namespace Toy.Controllers
 {

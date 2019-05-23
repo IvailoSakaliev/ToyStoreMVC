@@ -1,10 +1,8 @@
 ﻿using ProjectToyStore.Data.Models;
 using ProjectToyStore.Data.Repository;
-using ProjectToyStore.Data.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace ProjectToyStore.Servise
 {
@@ -13,18 +11,10 @@ namespace ProjectToyStore.Servise
         : BaseModel, new()
     {
         public GenericRepository<TEntity> _repo { get; set; }
-        public IUnitOfWorks _unit { get; set; }
-
+        
         public GenericServise()
-            : this(new UnitOfWorks())
         {
-
-
-        }
-        public GenericServise(UnitOfWorks unit)
-        {
-            _repo = new GenericRepository<TEntity>(unit);
-            _unit = unit;
+            _repo = new GenericRepository<TEntity>();
         }
         public List<TEntity> GetAll()
         {
@@ -50,11 +40,11 @@ namespace ProjectToyStore.Servise
             try
             {
                 _repo.Save(entity);
-                _unit.Commit();
+                
             }
             catch (Exception)
             {
-                _unit.Rowback();
+               
             }
         }
 
@@ -63,11 +53,11 @@ namespace ProjectToyStore.Servise
             try
             {
                 _repo.Delete(entity);
-                _unit.Commit();
+                
             }
             catch (Exception)
             {
-                _unit.Rowback();
+                
             }
         }
         public void DeleteById(int id)
@@ -75,11 +65,9 @@ namespace ProjectToyStore.Servise
             try
             {
                 _repo.DeleteById(id);
-                _unit.Commit();
             }
             catch (Exception)
             {
-                _unit.Rowback();
             }
         }
         public void Delete(Expression<Func<TEntity, bool>> filter)
@@ -87,11 +75,9 @@ namespace ProjectToyStore.Servise
             try
             {
                 _repo.Delete(filter);
-                _unit.Commit();
             }
             catch (Exception)
             {
-                _unit.Rowback();
             }
         }
 

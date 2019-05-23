@@ -16,7 +16,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             Hash model = new Hash();
             model = _servise.GetByID(1);
-            _hash = model.HashString;
+            _hash = model.Name;
         } 
         public string EncryptData(string toEncrypted)
         {

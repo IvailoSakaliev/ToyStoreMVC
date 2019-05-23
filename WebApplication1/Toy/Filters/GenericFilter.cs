@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace ToyStore.Filters
+namespace Toy.Filters
 {
     public abstract class GenericFiler<Tentity>
         :  IGenericFiler<Tentity> where Tentity : BaseModel

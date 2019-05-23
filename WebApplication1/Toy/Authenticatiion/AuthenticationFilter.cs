@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Servise.ProjectServise;
 
-namespace ToyStore.Authentication
+namespace Toy.Authentication
 {
     public class AuthenticationFilter
         : ActionFilterAttribute

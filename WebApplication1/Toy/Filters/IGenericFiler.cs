@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using ProjectToyStore.Data.Models;
 
-namespace ToyStore.Filters
+namespace Toy.Filters
 {
     public interface IGenericFiler<Tentity> where Tentity : BaseModel
     {

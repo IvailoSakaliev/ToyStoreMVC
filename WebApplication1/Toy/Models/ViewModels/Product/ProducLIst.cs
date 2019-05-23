@@ -1,5 +1,4 @@
 ﻿using Toy.Filters.EntityFilter;
-using ToyStore.Models;
 
 namespace Toy.Models.ViewModels.Product
 {

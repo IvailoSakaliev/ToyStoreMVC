@@ -124,3 +124,68 @@ function Restore() {
 }
 
 
+function DeleteImage(id) {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('/');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+    $.ajax({
+        url: '/Admin/DeleteImage',
+        type: 'POST',
+        dataType: 'json',
+        data: { id: id },
+        success: function (data) {
+            if (data == "ok") {
+                window.location.href = fullURL;
+            }
+
+
+        },
+        error: function () {
+        }
+    });
+
+}
+function SetOrderInSession() {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('/');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+    var quantity = $(".quantity").val();
+
+    $.ajax({
+        url: '/Order/SaveOrderInSession',
+        type: 'POST',
+        dataType: 'json',
+        data: { page: page , quantity: quantity},
+        success: function (data) {
+            if (data == "ok") {
+                $(".alertBox").fadeIn(1000);
+                setTimeout(function() { $(".alertBox").fadeOut(1000); }, 4000);
+            }
+        },
+        error: function () {
+        }
+    });
+
+}
+
+
+function leaveChange() {
+    var quantity = parseInt($(".quantity").val());
+    var price = $(".priceOfProduct").text();
+    var total = $(".total");
+    var result = quantity * price;
+    total.html("Общо: " + result+ "лв.");
+}
+
+
+function OpenGalery()
+{
+    $('.galery').fadeIn(600);
+    $('.navbar').fadeOut(600);
+}
+function CloseGalery() {
+    $('.galery').fadeOut(600);
+    $('.navbar').fadeIn(600);
+}

@@ -26,15 +26,20 @@ namespace ProjectToyStore.Servise.EntityServise
             }
             else
             {
+                int i = 1;
                 foreach (IFormFile item in photo)
                 {
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Galery/", item.FileName);
                     var stream = new FileStream(path, FileMode.Create);
                     item.CopyToAsync(stream);
-                    Images img = new Images();
-                    img.Path = "../images/Galery/"+ item.FileName;
-                    img.Subject_id = productID;
-                    Save(img);
+                    if (i != 1)
+                    {
+                        Images img = new Images();
+                        img.Path = "../images/Galery/" + item.FileName;
+                        img.Subject_id = productID;
+                        Save(img);
+                    }
+                    i++;
                     
                 }
             }

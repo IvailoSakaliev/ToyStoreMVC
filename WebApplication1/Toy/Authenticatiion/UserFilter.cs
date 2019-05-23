@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Toy.Authenticatiion
 {
@@ -12,12 +9,16 @@ namespace Toy.Authenticatiion
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var url = context.HttpContext.Request.Path;
-            
-            if (true)
+            string url = context.HttpContext.Request.Path;
+            int substring = url.LastIndexOf('/');
+            int idlenght = url.Length - substring;
+            string urlID = url.Substring(substring, idlenght);
+            string id = context.HttpContext.Session.GetString("User_ID");
+            if (id != urlID)
             {
-
+                context.HttpContext.Response.Redirect("../Home/Index");
             }
+            base.OnActionExecuting(context);
         }
     }
 }
