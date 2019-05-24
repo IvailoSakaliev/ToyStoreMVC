@@ -8,9 +8,10 @@
 
 <div class="row infoForOrder">
     <div class="col-md-2">
-
+        
     </div>
     <div class="col-md-8">
+        <h3 style="color:red">@ViewData["Information"]</h3>
         <form method="post" asp-controller="Order" asp-action="MakeOrder">
             <div class="registrationErrors" asp-validation-summary="ModelOnly"></div>
             <div class="col-md-6">

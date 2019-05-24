@@ -8,7 +8,6 @@ namespace ProjectToyStore.Data.Models
     public class User
         :BaseModel
     {
-        public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string City { get; set; }
         public string Adress { get; set; }

@@ -24,8 +24,15 @@ namespace Toy.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            return View();
+            LoginVM login = new LoginVM();
+            if (Request.Cookies["UserEmail"] != null
+                || Request.Cookies["UserEmail"] != "")
+            {
+                login.Email =_encript.DencryptData(Request.Cookies["UserEmail"]);
+                login.Password = _encript.DencryptData(Request.Cookies["Userpassword"]);
+            }
+            
+            return View(login);
         }
 
         [HttpPost]
@@ -135,7 +142,7 @@ namespace Toy.Controllers
             list = _servise.GetAll(x => x.Email == _encript.EncryptData(reg.Email));
             User user = new User();
             user.LoginID = list[0].ID;
-            user.FirstName = _encript.EncryptData(reg.FirstName);
+            user.Name = _encript.EncryptData(reg.FirstName);
             user.SecondName = _encript.EncryptData(reg.SecondName);
             user.City = _encript.EncryptData(reg.City);
             user.Adress = _encript.EncryptData(reg.Adress);
@@ -182,17 +189,18 @@ namespace Toy.Controllers
             HttpContext.Session.SetString("User_ID", _encript.EncryptData(_aut._LoggedUser.ID.ToString()));
         }
 
-        public void LoggOut()
+        [HttpGet]
+        public IActionResult LoggOut()
         {
 
             _aut._LoggedUser = null;
-            HttpContext.Session.SetString("LoggedUser", null);
+            HttpContext.Session.Remove("LoggedUser");
 
-            HttpContext.Session.SetString("UserFirstName", null);
+            HttpContext.Session.Remove("UserFirstName");
 
-            HttpContext.Session.SetString("User_ID", null);
-            //CoockieServises cookie = new CoockieServises();
-            //cookie.DeleteCoockie("UserInformation");
+            HttpContext.Session.Remove("User_ID");
+
+            return RedirectToAction("Index");
 
         }
 
@@ -209,8 +217,8 @@ namespace Toy.Controllers
         {
             var cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddMonths(1);
-            Response.Cookies.Append("UserEmail", model.Email, cookie);
-            Response.Cookies.Append("Userpassword", model.Password);
+            Response.Cookies.Append("UserEmail", _encript.EncryptData(model.Email), cookie);
+            Response.Cookies.Append("Userpassword", _encript.EncryptData(model.Password));
         }
         public LoginVM GetInformation()
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectToyStore.Data;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
@@ -18,6 +19,7 @@ namespace Toy.Controllers
         private ImageServise _image = new ImageServise();
         private OrderServise _order = new OrderServise();
 
+        private int _orderNumber;
         public IActionResult Index()
         {
 
@@ -111,7 +113,9 @@ namespace Toy.Controllers
         public IActionResult Orders()
         {
             Random rd = new Random();
-            ViewData["NumberOfOrder"] = rd.Next(0, 999999);
+            _orderNumber = rd.Next(0, 999999);
+            ViewData["NumberOfOrder"] = _orderNumber;
+            HttpContext.Session.SetString("OrderNumber", _orderNumber.ToString());
             string productsId = HttpContext.Session.GetString("OrderProduct");
             string quantities = HttpContext.Session.GetString("ProductQuantity");
             ProducLIst itemVM = new ProducLIst();
@@ -138,9 +142,7 @@ namespace Toy.Controllers
                     itemVM.Items.Add(_product.GetByID(int.Parse(keyProduct[i])));
                     itemVM.Items[i].Quantity = int.Parse(keyQuantity[i]);
                 }
-
-                string cookieValue = Request.Cookies["ViewProducr"];
-                ViewBag.Cookie = cookieValue;
+                
                 return View(itemVM);
             }
         }
@@ -178,12 +180,97 @@ namespace Toy.Controllers
         public IActionResult MakeOrder()
         {
             RegistrationVM model = new RegistrationVM();
+            string userID = HttpContext.Session.GetString("User_ID");
+            if (userID != null)
+            {
+                UserServise _login = new UserServise();
+                EncriptServises _encript = new EncriptServises();
+                User user = new User();
+                user = _login.GetByID(int.Parse(_encript.DencryptData( userID)));
+                model.FirstName = _encript.DencryptData(user.Name);
+                model.SecondName = _encript.DencryptData(user.SecondName);
+                model.City = _encript.DencryptData(user.City);
+                model.Adress = _encript.DencryptData(user.Adress);
+                model.Telephone = _encript.DencryptData(user.Telephone);
+                ViewData["Information"] = "Вие имате регистрация в нашия  сайт! Моля натиснете бътона 'Поръчай', за да направите поръчката си!";
+
+            }
+            else
+            {
+                ViewData["Information"] = "Моля въведете информацията която се изисква за да направите вашата поръчка!";
+            }
             return View(model);
 
         }
+        [HttpPost]
+        public IActionResult MakeOrder(RegistrationVM model)
+        {
+            string productsId = HttpContext.Session.GetString("OrderProduct");
+            string quantities = HttpContext.Session.GetString("ProductQuantity");
+            string userID = HttpContext.Session.GetString("User_ID");
 
+            string[] keyProduct = productsId.Split(",");
+            string[] keyQuantity = quantities.Split(",");
+            
+            User user = new User();
+            UserServise _user = new UserServise();
 
+            if (userID != null)
+            {
+                EncriptServises _encript = new EncriptServises();
+                for (int i = 0; i < keyProduct.Length -1; i++)
+                {
+                    Order entity = new Order();
+                    entity.SubjectID = int.Parse(keyProduct[i]);
+                    entity.Quantity = int.Parse(keyQuantity[i]);
+                    entity.OrderNumber = HttpContext.Session.GetString("OrderNumber");
+                    entity.Date = DateTime.Today.ToString();
+                    entity.Status = Status.Supplier;
+                    entity.UserID = int.Parse(_encript.DencryptData(userID));
+                    _order.Save(entity);
 
+                    
+                }
+            }
+            else
+            {
+                user = AddUserInDB(user, model);
+                _user.Save(user);
+                user = new User();
+                for (int i = 0; i < keyProduct.Length - 1; i++)
+                {
+                    Order entity = new Order();
+                    entity.SubjectID = int.Parse(keyProduct[i]);
+                    entity.Quantity = int.Parse(keyQuantity[i]);
+                    entity.OrderNumber = HttpContext.Session.GetString("OrderNumber");
+                    entity.Date = DateTime.Today.ToString();
+                    entity.Status = Status.Supplier;
+                    user = _user.GetLastElement();
+                    entity.UserID = user.ID;
+                    _order.Save(entity);
+                }
+            }
+            DeleteSession();
+            return RedirectToAction("CungratOrder");
+        }
+
+        private void DeleteSession()
+        {
+            HttpContext.Session.Remove("OrderNumber");
+            HttpContext.Session.Remove("OrderProduct");
+            HttpContext.Session.Remove("ProductQuantity");
+        }
+
+        private User AddUserInDB(User user, RegistrationVM model)
+        {
+            EncriptServises _encript = new EncriptServises();
+            user.Name = _encript.EncryptData(model.FirstName);
+            user.SecondName = _encript.EncryptData(model.SecondName);
+            user.City = _encript.EncryptData(model.City);
+            user.Adress = _encript.EncryptData(model.Adress);
+            user.Telephone = _encript.EncryptData(model.Telephone);
+            return user;
+        }
 
         [HttpGet]
         public IActionResult CungratOrder()

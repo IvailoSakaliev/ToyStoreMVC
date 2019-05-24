@@ -158,7 +158,7 @@ span
 	height: 200px;
 }
 .productGalery .price h4{
-	color:red;
+	color:green;
 }
 .productGalery .button a
 {
@@ -179,7 +179,8 @@ span
 	width: 100%;
 }
 .productList .price h4{
-	color:red;
+	color:green;
+    float: right
 }
 .productList .button button
 {

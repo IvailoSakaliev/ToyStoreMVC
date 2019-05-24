@@ -31,17 +31,23 @@
                 <img src="@item.Image" alt="Alternate Text" />
             </div>
             <div class="col-md-7">
+                <div class="row code">
+                    <h4>@item.Code</h4>
+                </div>
                 <div class="row title">
-                    <p>@item.Title</p>
+                    <h4>@item.Title</h4>
+                </div>
+                <div class="row desc">
+                    <h5>@item.Description</h5>
                 </div>
                 <div class="row price">
-                    <h4>@item.Price</h4>
+                    <h4>@item.Price лв.</h4>
                 </div>
 
             </div>
             <div class="col-md-2">
                 <div class="button ">
-                    <button class="btn btn-success">Info</button>
+                    <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
                 </div>
             </div>
         </div>

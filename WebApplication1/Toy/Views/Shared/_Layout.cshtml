@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -38,7 +39,6 @@
                         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                         <li><a href="../../Product/Index?Curentpage=1" onclick="Restore()">Product</a></li>
-                        <li><a href="../Product/Create">Create</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,12 +46,23 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                           <div class="circle"></div>
-                            
+                            <div class="circle"></div>
+
                             <a asp-controller="Order" asp-action="Orders"><img width="20px" src="~/images/shop.png" /></a>
                         </li>
-                        <li><a asp-area="" asp-controller="Login" asp-action="Registration">Registration</a></li>
-                        <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+                        @{
+                            if (Context.Session.GetString("User_ID") == ""
+                                || Context.Session.GetString("User_ID") == null)
+                            {
+                                <li><a asp-area="" asp-controller="Login" asp-action="Registration">Registration</a></li>
+                                <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+
+                            }
+                            else
+                            {
+                                <li><a asp-area="" asp-controller="Login" asp-action="LoggOut">Logout</a></li>
+                            }
+                        }
 
                     </ul>
                 </div>

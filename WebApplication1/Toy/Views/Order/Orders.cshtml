@@ -24,7 +24,7 @@
                         <img width="150px" src="../@item.Image" alt="Alternate Text" />
                     </div>
                     <div class="col-md-9 infoBorder">
-                        <img src="~/images/delete.png" onclick="DeleteOrderProduct(@item.ID)" class=" delteProductFromOrder" alt="Alternate Text" />
+                        <img src="~/images/delete.jpg" onclick="DeleteOrderProduct(@item.ID)" class=" delteProductFromOrder" alt="Alternate Text" />
                         <div class="infoOrderProduct">
                             <div class="col-md-9">
                                 <h4>@item.Title</h4>
@@ -72,7 +72,17 @@
             <h3 class="totalOrder">Total:@totalPrice</h3>
         }
 
-        <a class="btn btn-primary makeOrder" href="#">Направи поръчка</a>
+        @{
+            if (Context.Session.GetString("OrderProduct") == "" ||
+                Context.Session.GetString("OrderProduct") == null)
+            {
+                <a class="btn btn-primary makeOrder" href="#">Направи поръчка</a>
+            }
+            else
+            { 
+                <a class="btn btn-primary makeOrder"  asp-controller="Order" asp-action="MakeOrder">Направи поръчка</a>
+            }
+        }
     </div>
     <div style="visibility:hidden" class="session">
         @Context.Session.GetString("OrderProduct")
