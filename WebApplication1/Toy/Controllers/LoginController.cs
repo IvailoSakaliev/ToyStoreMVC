@@ -25,11 +25,19 @@ namespace Toy.Controllers
         public IActionResult Index()
         {
             LoginVM login = new LoginVM();
-            if (Request.Cookies["UserEmail"] != null
-                || Request.Cookies["UserEmail"] != "")
+            try
             {
-                login.Email =_encript.DencryptData(Request.Cookies["UserEmail"]);
-                login.Password = _encript.DencryptData(Request.Cookies["Userpassword"]);
+                if (Request.Cookies["UserEmail"] != null
+                || Request.Cookies["UserEmail"] != "")
+                {
+                    login.Email = _encript.DencryptData(Request.Cookies["UserEmail"]);
+                    login.Password = _encript.DencryptData(Request.Cookies["Userpassword"]);
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                return View(login);
             }
             
             return View(login);
@@ -199,7 +207,7 @@ namespace Toy.Controllers
             HttpContext.Session.Remove("UserFirstName");
 
             HttpContext.Session.Remove("User_ID");
-
+            
             return RedirectToAction("Index");
 
         }
