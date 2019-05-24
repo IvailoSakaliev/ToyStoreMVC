@@ -138,7 +138,7 @@ function DeleteImage(id) {
             if (data == "ok") {
                 window.location.href = fullURL;
             }
-
+            
 
         },
         error: function () {
@@ -160,9 +160,16 @@ function SetOrderInSession() {
         data: { page: page , quantity: quantity},
         success: function (data) {
             if (data == "ok") {
-                $(".alertBox").fadeIn(1000);
-                setTimeout(function() { $(".alertBox").fadeOut(1000); }, 4000);
+                $(".alertBox").fadeIn(500);
+                setTimeout(function() { $(".alertBox").fadeOut(500); }, 4000);
+                $('.circle').css("display","block");
             }
+            else if (data == "colision") 
+            {
+                $(".dangerBox").fadeIn(500);
+                setTimeout(function() { $(".dangerBox").fadeOut(500); }, 4000);
+            }
+
         },
         error: function () {
         }
@@ -189,3 +196,59 @@ function CloseGalery() {
     $('.galery').fadeOut(600);
     $('.navbar').fadeIn(600);
 }
+
+
+function DeleteOrderProduct(id) {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('/');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+    $.ajax({
+        url: '/Order/DeleteOrderProduct',
+        type: 'POST',
+        dataType: 'json',
+        data: { id: id },
+        success: function (data) {
+            if (data == "ok") {
+                window.location.href = fullURL;
+            }
+            
+
+        },
+        error: function () {
+        }
+    });
+
+}
+
+function ChangeQuantityOfProduct(id) {
+        var element = $(".quantity").val();
+        var fullURL = window.location.href;
+         $.ajax({
+                url: '/Order/ChangeQuantityOfProduct',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: id, element:element },
+                success: function (data) {
+                    if (data == "ok") {
+                        window.location.href = fullURL;
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+
+
+}
+$(document).ready(function () {
+    var sessionValue = $('.session').text().trim();
+    if (sessionValue === null || sessionValue ==="") {
+        $('.circle').css("display","none");
+    }
+    else
+    {
+        $('.circle').css("display","block")
+    }
+});

@@ -1,4 +1,5 @@
 ﻿@model Toy.Models.ViewModels.Order.OrderVM
+@using Microsoft.AspNetCore.Http
 
 @{
     ViewData["Title"] = "EditProduct";
@@ -7,9 +8,9 @@
 
 
 <h2 style="padding-top:20px">@Model.Title</h2>
-<hr/>
+<hr />
 <div class="row order">
-    <div class="container">
+    
         <div class="col-md-6 image">
             <div class="row">
                 <div class="main_image" onclick="OpenGalery()" style="background-image:url(../@Model.FromtImage); background-size:100%">
@@ -20,10 +21,10 @@
                 <div class="col-md-3 ">
                     <img onclick="ChangeMainImage(@Model.FromtImage)" src="../@Model.FromtImage" width="100%" alt="Alternate Text" />
                 </div>
-                @for (var i=1; i< Model.Image.Count; i++)
+                @for (var i = 1; i < Model.Image.Count; i++)
                 {
                     <div class="col-md-3">
-                        <img onclick="ChangeMainImage('@Model.Image[i]')"  src="../@Model.Image[i]" width="100%" alt="Alternate Text" />
+                        <img onclick="ChangeMainImage('@Model.Image[i]')" src="../@Model.Image[i]" width="100%" alt="Alternate Text" />
                     </div>
                 }
 
@@ -53,15 +54,13 @@
 
                 </div>
             </div>
-            </div>
-            <div class="row">
-                asdasdasdadsad
-            </div>
         </div>
-    </div>
+        <div class="row">
+            asdasdasdadsad
+        </div>
 </div>
 
-<div class="row galery" >
+<div class="row galery">
     <div class="row" style="text-align:right; background-color:black; padding:4px;">
         <img onclick="CloseGalery()" src="~/images/delete.png" alt="Alternate Text" width="30px;" />
     </div>
@@ -80,7 +79,7 @@
                 <div class="item active">
                     <img src="../@Model.FromtImage" alt="Los Angeles">
                 </div>
-                @for (int i=1; i< Model.Image.Count; i++)
+                @for (int i = 1; i < Model.Image.Count; i++)
                 {
                     <div class="item">
                         <img src="../@Model.Image[i].ToString()" alt="Los Angeles">
@@ -99,10 +98,20 @@
             </a>
         </div>
     </div>
-    
+
 </div>
 
 
-<div class="alert alert-success alertBox" >
-    Продуктът ви е евъведен в пазарската количка
+<div class="alert alert-success alertBox">
+    <img width="20px" src="~/images/ok.png" alt="Alternate Text" />    Продуктът ви е евъведен в пазарската количка
+
+</div>
+
+<div class="alert alert-danger dangerBox">
+    <img width="20px" src="~/images/ok.png" alt="Alternate Text" /> Този продукт вече съществува в пазарската количка.
+
+</div>
+
+<div style="visibility:hidden" class="session">
+    @Context.Session.GetString("OrderProduct")
 </div>

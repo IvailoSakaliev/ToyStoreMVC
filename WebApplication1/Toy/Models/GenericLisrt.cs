@@ -1,4 +1,5 @@
-﻿using ProjectToyStore.Data.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjectToyStore.Data.Models;
 using System.Collections.Generic;
 using Toy.Filters;
 
@@ -17,6 +18,7 @@ namespace Toy.Models
         public string ActionName { get; set; }
         public Tfilter Filter { get; set; }
         public List<int> QuantityList { get; set; }
+        public IEnumerable<SelectListItem> Qua { get; set; }
 
         public GenericList()
         {

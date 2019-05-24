@@ -56,10 +56,10 @@ namespace Toy.Controllers
             string orderSession = HttpContext.Session.GetString("OrderProduct");
             string quantityPro = HttpContext.Session.GetString("ProductQuantity");
             if (orderSession == null || orderSession == ""
-                && quantity == null || quantity =="")
+                 && quantity == null || quantity == "")
             {
                 orderSession = page + ",";
-                quantityPro = quantity + ","; 
+                quantityPro = quantity + ",";
             }
             else
             {
@@ -67,21 +67,47 @@ namespace Toy.Controllers
                 {
                     return Json("colision");
                 }
-                else
-                {
-                    orderSession += page + ",";
-                    quantityPro += quantity + ",";
-                }
-                
+                orderSession += page + ",";
+                quantityPro += quantity + ",";
+
             }
-            
-             HttpContext.Session.SetString("OrderProduct", orderSession);
+
+            HttpContext.Session.SetString("OrderProduct", orderSession);
             HttpContext.Session.SetString("ProductQuantity", quantityPro);
 
             return Json("ok");
-            
+
         }
-        [HttpGet]
+
+        [HttpPost]
+        public JsonResult ChangeQuantityOfProduct(string id, string element)
+        {
+            string orderSession = HttpContext.Session.GetString("OrderProduct");
+            string quantityPro = HttpContext.Session.GetString("ProductQuantity");
+
+            string[] keyProduct = orderSession.Split(",");
+            string[] keyQuantity = quantityPro.Split(",");
+
+            orderSession = "";
+            quantityPro = "";
+            for (int i = 0; i < keyProduct.Length -1; i++)
+            {
+                if (keyProduct[i] == id)
+                {
+                    keyQuantity[i] = element;
+                }
+                orderSession += id + ",";
+                quantityPro += element + ",";
+
+            }
+
+            HttpContext.Session.SetString("OrderProduct", orderSession);
+            HttpContext.Session.SetString("ProductQuantity", quantityPro);
+
+            return Json("ok");
+
+        }        [HttpGet]
+
         public IActionResult Orders()
         {
             Random rd = new Random();
@@ -93,7 +119,7 @@ namespace Toy.Controllers
             if (productsId == null || productsId == ""
                 && quantities == null || quantities == "")
             {
-                
+
                 return View(itemVM);
 
             }
@@ -102,9 +128,13 @@ namespace Toy.Controllers
                 string[] keyProduct = productsId.Split(",");
                 string[] keyQuantity = quantities.Split(",");
                 
-
                 for (int i = 0; i < keyProduct.Length - 1; i++)
                 {
+                    Product entity = _product.GetByID(int.Parse(keyProduct[i]));
+                    int quantity = entity.Quantity;
+                    GenericSelectedList<Order> listUser = new GenericSelectedList<Order>();
+
+                    itemVM.Qua = listUser.GetSelectedListIthemQuantity(quantity);
                     itemVM.Items.Add(_product.GetByID(int.Parse(keyProduct[i])));
                     itemVM.Items[i].Quantity = int.Parse(keyQuantity[i]);
                 }
@@ -115,13 +145,44 @@ namespace Toy.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult DeleteOrderProduct(int id)
+        {
+            string productsId = HttpContext.Session.GetString("OrderProduct");
+            string quantities = HttpContext.Session.GetString("ProductQuantity");
+
+            string[] keyProduct = productsId.Split(",");
+            string[] keyQuantity = quantities.Split(",");
+
+            productsId = "";
+            quantities = "";
+            for (int i = 0; i < keyProduct.Length-1; i++)
+            {
+                if (keyProduct[i] == id.ToString())
+                {
+                    continue;
+                }
+                else
+                {
+                    productsId += keyProduct[i] + ",";
+                    quantities += keyQuantity[i] + ",";
+                }
+            }
+
+            HttpContext.Session.SetString("OrderProduct", productsId);
+            HttpContext.Session.SetString("ProductQuantity", quantities);
+
+            return Json("ok");
+        }
         [HttpGet]
         public IActionResult MakeOrder()
         {
             RegistrationVM model = new RegistrationVM();
             return View(model);
-              
+
         }
+
+
 
 
         [HttpGet]
