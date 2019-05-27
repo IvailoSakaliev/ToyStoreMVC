@@ -196,6 +196,24 @@ namespace Toy.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            string controllerName = GetControlerName();
+            if (controllerName == "BaseType")
+            {
+                ProductServise _product = new ProductServise();
+                var elementID = _typeServise.GetAll(x => x.BaseTypeID == id);
+                var productElement = _product.GetAll(x => x.Basetype == id);
+                foreach (var item in productElement)
+                {
+                    item.Basetype = 0;
+                    item.Type = 0;
+                    _product.Save(item);
+                }
+                foreach (var item in elementID)
+                {
+                    _typeServise.DeleteById(item.ID);
+                    
+                }
+            }
             _Servise.DeleteById(id);
             return Redirect("../Index?Curentpage=1");
         }

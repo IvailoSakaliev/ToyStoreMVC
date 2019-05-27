@@ -164,16 +164,32 @@ namespace Toy.Controllers
             {
                 TypeServise servise = new TypeServise();
                 string items = "";
-                var element = servise.GetByID(itemVM.Items[id].Type);
-                items = element.Name;
+                if (itemVM.Items[id].Type == 0)
+                {
+                    items = "";
+                }
+                else
+                {
+                    var element = servise.GetByID(itemVM.Items[id].Type);
+                    items = element.Name;
+                }
+
                 return items;
             }
             else
             {
                 BaseTypeServise servise = new BaseTypeServise();
                 string items = "";
-                var element = servise.GetByID(itemVM.Items[id].Basetype);
-                items = element.Name;
+
+                if (itemVM.Items[id].Basetype == 0)
+                {
+                    items = "";
+                }
+                else
+                {
+                    var element = servise.GetByID(itemVM.Items[id].Basetype);
+                    items = element.Name;
+                }
                 return items;
             }
         }

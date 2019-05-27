@@ -37,7 +37,8 @@
         <th></th>
     </tr>
 
-    @{ int i = 0;
+    @{ 
+        int i = 0;
         foreach (var item in Model.Items)
         {
             <tr>
@@ -66,12 +67,11 @@
                 <td>
                     <span>@Html.ActionLink("Edit", "EditProduct", new { id = item.ID }) |</span>
                     <span>@Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID }) |</span>
-
-
-
                 </td>
             </tr>
+            i++;
         }
+
     }
 
 </table>
