@@ -1,0 +1,57 @@
+﻿@model Toy.Models.ViewModels.User.UserEditVm
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row user">
+    <div class="col-md-3">
+        <div class="userimage" style="background-image:url(../wwwroot/@Model.Image)"></div>
+        <ul class="useroption">
+            <li><a href="Details"><h4>Information</h4></a></li>
+            <li><h4 onclick="ChangeEmailUser() " style="color:red">Change Email</h4></li>
+            <li><h4 onclick="ChangePasswordUser() " style="color:red">Change Password</h4></li>
+
+
+        </ul>
+    </div>
+    <div class="col-md-9 userinfo">
+        <div class="row">
+            <h3>User IInfomation</h3>
+            <div class="col-md-3 ">
+                <div id="userIMG" style="background-image:url(../wwwroot/@Model.Image)">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <a class="changeUserInfo" href="#" onclick="ChangeDetails()"><img src="~/images/pen.png" width="15px" alt="Alternate Text" />  Edit</a>
+                <h4>Username : <b>@Model.FirstName</b></h4>
+                <h4>Second Name : <b>@Model.SecondName</b></h4>
+                <h4>City : <b>@Model.City</b></h4>
+                <h4>
+                    Adress : <b>@Model.Adress</b><h4>
+                        <h4>Telephone :<b> @Model.Telephone</b></h4>
+
+            </div>
+        </div>
+        @*<div class="row">
+                <h3>Orders</h3>
+                @foreach (var item in Model.Orders)
+                {
+                <div class="ordersUser">
+                    <h5>Order Number: <b>@item.OrderNumber</b></h5>
+
+                </div>
+                }
+            </div>*@
+    </div>
+</div>
+
+<div class="alert alert-success alertBox">
+    <img width="20px" src="~/images/ok.png" alt="Alternate Text" />
+
+</div>
+
+<div class="alert alert-danger dangerBox">
+    
+
+</div>

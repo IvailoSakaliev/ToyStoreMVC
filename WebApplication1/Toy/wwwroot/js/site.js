@@ -71,7 +71,6 @@ function ChangePriceTo() {
     }
 }
 
-
 function ChangePriceFrom() {
     var element = $("#priceOF").val();
     if (element < 0) {
@@ -104,9 +103,6 @@ function ChangePriceFrom() {
     }
 }
 
-
-
-
 function Restore() {
     $.ajax({
         url: '/Product/RestorePage',
@@ -122,7 +118,6 @@ function Restore() {
         }
     });
 }
-
 
 function DeleteImage(id) {
     var fullURL = window.location.href;
@@ -144,8 +139,8 @@ function DeleteImage(id) {
         error: function () {
         }
     });
-
 }
+
 function SetOrderInSession() {
     var fullURL = window.location.href;
     var last = fullURL.lastIndexOf('/');
@@ -174,9 +169,7 @@ function SetOrderInSession() {
         error: function () {
         }
     });
-
 }
-
 
 function leaveChange() {
     var quantity = parseInt($(".quantity").val());
@@ -186,12 +179,12 @@ function leaveChange() {
     total.html("Общо: " + result+ "лв.");
 }
 
-
 function OpenGalery()
 {
     $('.galery').fadeIn(600);
     $('.navbar').fadeOut(600);
 }
+
 function CloseGalery() {
     $('.galery').fadeOut(600);
     $('.navbar').fadeIn(600);
@@ -218,7 +211,6 @@ function DeleteOrderProduct(id) {
         error: function () {
         }
     });
-
 }
 
 function ChangeQuantityOfProduct(id) {
@@ -239,9 +231,44 @@ function ChangeQuantityOfProduct(id) {
                 error: function () {
                 }
             });
-
-
 }
+
+function ProductCategory(id) {
+         $.ajax({
+                url: '/Product/ChangBaseTypeValue',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: id },
+                success: function (data) {
+                    if (data == "ok") {
+                        window.location.href = "../../Product/Index?Curentpage=1";
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
+function ChangeType(id) {
+         $.ajax({
+                url: '/Product/ChangeType',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: id },
+                success: function (data) {
+                    if (data == "ok") {
+                        window.location.href = "../../Product/Index?Curentpage=1";
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
 $(document).ready(function () {
     var sessionValue = $('.session').text().trim();
     if (sessionValue === null || sessionValue ==="") {
@@ -252,3 +279,159 @@ $(document).ready(function () {
         $('.circle').css("display","block")
     }
 });
+
+function ChangeEmailUser() {
+        $.ajax({
+                url: '/User/ChangeEmailUser',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    if (data == "ok") {
+                         $(".userinfo").load("../User/ChangeEmail");
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
+function ChangePasswordUser() {
+        $.ajax({
+                url: '/User/ChangePasswordlUser',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    if (data == "ok") {
+                         $(".userinfo").load("../User/ChangePassword");
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
+function AddNewEmail() {
+    var email = $("#email").val();
+        $.ajax({
+                url: '/User/ChangeEmail',
+                type: 'POST',
+                dataType: 'json',
+                data: {email, email},
+                success: function (data) {
+                    if (data == "ok") {
+                        $(".alertBox").html('<img width="20px" src="../../images/ok.png" alt="Alternate Text" />Email was successful change!');
+                        $(".alertBox").fadeIn(500);
+                        setTimeout(function() { $(".alertBox").fadeOut(500); }, 4000);
+                        $("#email").val("");
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
+function AddNewPassword() {
+    var pass = $("#pass").val();
+    var cpass = $("#cpass").val();
+    if (pass === cpass) {
+        $.ajax({
+                url: '/User/ChangePassword',
+                type: 'POST',
+                dataType: 'json',
+                data: {password: pass},
+                success: function (data) {
+                    if (data == "ok") {
+                         $(".alertBox").html('<img width="20px" src="../../images/ok.png" alt="Alternate Text" />Password was successful change!');
+                        $(".alertBox").fadeIn(500);
+                        setTimeout(function() { $(".alertBox").fadeOut(500); }, 4000);
+                         $("#pass").val("");
+                         $("#cpass").val("")
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+    }
+    else
+    {
+        $(".dangerBox").html('Passwords is not equal!');
+        $(".dangerBox").fadeIn(500);
+        setTimeout(function() { $(".dangerBox").fadeOut(500); }, 4000);
+    }
+}
+
+function ChangeDetails() {
+        $.ajax({
+                url: '/User/GetInfoForUser',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    if (data != null) {
+                         $(".userinfo").load("../User/ChangeDetails");
+                    }
+                    
+
+                },
+                error: function () {
+                }
+            });
+}
+
+// function ChangeUserDetails() {
+//     var image = $("#file").val();
+//         $.ajax({
+//                 url: '/User/ChangeDetailsForUser',
+//                 type: 'POST',
+//                 dataType: 'json',
+//                 data: $("#userInformation").serialize(),
+//                 success: function (data) {
+//                     if (data != null) {
+                        
+//                     }
+                    
+
+//                 },
+//                 error: function () {
+//                 }
+//             });
+// }
+
+function ChangeSortOfProduct() {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+    var id = $("#sortlist").val();
+        $.ajax({
+                url: '/Product/ChangeSortOfProduct',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                     if (data == "1") {
+                            var url = "../Product/ListProduct?Curentpage=" + page;
+                            $('.products').load(url)
+                        }
+                        else if (data == "2") {
+                            var url = "../Product/GaleryProduct?Curentpage=" + page;
+                            $('.products').load(url);
+                        }
+                            
+
+                },
+                error: function () {
+                }
+            });
+}
+

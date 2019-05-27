@@ -16,7 +16,7 @@ namespace Toy.Controllers
         private ProductServise _product { get; set; }
         private ImageServise _image { get; set; }
         private TypeServise _type { get; set; }
-        private static string type;
+        private static int type;
         private static string frontImage;
         private static int _idElement;
 
@@ -52,7 +52,7 @@ namespace Toy.Controllers
             entity.Description = model.Description;
             entity.Price = model.Price;
             entity.Quantity = model.Quantity;
-            entity.Type = Request.Form["type"].ToString();
+            entity.Type = int.Parse(Request.Form["type"]);
             entity.Date = DateTime.Today.ToString();
             entity.Image = GetImagePath(photo);
 
@@ -72,7 +72,7 @@ namespace Toy.Controllers
         private void Addimage(IFormFile[] photo, int id)
         {
             ImageServise _img = new ImageServise();
-            string isUploadet = _img.UploadImages(photo,id);
+            string isUploadet = _img.UploadImagesForUser(photo);
             ModelState.AddModelError(string.Empty, isUploadet);
 
         }
@@ -159,8 +159,8 @@ namespace Toy.Controllers
             model.Quantity = entity.Quantity;
             model.Title = entity.Title;
             model.DateOfEdit = entity.Date;
-            type= entity.Type;
-            frontImage= entity.Image;
+            type = entity.Type;
+            frontImage = entity.Image;
 
             List<Images> img = new List<Images>();
             img = _image.GetAll(x => x.Subject_id == id);
@@ -191,11 +191,11 @@ namespace Toy.Controllers
             {
                 Addimage(photo, _idElement);
             }
-            
+
             ViewBag.success = "Product is updated successfuly !";
             return Redirect("../ProductIndex?Curentpage=1");
         }
-        
+
 
         [HttpGet]
         public IActionResult DeleteProduct(int id)
@@ -204,8 +204,8 @@ namespace Toy.Controllers
             _image.Delete(x => x.Subject_id == id);
             return Redirect("../ProductIndex?Curentpage=1");
         }
-
        
+        
 
     }
 }

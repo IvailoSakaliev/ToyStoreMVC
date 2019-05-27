@@ -20,15 +20,11 @@
                     <img onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
                 </div>
                 <div class="col-md-8" style="padding-right:5px;">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown button
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a></br>
-                            <a class="dropdown-item" href="#">Another action</a></br>
-                            <a class="dropdown-item" href="#">Something else here</a></br>
-                        </div>
+                        <select class="form-control" id="sortlist" onchange="ChangeSortOfProduct()">
+                            <option value="0">Date</option>
+                            <option value="1">Price min</option>
+                            <option value="2">Ptice max</option>
+                        </select>
                     </div>
                 </div>
             </div>

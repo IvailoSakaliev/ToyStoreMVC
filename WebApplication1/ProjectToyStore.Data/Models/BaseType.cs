@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ProjectToyStore.Data.Models
 {
-    public class TypeSubject
+    public class BaseType
         :BaseModel
     {
-        public int BaseTypeID { get; set; }
+
     }
 }

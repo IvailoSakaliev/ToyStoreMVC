@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectToyStore.Data;
 
 namespace ProjectToyStore.Data.Migrations
 {
     [DbContext(typeof(ToyContext))]
-    partial class ToyContextModelSnapshot : ModelSnapshot
+    [Migration("20190526120244_add_baseType_table")]
+    partial class add_baseType_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,8 +102,6 @@ namespace ProjectToyStore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Basetype");
-
                     b.Property<string>("Code");
 
                     b.Property<string>("Date");
@@ -118,7 +118,7 @@ namespace ProjectToyStore.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("Type");
+                    b.Property<string>("Type");
 
                     b.HasKey("ID");
 
@@ -149,8 +149,6 @@ namespace ProjectToyStore.Data.Migrations
                     b.Property<string>("Adress");
 
                     b.Property<string>("City");
-
-                    b.Property<string>("Image");
 
                     b.Property<int>("LoginID");
 

@@ -45,5 +45,22 @@ namespace ProjectToyStore.Servise.EntityServise
             }
             return "Uploaded";
         }
+        public string UploadImagesForUser(IFormFile[] photo)
+        {
+            if (photo == null || photo.Length == 0)
+            {
+                return "File not selected";
+            }
+            else
+            {
+                foreach (IFormFile item in photo)
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Galery/", item.FileName);
+                    var stream = new FileStream(path, FileMode.Create);
+                    item.CopyToAsync(stream);
+                }
+            }
+            return "Uploaded";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Toy</a>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -42,7 +43,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
@@ -60,7 +61,14 @@
                             }
                             else
                             {
+
+                                <li><a asp-controller="User" asp-action="Details">My Account</a></li>
                                 <li><a asp-area="" asp-controller="Login" asp-action="LoggOut">Logout</a></li>
+                                           
+                                if (Context.Session.GetString("User_ID") == "HXhgUz/hzsU=")
+                                            {
+                                    <li><a class="btn btn-danger adminButton" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
+                                }
                             }
                         }
 
@@ -73,7 +81,6 @@
     <div class="row">
         <div class="container herder">
             <div class="col-md-7">
-
                 <a href="~/Home/Index"><img src="~/images/Vavilonci.png" width="350px" ="Home" /></a>
 
             </div>
@@ -102,14 +109,14 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Превозни средства</a></li>
-                            <li><a href="#">Кукли и аксесоари</a></li>
-                            <li><a href="#">Фигури</a></li>
-                            <li><a href="#">С дистанционно управление</a></li>
-                            <li><a href="#">Лаптопи и таблети</a></li>
-                            <li><a href="#">Конструктор и сглобяеми играчки</a></li>
-                            <li><a href="#">Аркадни</a></li>
-                            <li><a href="#">За игра на професии</a></li>
+                            <li><a onclick="ChangeType(1)" href="#">Превозни средства</a></li>
+                            <li><a onclick="ChangeType(2)" href="#">Кукли и аксесоари</a></li>
+                            <li><a onclick="ChangeType(3)" href="#">Фигури</a></li>
+                            <li><a onclick="ChangeType(4)" href="#">С дистанционно управление</a></li>
+                            <li><a onclick="ChangeType(5)" href="#">Лаптопи и таблети</a></li>
+                            <li><a onclick="ChangeType(6)" href="#">Конструктор и сглобяеми играчки</a></li>
+                            <li><a onclick="ChangeType(7)" href="#">Аркадни</a></li>
+                            <li><a onclick="ChangeType(8)" href="#">За игра на професии</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -118,9 +125,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">За предучилищна подготовка </a></li>
-                            <li><a href="#">Музикални играчки</a></li>
-                            <li><a href="#">Настолни игри</a></li>
+                            <li><a onclick="ChangeType(9)" href="#">За предучилищна подготовка </a></li>
+                            <li><a onclick="ChangeType(10)" href="#">Музикални играчки</a></li>
+                            <li><a onclick="ChangeType(11)" href="#">Настолни игри</a></li>
 
                         </ul>
                     </li>
@@ -134,12 +141,12 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Спортни играчки</a></li>
-                            <li><a href="#">Игра на открито</a></li>
-                            <li><a href="#">Детски тротинетки</a></li>
-                            <li><a href="#">Ролери и скейтбордове</a></li>
-                            <li><a href="#">Колела и триколки</a></li>
-                            <li><a href="#">Колички и мотори </a></li>
+                            <li><a onclick="ChangeType(12)" href="#">Спортни играчки</a></li>
+                            <li><a onclick="ChangeType(13)" href="#">Игра на открито</aonclick="ChangeType(12)"></li>
+                            <li><a onclick="ChangeType(14)" href="#">Детски тротинетки</a></li>
+                            <li><a onclick="ChangeType(15)" href="#">Ролери и скейтбордове</aonclick="ChangeType(12)"></li>
+                            <li><a onclick="ChangeType(16)" href="#">Колела и триколки</a></li>
+                            <li><a onclick="ChangeType(17)" href="#">Колички и мотори </a></li>
 
                         </ul>
                     </li>
@@ -148,36 +155,36 @@
                             Пъзели
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu d1">
-                            <li><a href="#">Aвтoмoбили и мoтopи</a></li>
-                            <li><a href="#">Aнимaциoнни гepoи</a></li>
-                            <li><a href="#">Глeдки и пeйзaжи</a></li>
-                            <li><a href="#">Гopи, цвeтя и гpaдини</a></li>
-                            <li><a href="#">Дeцa и бeбeтa </a></li>
-                            <li><a href="#">Динoзaвpи </a></li>
-                            <li><a href="#">Живoтни </a></li>
-                            <li><a href="#">Зaмъци и xpaмoвe </a></li>
-                            <li><a href="#">Koнe </a></li>
-                            <li><a href="#">Kopaби и лoдки </a></li>
-                            <li><a href="#">Kocмoc </a></li>
+                            <ul class="dropdown-menu d1">
+                                <li><a onclick="ChangeType(18)" href="#">Aвтoмoбили и мoтopи</a></li>
+                                <li><a onclick="ChangeType(19)" href="#">Aнимaциoнни гepoи</a></li>
+                                <li><a onclick="ChangeType(20)" href="#">Глeдки и пeйзaжи</a></li>
+                                <li><a onclick="ChangeType(21)" href="#">Гopи, цвeтя и гpaдини</a></li>
+                                <li><a onclick="ChangeType(22)" href="#">Дeцa и бeбeтa </a></li>
+                                <li><a onclick="ChangeType(23)" href="#">Динoзaвpи </a></li>
+                                <li><a onclick="ChangeType(24)" href="#">Живoтни </a></li>
+                                <li><a onclick="ChangeType(25)" href="#">Зaмъци и xpaмoвe </a></li>
+                                <li><a onclick="ChangeType(26)" href="#">Koнe </a></li>
+                                <li><a onclick="ChangeType(27)" href="#">Kopaби и лoдки </a></li>
+                                <li><a onclick="ChangeType(28)" href="#">Kocмoc </a></li>
 
-                        </ul>
-                        <ul class="dropdown-menu d2">
+                            </ul>
+                            <ul class="dropdown-menu d2">
 
-                            <li><a href="#">Koтки </a></li>
-                            <li><a href="#">Kyчeтa </a></li>
-                            <li><a href="#">клaнини и eзepa </a></li>
-                            <li><a href="#">кoдвoдeн cвят </a></li>
-                            <li><a href="#">кoжapнa и пoлиция </a></li>
-                            <li><a href="#">ктици </a></li>
-                            <li><a href="#">Peки и вoдoпaди </a></li>
-                            <li><a href="#">Caмoлeти и бaлoни </a></li>
-                            <li><a href="#">Cгpaди и пocтpoйки</a></li>
-                            <li><a href="#">Фaнтacтикa </a></li>
-                            <li><a href="#">Фoтoгpaфии</a></li>
-                        </ul>
+                                <li><a onclick="ChangeType(29)" href="#">Koтки </a></li>
+                                <li><a onclick="ChangeType(30)" href="#">Kyчeтa </a></li>
+                                <li><a onclick="ChangeType(31)" href="#">клaнини и eзepa </a></li>
+                                <li><a onclick="ChangeType(32)" href="#">кoдвoдeн cвят </a></li>
+                                <li><a onclick="ChangeType(33)" href="#">кoжapнa и пoлиция </a></li>
+                                <li><a onclick="ChangeType(34)" href="#">ктици </a></li>
+                                <li><a onclick="ChangeType(35)" href="#">Peки и вoдoпaди </a></li>
+                                <li><a onclick="ChangeType(36)" href="#">Caмoлeти и бaлoни </a></li>
+                                <li><a onclick="ChangeType(37)" href="#">Cгpaди и пocтpoйки</a></li>
+                                <li><a onclick="ChangeType(38)" href="#">Фaнтacтикa </a></li>
+                                <li><a onclick="ChangeType(39)" href="#">Фoтoгpaфии</a></li>
+                            </ul>
                     </li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
+                    <li><a onclick="ChangeType(42)" asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
                 </ul>
             </div>
         </div>
