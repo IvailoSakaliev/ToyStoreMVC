@@ -17,6 +17,8 @@ namespace ProjectToyStore.Data
         public DbSet<Product> Subjects { get; set; }
         public DbSet<Hash> Hashs { get; set; }
         public DbSet<TypeSubject> TypeSubjects { get; set; }
+        public DbSet<BaseType> BaseTypes { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -16,6 +16,7 @@ namespace Toy.Controllers
         private ProductServise _product { get; set; }
         private ImageServise _image { get; set; }
         private TypeServise _type { get; set; }
+        private BaseTypeServise _basetype { get; set; }
         private static int type;
         private static string frontImage;
         private static int _idElement;
@@ -25,6 +26,7 @@ namespace Toy.Controllers
             _product = new ProductServise();
             _image = new ImageServise();
             _type = new TypeServise();
+            _basetype = new BaseTypeServise();
         }
         [HttpGet]
         public IActionResult Index()
@@ -40,6 +42,11 @@ namespace Toy.Controllers
             GenericSelectedList<TypeSubject> listUser = new GenericSelectedList<TypeSubject>();
 
             model.Type = listUser.GetSelectedListIthem(type);
+
+            var baseType = _basetype.GetAll();
+            GenericSelectedList<BaseType> listBAseType = new GenericSelectedList<BaseType>();
+
+            model.BaseType = listBAseType.GetSelectedListIthem(baseType);
             return View(model);
         }
 
@@ -53,6 +60,13 @@ namespace Toy.Controllers
             entity.Price = model.Price;
             entity.Quantity = model.Quantity;
             entity.Type = int.Parse(Request.Form["type"]);
+            entity.Basetype = int.Parse(Request.Form["basetype"]);
+
+            if (entity.Type == -1 || entity.Basetype == -1)
+            {
+                ModelState.AddModelError(string.Empty, "Please select type or basetype!");
+                return View(model);
+            }
             entity.Date = DateTime.Today.ToString();
             entity.Image = GetImagePath(photo);
 
@@ -60,7 +74,8 @@ namespace Toy.Controllers
             Product item = _product.GetLastElement();
 
             Addimage(photo, item.ID);
-            ViewBag.success = "Product is added successfuly !";
+
+
             return Redirect("Product");
         }
 
@@ -127,6 +142,11 @@ namespace Toy.Controllers
                 for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
                     itemVM.Items.Add(itemVM.AllItems[i]);
+
+                    itemVM.BaseTypeName.Add(AddNameOftypes(itemVM, i,1));
+                    itemVM.TypeName.Add(AddNameOftypes(itemVM, i,2));
+
+
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -135,6 +155,27 @@ namespace Toy.Controllers
             }
 
             return itemVM;
+        }
+
+        private string AddNameOftypes(ProducLIst itemVM, int id, int v)
+        {
+           
+            if (v == 2)
+            {
+                TypeServise servise = new TypeServise();
+                string items = "";
+                var element = servise.GetByID(itemVM.Items[id].Type);
+                items = element.Name;
+                return items;
+            }
+            else
+            {
+                BaseTypeServise servise = new BaseTypeServise();
+                string items = "";
+                var element = servise.GetByID(itemVM.Items[id].Basetype);
+                items = element.Name;
+                return items;
+            }
         }
 
         private string GetActionName()
@@ -204,8 +245,8 @@ namespace Toy.Controllers
             _image.Delete(x => x.Subject_id == id);
             return Redirect("../ProductIndex?Curentpage=1");
         }
-       
-        
+
+
 
     }
 }

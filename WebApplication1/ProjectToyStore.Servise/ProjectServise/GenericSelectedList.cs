@@ -26,7 +26,7 @@ namespace ProjectToyStore.Servise.ProjectServise
                 {
                     selectedList.Add(new SelectListItem
                     {
-                        Value = result[i].Name.ToString(),
+                        Value = result[i].ID.ToString(),
                         Text = result[i].Name.ToString()
                     });
                 }

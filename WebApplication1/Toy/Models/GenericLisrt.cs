@@ -9,7 +9,9 @@ namespace Toy.Models
         : IGenericList<Tentity, Tfilter>
        where Tentity : BaseModel
        where Tfilter : GenericFiler<Tentity>, new()
+
     {
+       
         public IList<Tentity> Items { get; set; }
         public IList<Tentity> AllItems { get; set; }
         public int Pages { get; set; }
@@ -19,12 +21,17 @@ namespace Toy.Models
         public Tfilter Filter { get; set; }
         public List<int> QuantityList { get; set; }
         public IEnumerable<SelectListItem> Qua { get; set; }
+        public IList<string> BaseTypeName { get; set; }
+        public IList<string> TypeName { get; set; }
+
 
         public GenericList()
         {
             this.Filter = new Tfilter();
             this.Items = new List<Tentity>();
             this.QuantityList = new List<int>();
+            this.BaseTypeName = new List<string>();
+            this.TypeName = new List<string>();
         }
 
 

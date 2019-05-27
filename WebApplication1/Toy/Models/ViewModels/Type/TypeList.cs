@@ -1,4 +1,5 @@
 ﻿using ProjectToyStore.Data.Models;
+using System.Collections.Generic;
 using Toy.Filters.EntityFilter;
 
 namespace Toy.Models.ViewModels.Type
@@ -9,7 +10,6 @@ namespace Toy.Models.ViewModels.Type
         public TypeList()
             :base()
         {
-
         }
     }
 }

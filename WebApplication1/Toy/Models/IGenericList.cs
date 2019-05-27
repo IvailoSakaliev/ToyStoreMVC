@@ -15,5 +15,7 @@ namespace Toy.Models
         IList<Tentity> Items { get; set; }
         int Pages { get; set; }
         int StartItem { get; set; }
+        IList<string> BaseTypeName { get; set; }
+        IList<string> TypeName { get; set; }
     }
 }

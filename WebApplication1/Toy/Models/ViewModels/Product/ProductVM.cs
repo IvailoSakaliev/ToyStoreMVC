@@ -38,7 +38,8 @@ namespace Toy.Models.ViewModels.Product
         [Required]
         public IEnumerable<SelectListItem> Type { get; set; }
 
-
+        [Required]
+        public IEnumerable<SelectListItem> BaseType { get; set; }
         // next line of code is for edit pages
 
         public string FrontImage { get; set; }

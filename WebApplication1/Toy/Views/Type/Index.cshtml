@@ -1,0 +1,53 @@
+﻿@model Toy.Models.ViewModels.Type.TypeList
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Admin/_admin.cshtml";
+}
+
+<h2>List of type</h2>
+
+<a href="../Type/Add">Add new Product</a>
+<div id="total">
+    <h3 id="price"></h3>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            Base Type
+        </th>
+
+        <th></th>
+    </tr>
+
+    @{  int i = 0;
+        foreach (var item in Model.Items)
+        {
+
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @Model.BaseTypeName[i]
+            </td>
+            
+
+            <td>
+                <span>@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |</span>
+                <span>@Html.ActionLink("Delete", "Delete", new { id = item.ID }) |</span>
+
+
+
+            </td>
+        </tr>
+                i++;
+            }
+        }
+
+</table>
+<div style="text-align:right">
+    @Html.Partial("_pageVM")
+</div>

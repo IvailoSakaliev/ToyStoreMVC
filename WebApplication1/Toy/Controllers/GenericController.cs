@@ -27,14 +27,16 @@ namespace Toy.Controllers
         protected int login_id { get; set; }
         private LoginServise _singin { get; set; }
         private IEncriptServises _encript;
-
+        private BaseTypeServise _baseType { get; set; }
+        private TypeServise _typeServise { get; set; }
 
 
         public GenericController()
         {
             _Servise = new Tservise();
             _singin = new LoginServise();
-
+            _baseType = new BaseTypeServise();
+            _typeServise = new TypeServise();
         }
 
         [HttpGet]
@@ -45,9 +47,6 @@ namespace Toy.Controllers
             itemVM = PopulateIndex(itemVM, Curentpage);
             string controllerNAme = GetControlerName();
 
-
-            string cookieValue = Request.Cookies["ViewProducr"];
-            ViewBag.Cookie = cookieValue;
             return View(itemVM);
         }
 
@@ -70,9 +69,20 @@ namespace Toy.Controllers
             itemVM.StartItem = 12 * curentPage;
             try
             {
-                for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
+                if (controllerName == "Type")
                 {
-                    itemVM.Items.Add(itemVM.AllItems[i]);
+                    for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
+                    {    
+                        itemVM.Items.Add(itemVM.AllItems[i]);
+                        itemVM.BaseTypeName.Add(PopulateINdexType(itemVM , i));
+                    }
+                }
+                else {
+
+                    for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
+                    {
+                        itemVM.Items.Add(itemVM.AllItems[i]);
+                    }
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -82,6 +92,8 @@ namespace Toy.Controllers
 
             return itemVM;
         }
+
+        
 
         private string GetActionName()
         {
@@ -115,7 +127,12 @@ namespace Toy.Controllers
                 Tservise servise = new Tservise();
                 entity = PopulateEditItemToModel(model, entity, id);
                 servise.Save(entity);
-                return RedirectToAction("Index");
+                string controllername = GetControlerName();
+                if (controllername == "Type")
+                {
+                    return Redirect("../Index?Curentpage=1");
+                }
+                return Redirect("Index?Curentpage=1");
             }
             return View(model);
         }
@@ -125,16 +142,11 @@ namespace Toy.Controllers
         public ActionResult Add()
         {
             TeidtVM model = new TeidtVM();
-            string nameOfController = GetControlerName();
-            try
+            string controllerName = GetControlerName();
+            if (controllerName == "Type")
             {
                 model = PopilateSelectListIthem(model);
-
-            }
-            catch (NullReferenceException)
-            {
-
-                throw;
+                
             }
             return View(model);
         }
@@ -144,14 +156,21 @@ namespace Toy.Controllers
         [HttpPost]
         public ActionResult Add(TeidtVM model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 TEntity entity = new TEntity();
                 entity = PopulateItemToModel(model, entity);
-                _Servise.Save(entity);
+                if (entity == null)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    _Servise.Save(entity);
+                }
 
             }
-            return View(model);
+            return Redirect("Index?CurentPage=1");
         }
 
         private void AddInformation(TEntity entity, TeidtVM model)
@@ -172,37 +191,16 @@ namespace Toy.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult Delete()
-        {
-            return View();
-        }
+       
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             _Servise.DeleteById(id);
-            return RedirectToAction("Index");
+            return Redirect("../Index?Curentpage=1");
         }
 
-        protected int RoleAnotation(Role role)
-        {
-            switch (role)
-            {
-                case Role.RegistredUser:
-                    return 2;
-                    break;
-                case Role.Guest:
-                    return 3;
-                    break;
-                case Role.Admin:
-                    return 1;
-                    break;
-                default:
-                    break;
-            }
-            return 0;
-        }
+        
 
 
         // abstract and viirtual classess 
@@ -220,6 +218,8 @@ namespace Toy.Controllers
         public virtual bool CheckForExitedUserInDB(TeidtVM model)
         {
             throw new NullReferenceException();
+
         }
+        internal abstract string PopulateINdexType(TlistVM itemVM, int id);
     }
 }
