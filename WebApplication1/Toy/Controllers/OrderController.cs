@@ -251,7 +251,7 @@ namespace Toy.Controllers
 
                     Product element = _product.GetByID(entity.SubjectID);
 
-                    entity.Total = entity.Quantity * element.Price;
+                    entity.Total =( entity.Quantity * element.Price);
                     _order.Save(entity);
                     ChangewquantityOfPRoduct(element, entity.Quantity);
                 }
@@ -374,19 +374,25 @@ namespace Toy.Controllers
         }
 
         [HttpPost]
-        public JsonResult ChangeStatus(int id)
+        public JsonResult ChangeStatus(string id)
         {
-            Order entity = _order.GetByID(id);
-            entity.Status = Status.InProces;
-            _order.Save(entity);
+            List<Order> entity = _order.GetAll(x=> x.OrderNumber == id);
+            foreach (var item in entity)
+            {
+                item.Status = Status.InProces;
+                _order.Save(item);
+            }
             return Json("ok");
         }
         [HttpPost]
-        public JsonResult CloseOrder(int id)
+        public JsonResult CloseOrder(string id)
         {
-            Order entity = _order.GetByID(id);
-            entity.Status = Status.Close;
-            _order.Save(entity);
+            List<Order> entity = _order.GetAll(x => x.OrderNumber == id);
+            foreach (var item in entity)
+            {
+                item.Status = Status.Close;
+                _order.Save(item);
+            }
             return Json("ok");
         }
 

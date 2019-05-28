@@ -88,11 +88,11 @@ namespace Toy.Controllers
             if (ModelState.IsValid)
             {
                 Login login = new Login();
-                List<Login> list = _servise.GetAll(x => x.Email == model.Email);
+                List<Login> list = _servise.GetAll(x => x.Email == _encript.EncryptData(model.Email));
                 if (list.Count != 0)
                 {
-                     //EmailServises _email = new EmailServises(list[0]);
-                    //_email.SendEmail(2);
+                     EmailServises _email = new EmailServises(list[0]);
+                   _email.SendEmail(2);
                 }
                 else
                 {
@@ -137,6 +137,7 @@ namespace Toy.Controllers
                     else
                     {
                         AddUSerINformation(reg);
+                        
                     }
                  }
                     
@@ -144,7 +145,7 @@ namespace Toy.Controllers
             return RedirectToAction("Confirm");
         }
 
-        private void AddUSerINformation(RegistrationVM reg)
+        private User AddUSerINformation(RegistrationVM reg)
         {
             List<Login> list = new List<Login>();
             list = _servise.GetAll(x => x.Email == _encript.EncryptData(reg.Email));
@@ -157,6 +158,7 @@ namespace Toy.Controllers
             user.Telephone = _encript.EncryptData(reg.Telephone);
             UserServise _userServise = new UserServise();
             _userServise.Save(user);
+            return user;
         }
 
         private string EnterLoginInformation( RegistrationVM reg)
@@ -184,7 +186,8 @@ namespace Toy.Controllers
             {
                 return "Password no match";
             }
-            
+            EmailServises _email = new EmailServises(login);
+            _email.SendEmail(1);
             return "OK";
         }
 

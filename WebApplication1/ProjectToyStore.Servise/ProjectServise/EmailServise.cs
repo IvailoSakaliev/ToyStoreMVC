@@ -27,7 +27,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             _admin = GetDecriptedInformationForAdmin();
             _encript = new EncriptServises();
-            _userEmail = user.Email;
+            _userEmail = _encript.DencryptData(user.Email);
             _userID = user.ID;
             _smtpClient = new SmtpClient();
             _basicCredential =
@@ -42,7 +42,7 @@ namespace ProjectToyStore.Servise.ProjectServise
             _smtpClient.UseDefaultCredentials = false;
             _smtpClient.Credentials = _basicCredential;
             _smtpClient.EnableSsl = true;
-            _smtpClient.Port = 465;
+            _smtpClient.Port = 587;
 
             _message.From = _fromAddress;
             _message.IsBodyHtml = true;
@@ -81,8 +81,8 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             var admin = GetByID(1);
             Login result = new Login();
-            result.Email = "ivo.sakaliev1996@gmail.com";
-            result.Password = "bachiivo1996";
+            result.Email = _encript.DencryptData("E83TdqkyHVLXtDnRuDysZZ9ftLt5ewXyCH/MJe6yL9E=");
+            result.Password = _encript.DencryptData("JlSAXTmP3aX+cXEEIQsEJA==")
             return result;
         }
     }
