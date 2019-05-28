@@ -49,8 +49,16 @@
                     </div>
                     <h3 class="total">Общо:</h3>
 
+                    @if (Model.Quantity.Count() == 0)
+                    {
+                        <span style="color:red">Няма в наличност</span>
+                        <button onclick="SetOrderInSession()" class="btn btn-primary orderBY" type="submit" name="by" disabled>Добави в количката</button>
+                    }
+                    else
+                    {
+                        <button onclick="SetOrderInSession()" class="btn btn-primary orderBY" type="submit" name="by">Добави в количката</button>
+                    }
 
-                    <button onclick="SetOrderInSession()" class="btn btn-primary orderBY" type="submit" name="by">Добави в количката</button>
 
                 </div>
             </div>

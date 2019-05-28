@@ -309,7 +309,7 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            itemVM.AllItems = _order.GetAll();
+            itemVM.AllItems = _order.GetAll(x=> x.Status == Status.InProces || x.Status == Status.Supplier);
             itemVM.Pages = itemVM.AllItems.Count / 12;
             double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
@@ -371,6 +371,23 @@ namespace Toy.Controllers
         private string GetControlerName()
         {
             return this.ControllerContext.RouteData.Values["controller"].ToString();
+        }
+
+        [HttpPost]
+        public JsonResult ChangeStatus(int id)
+        {
+            Order entity = _order.GetByID(id);
+            entity.Status = Status.InProces;
+            _order.Save(entity);
+            return Json("ok");
+        }
+        [HttpPost]
+        public JsonResult CloseOrder(int id)
+        {
+            Order entity = _order.GetByID(id);
+            entity.Status = Status.Close;
+            _order.Save(entity);
+            return Json("ok");
         }
 
     }

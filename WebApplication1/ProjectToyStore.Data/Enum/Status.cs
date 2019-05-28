@@ -6,8 +6,8 @@ namespace ProjectToyStore.Data
 {
     public enum Status
     {
-        InProces = 1,
-        Supplier = 2,
-        Delevered = 3,
+        Supplier = 1,
+        InProces = 2,
+        Close = 3,
     }
 }

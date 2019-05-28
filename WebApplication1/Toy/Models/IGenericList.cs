@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectToyStore.Data.Models;
 using Toy.Filters;
+using Toy.Models.ViewModels.User;
 
 namespace Toy.Models
 {
@@ -19,5 +20,7 @@ namespace Toy.Models
         IList<string> TypeName { get; set; }
         IList<Product> Product { get; set; }
         IList<User> User { get; set; }
+        IList<Order> Order { get; set; }
+        UserEditVm CurrentUser { get; set; }
     }
 }

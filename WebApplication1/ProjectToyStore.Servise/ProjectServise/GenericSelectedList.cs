@@ -38,7 +38,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         public IEnumerable<SelectListItem> GetSelectedListIthemQuantity(int quantity)
         {
             var selectedList = new List<SelectListItem>();
-            for (int i = 1; i < quantity; i++)
+            for (int i = 1; i < quantity+1; i++)
             {
 
                 selectedList.Add(new SelectListItem

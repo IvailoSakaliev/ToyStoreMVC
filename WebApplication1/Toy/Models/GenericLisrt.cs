@@ -2,6 +2,7 @@
 using ProjectToyStore.Data.Models;
 using System.Collections.Generic;
 using Toy.Filters;
+using Toy.Models.ViewModels.User;
 
 namespace Toy.Models
 {
@@ -26,6 +27,8 @@ namespace Toy.Models
 
         public IList<Product> Product { get; set; }
         public IList<User> User { get; set; }
+        public IList<Order> Order { get; set; }
+        public UserEditVm CurrentUser { get; set; }
 
         public GenericList()
         {
@@ -36,7 +39,8 @@ namespace Toy.Models
             this.TypeName = new List<string>();
             this.Product = new List<Product>();
             this.User = new List<User>();
-
+            this.Order = new List<Order>();
+            this.CurrentUser = new UserEditVm();
         }
 
 

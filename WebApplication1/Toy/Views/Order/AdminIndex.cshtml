@@ -22,7 +22,7 @@
         <div class="col-md-2"> Date</div>
         <div class="col-md-2"> Status</div>
         <div class="col-md-2"> Total Price</div>
-        <div class="col-md-4"> Action</div>
+        <div class="col-md-2"> Action</div>
     </div>
     <div id="mode" style="visibility:hidden">0</div>
 
@@ -30,42 +30,129 @@
         int i = 0;
         foreach (var item in Model.Items)
         {
-            <div class="addID">
-                <div class="row orderInformation ">
-                    <div class="col-md-2"> @item.OrderNumber </div>
-                    <div class="col-md-1"> @item.Quantity</div>
-                    <div class="col-md-2"> @item.Date</div>
-                    <div class="col-md-1"> @item.Status</div>
-                    <div class="col-md-2"> @item.Total</div>
-                    <div class="col-md-4">
-                        <span><a style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details |</a></span>
-                        <span><a style="color:white" href="#">In process |</a> </span>
-                        <span><a style="color:white" href="#">Close</a> </span>
+            if (item.Status.ToString() == "Supplier")
+            {
+                <div class="addID">
+                    <div class="row orderInformation ">
+                        <div class="col-md-2"> @item.OrderNumber </div>
+                        <div class="col-md-2"> @item.Quantity</div>
+                        <div class="col-md-2"> @item.Date</div>
+                        <div class="col-md-2"> @item.Status</div>
+                        <div class="col-md-2"> @item.Total</div>
+                        <div class="col-md-2">
+                            <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
+                        </div>
+                    </div>
+                    <div class="row informarionForUserAndPRoduct ">
+                        <div class="col-md-4 product">
+
+                            <h4>Product</h4>
+                            <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
+                            <h5>Code: @Model.Product[i].Code</h5>
+                            <h5>Title: @Model.Product[i].Title</h5>
+                            <h5>Price: @Model.Product[i].Price</h5>
+                            <h5>Quantity:@Model.Product[i].Quantity </h5>
+
+                        </div>
+                        <div class="col-md-4 users">
+                            <h4>User information</h4>
+                            <h5>Name: @Model.User[i].Name</h5>
+                            <h5>Second Name: @Model.User[i].SecondName</h5>
+                            <h5>City:@Model.User[i].City </h5>
+                            <h5>Adress:@Model.User[i].Adress </h5>
+                            <h5>Telephone: @Model.User[i].Telephone</h5>
+
+                        </div>
+                        <div class="col-md-4" style="padding-top:30px">
+                            <button onclick="ChangeOrderState(@item.ID)" class="btn btn-warning">In process</button>
+                            <button onclick="CloseOrder(@item.ID)" class="btn btn-danger">Close</button>
+                        </div>
+
                     </div>
                 </div>
-                <div class="row informarionForUserAndPRoduct ">
-                    <div class="col-md-6 product">
+            }
+            else if (item.Status.ToString() == "InProces")
+            {
+                <div class="addID">
+                    <div class="row orderInformation" style="background-color:yellow; color:black">
+                        <div class="col-md-2"> @item.OrderNumber </div>
+                        <div class="col-md-2"> @item.Quantity</div>
+                        <div class="col-md-2"> @item.Date</div>
+                        <div class="col-md-2"> @item.Status</div>
+                        <div class="col-md-2"> @item.Total</div>
+                        <div class="col-md-2">
+                            <span style="color:black" onclick="showDetailsForOrder(@i)" href="#">Details </span>
+                        </div>
+                    </div>
+                    <div class="row informarionForUserAndPRoduct ">
+                        <div class="col-md-4 product">
 
-                        <h4>Product</h4>
-                        <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />e
-                        <h5>Code: @Model.Product[i].Code</h5>
-                        <h5>Title: @Model.Product[i].Title</h5>
-                        <h5>Price: @Model.Product[i].Price</h5>
-                        <h5>Quantity:@Model.Product[i].Quantity </h5>
+                            <h4>Product</h4>
+                            <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
+                            <h5>Code: @Model.Product[i].Code</h5>
+                            <h5>Title: @Model.Product[i].Title</h5>
+                            <h5>Price: @Model.Product[i].Price</h5>
+                            <h5>Quantity:@Model.Product[i].Quantity </h5>
+
+                        </div>
+                        <div class="col-md-4 users">
+                            <h4>User information</h4>
+                            <h5>Name: @Model.User[i].Name</h5>
+                            <h5>Second Name: @Model.User[i].SecondName</h5>
+                            <h5>City:@Model.User[i].City </h5>
+                            <h5>Adress:@Model.User[i].Adress </h5>
+                            <h5>Telephone: @Model.User[i].Telephone</h5>
+
+                        </div>
+                        <div class="col-md-4" style="padding-top:30px">
+                            <button onclick="ChangeOrderState(@item.ID)" class="btn btn-warning" disabled>In process</button>
+                            <button onclick="CloseOrder(@item.ID)" class="btn btn-danger">Close</button>
+                        </div>
 
                     </div>
-                    <div class="col-md-6 users">
-                        <h4>User information</h4>
-                        <h5>Name: @Model.User[i].Name</h5>
-                        <h5>Second Name: @Model.User[i].SecondName</h5>
-                        <h5>City:@Model.User[i].City </h5>
-                        <h5>Adress:@Model.User[i].Adress </h5>
-                        <h5>Telephone: @Model.User[i].Telephone</h5>
-
-                    </div>
-
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="addID">
+                    <div class="row orderInformation " style="background-color:red">
+                        <div class="col-md-2"> @item.OrderNumber </div>
+                        <div class="col-md-2"> @item.Quantity</div>
+                        <div class="col-md-2"> @item.Date</div>
+                        <div class="col-md-2"> @item.Status</div>
+                        <div class="col-md-2"> @item.Total</div>
+                        <div class="col-md-2">
+                            <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
+                        </div>
+                    </div>
+                    <div class="row informarionForUserAndPRoduct ">
+                        <div class="col-md-4 product">
+
+                            <h4>Product</h4>
+                            <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
+                            <h5>Code: @Model.Product[i].Code</h5>
+                            <h5>Title: @Model.Product[i].Title</h5>
+                            <h5>Price: @Model.Product[i].Price</h5>
+                            <h5>Quantity:@Model.Product[i].Quantity </h5>
+
+                        </div>
+                        <div class="col-md-4 users">
+                            <h4>User information</h4>
+                            <h5>Name: @Model.User[i].Name</h5>
+                            <h5>Second Name: @Model.User[i].SecondName</h5>
+                            <h5>City:@Model.User[i].City </h5>
+                            <h5>Adress:@Model.User[i].Adress </h5>
+                            <h5>Telephone: @Model.User[i].Telephone</h5>
+
+                        </div>
+                        <div class="col-md-4" style="padding-top:30px">
+                            <button onclick="ChangeOrderState(@item.ID)" class="btn btn-warning" disabled>In process</button>
+                            <button onclick="CloseOrder(@item.ID)" class="btn btn-danger" disabled>Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            }
             i++;
         }
     }

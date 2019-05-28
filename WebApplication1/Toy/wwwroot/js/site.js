@@ -440,18 +440,77 @@ function ChangeSortOfProduct() {
 // }
 function showDetailsForOrder(id) {
     var elements = $(".addID").children(".informarionForUserAndPRoduct");
+    var orders = $(".addID").children(".orderInformation");
     var oneElement = elements.get(id);
+    var order = orders.get(id);
     var hiddenElementIValue = $("#mode").text();
     if (hiddenElementIValue == 0) {
         oneElement.id = "slide";
+        order.id = "changeColor"
         $("#slide").slideDown(400);
         $("#mode").html("1");
     }
     else
     {
+
         $("#slide").slideUp(400);
         oneElement.id = "";
+        order.id = ""
         $("#mode").html("0");
     }
 
+}
+
+function ChangeOrderState(id) {
+    $.ajax({
+                url: '/Order/ChangeStatus',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    if (data == "ok") {
+                        $(".alertBox").html('<img width="20px" src="../../images/ok.png" alt="Alternate Text" />Status was change successful! ');
+                        $(".alertBox").fadeIn(500);
+                        setTimeout(function() { $(".alertBox").fadeOut(500); }, 4000);
+                         $("#changeColor").css("background-color", "yellow")
+                         $("#changeColor").css("color", "black")
+                    }
+                    
+
+                },
+                error: function () {
+                    $(".dangerBox").html("Order can't change");
+                    $(".dangerBox").fadeIn(500);
+                    setTimeout(function() { $(".dangerBox").fadeOut(500); }, 4000);
+                }
+            });
+    
+
+}
+function CloseOrder(id) {
+    $.ajax({
+                url: '/Order/CloseOrder',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    if (data == "ok") {
+                        $(".alertBox").html('<img width="20px" src="../../images/ok.png" alt="Alternate Text" />Status was close successful! ');
+                        $(".alertBox").fadeIn(500);
+                        setTimeout(function() { $(".alertBox").fadeOut(500); }, 4000);
+                        $("#changeColor").css("background-color", "red")
+                    }
+                    
+
+                },
+                error: function () {
+                    $(".dangerBox").html("Order can't close");
+                    $(".dangerBox").fadeIn(500);
+                    setTimeout(function() { $(".dangerBox").fadeOut(500); }, 4000);
+                }
+            });
+}
+
+function ChangeStatusColor(id) {
+    alert(id);
 }
