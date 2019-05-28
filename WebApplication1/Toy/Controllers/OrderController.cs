@@ -18,8 +18,8 @@ namespace Toy.Controllers
         private ProductServise _product = new ProductServise();
         private ImageServise _image = new ImageServise();
         private OrderServise _order = new OrderServise();
-
         private int _orderNumber;
+
         public IActionResult Index()
         {
 
@@ -92,7 +92,7 @@ namespace Toy.Controllers
 
             orderSession = "";
             quantityPro = "";
-            for (int i = 0; i < keyProduct.Length -1; i++)
+            for (int i = 0; i < keyProduct.Length - 1; i++)
             {
                 if (keyProduct[i] == id)
                 {
@@ -108,7 +108,8 @@ namespace Toy.Controllers
 
             return Json("ok");
 
-        }        [HttpGet]
+        }
+        [HttpGet]
 
         public IActionResult Orders()
         {
@@ -131,7 +132,7 @@ namespace Toy.Controllers
             {
                 string[] keyProduct = productsId.Split(",");
                 string[] keyQuantity = quantities.Split(",");
-                
+
                 for (int i = 0; i < keyProduct.Length - 1; i++)
                 {
                     Product entity = _product.GetByID(int.Parse(keyProduct[i]));
@@ -142,7 +143,7 @@ namespace Toy.Controllers
                     itemVM.Items.Add(_product.GetByID(int.Parse(keyProduct[i])));
                     itemVM.Items[i].Quantity = int.Parse(keyQuantity[i]);
                 }
-                
+
                 return View(itemVM);
             }
         }
@@ -158,7 +159,7 @@ namespace Toy.Controllers
 
             productsId = "";
             quantities = "";
-            for (int i = 0; i < keyProduct.Length-1; i++)
+            for (int i = 0; i < keyProduct.Length - 1; i++)
             {
                 if (keyProduct[i] == id.ToString())
                 {
@@ -186,7 +187,7 @@ namespace Toy.Controllers
                 UserServise _login = new UserServise();
                 EncriptServises _encript = new EncriptServises();
                 User user = new User();
-                user = _login.GetByID(int.Parse(_encript.DencryptData( userID)));
+                user = _login.GetByID(int.Parse(_encript.DencryptData(userID)));
                 model.FirstName = _encript.DencryptData(user.Name);
                 model.SecondName = _encript.DencryptData(user.SecondName);
                 model.City = _encript.DencryptData(user.City);
@@ -211,14 +212,14 @@ namespace Toy.Controllers
 
             string[] keyProduct = productsId.Split(",");
             string[] keyQuantity = quantities.Split(",");
-            
+
             User user = new User();
             UserServise _user = new UserServise();
 
             if (userID != null)
             {
                 EncriptServises _encript = new EncriptServises();
-                for (int i = 0; i < keyProduct.Length -1; i++)
+                for (int i = 0; i < keyProduct.Length - 1; i++)
                 {
                     Order entity = new Order();
                     entity.SubjectID = int.Parse(keyProduct[i]);
@@ -229,7 +230,7 @@ namespace Toy.Controllers
                     entity.UserID = int.Parse(_encript.DencryptData(userID));
                     _order.Save(entity);
 
-                    
+
                 }
             }
             else
@@ -247,11 +248,22 @@ namespace Toy.Controllers
                     entity.Status = Status.Supplier;
                     user = _user.GetLastElement();
                     entity.UserID = user.ID;
+
+                    Product element = _product.GetByID(entity.SubjectID);
+
+                    entity.Total = entity.Quantity * element.Price;
                     _order.Save(entity);
+                    ChangewquantityOfPRoduct(element, entity.Quantity);
                 }
             }
             DeleteSession();
             return RedirectToAction("CungratOrder");
+        }
+
+        private void ChangewquantityOfPRoduct(Product element, int quantity)
+        {
+            element.Quantity -= quantity;
+            _product.Save(element);
         }
 
         private void DeleteSession()
@@ -278,6 +290,88 @@ namespace Toy.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public ActionResult AdminIndex(int Curentpage)
+        {
+            OrderList itemVM = new OrderList();
+            itemVM = PopulateIndex(itemVM, Curentpage);
+
+            return View(itemVM);
+        }
+
+
+
+        protected virtual OrderList PopulateIndex(OrderList itemVM, int curentPage)
+        {
+            string controllerName = GetControlerName();
+            string actionname = GetActionName();
+
+            itemVM.ControllerName = controllerName;
+            itemVM.ActionName = actionname;
+            itemVM.AllItems = _order.GetAll();
+            itemVM.Pages = itemVM.AllItems.Count / 12;
+            double doublePages = itemVM.AllItems.Count / 12.0;
+            if (doublePages > itemVM.Pages)
+            {
+                itemVM.Pages++;
+            }
+            itemVM.StartItem = 12 * curentPage;
+            try
+            {
+                for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
+                {
+                    itemVM.Items.Add(itemVM.AllItems[i]);
+                    itemVM.Product.Add(PopulateProduct(itemVM.AllItems[i]));
+                    itemVM.User.Add(PopulateUser(itemVM.AllItems[i]));
+
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+
+            }
+
+            return itemVM;
+        }
+
+        private User PopulateUser(Order order)
+        {
+            User entity = new User();
+            UserServise _user = new UserServise();
+            EncriptServises _encript = new EncriptServises();
+            var model = _user.GetByID(order.UserID);
+            entity.Name = _encript.DencryptData(model.Name);
+            entity.SecondName = _encript.DencryptData(model.SecondName);
+            entity.City = _encript.DencryptData(model.City);
+            entity.Adress = _encript.DencryptData(model.Adress);
+            entity.Telephone = _encript.DencryptData(model.Telephone);
+
+            return entity;
+        }
+
+        private Product PopulateProduct(Order order)
+        {
+            Product entity = new Product();
+            var model = _product.GetByID(order.SubjectID);
+            entity.Title = model.Title;
+            entity.Code = model.Code;
+            entity.Price = model.Price;
+            entity.Quantity = model.Quantity;
+            entity.Image = model.Image;
+            return entity;
+
+        }
+
+        private string GetActionName()
+        {
+            return this.ControllerContext.RouteData.Values["action"].ToString();
+        }
+
+        private string GetControlerName()
+        {
+            return this.ControllerContext.RouteData.Values["controller"].ToString();
+        }
 
     }
 }

@@ -17,5 +17,7 @@ namespace Toy.Models
         int StartItem { get; set; }
         IList<string> BaseTypeName { get; set; }
         IList<string> TypeName { get; set; }
+        IList<Product> Product { get; set; }
+        IList<User> User { get; set; }
     }
 }

@@ -24,6 +24,8 @@ namespace Toy.Models
         public IList<string> BaseTypeName { get; set; }
         public IList<string> TypeName { get; set; }
 
+        public IList<Product> Product { get; set; }
+        public IList<User> User { get; set; }
 
         public GenericList()
         {
@@ -32,6 +34,9 @@ namespace Toy.Models
             this.QuantityList = new List<int>();
             this.BaseTypeName = new List<string>();
             this.TypeName = new List<string>();
+            this.Product = new List<Product>();
+            this.User = new List<User>();
+
         }
 
 

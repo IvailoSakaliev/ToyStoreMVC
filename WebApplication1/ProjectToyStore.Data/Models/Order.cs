@@ -13,5 +13,6 @@ namespace ProjectToyStore.Data.Models
         public int Quantity { get; set; }
         public string Date { get; set; }
         public Status Status { get; set; }
+        public double Total { get; set; }
     }
 }

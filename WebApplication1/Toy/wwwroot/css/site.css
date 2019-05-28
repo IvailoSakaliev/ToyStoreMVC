@@ -247,11 +247,40 @@ footer{
 .delteImage
 {
     display:none;
-    float:right
+    float:right;
 }
 
-
-
+.orders
+{
+    padding-left: 20px;:
+    ;
+}
+.headers .col-md-2
+{
+    font-weight: bold
+}
+.headers .col-md-4
+{
+    font-weight: bold
+}
+.addID
+{
+    padding: 5px;
+}
+.informarionForUserAndPRoduct
+{
+    display: none;
+    background-color: white;
+}
+.headers .col-md-4 span:hover
+{
+    cursor: pointer;
+}
+.orderInformation
+{
+    background-color: green;
+    color:white;
+}
 .desc{
     width:100%
 }
@@ -554,3 +583,5 @@ footer{
     vertical-align: top !important;
     color: white !important;
 }
+
+/*admin*/

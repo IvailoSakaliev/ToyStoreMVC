@@ -435,3 +435,23 @@ function ChangeSortOfProduct() {
             });
 }
 
+// function AddID() {
+//     $(".informarionForUserAndPRoduct").attr('id','slide');
+// }
+function showDetailsForOrder(id) {
+    var elements = $(".addID").children(".informarionForUserAndPRoduct");
+    var oneElement = elements.get(id);
+    var hiddenElementIValue = $("#mode").text();
+    if (hiddenElementIValue == 0) {
+        oneElement.id = "slide";
+        $("#slide").slideDown(400);
+        $("#mode").html("1");
+    }
+    else
+    {
+        $("#slide").slideUp(400);
+        oneElement.id = "";
+        $("#mode").html("0");
+    }
+
+}
