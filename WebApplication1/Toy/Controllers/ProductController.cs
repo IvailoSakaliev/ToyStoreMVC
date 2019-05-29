@@ -29,7 +29,10 @@ namespace Toy.Controllers
             itemVM = new ProducLIst();
             itemVM.Filter = new PruductFilter();
             itemVM = GetElement(itemVM, Curentpage);
-            ViewBag.Cookie = Request.Cookies["ViewProducr"];
+            if (Request.Cookies["ViewProducr"] == null)
+            {
+                Response.Cookies.Append("ViewProducr", "2");
+            }
             return View(itemVM);
         }
 
@@ -119,46 +122,46 @@ namespace Toy.Controllers
             {
                 if (_mode != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo && x.Basetype == _mode);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo && x.Basetype == _mode);
                 }else if(_singletype != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo && x.Type == _singletype);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo && x.Type == _singletype);
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Price < _priceTo);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo);
                 }
             }
             else if (_priceTo != 0)
             {
                 if (_mode != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price < _priceTo && x.Basetype == _mode);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo && x.Basetype == _mode);
 
                 }
                 else if (_singletype != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price < _priceTo && x.Type == _singletype);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo && x.Type == _singletype);
 
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price < _priceTo);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo);
                 }
             }
             else if (_priceFrom != 0)
             {
                 if (_mode != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Basetype == _mode);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Basetype == _mode);
                 }
                 else if (_singletype != 0)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom && x.Type == _singletype);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Type == _singletype);
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price > _priceFrom);
+                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom);
                 }
             }
             else

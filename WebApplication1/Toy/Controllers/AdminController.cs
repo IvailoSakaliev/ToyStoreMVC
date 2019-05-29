@@ -87,7 +87,7 @@ namespace Toy.Controllers
         private void Addimage(IFormFile[] photo, int id)
         {
             ImageServise _img = new ImageServise();
-            string isUploadet = _img.UploadImagesForUser(photo);
+            string isUploadet = _img.UploadImages(photo, id);
             ModelState.AddModelError(string.Empty, isUploadet);
 
         }
@@ -142,11 +142,8 @@ namespace Toy.Controllers
                 for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
                     itemVM.Items.Add(itemVM.AllItems[i]);
-
                     itemVM.BaseTypeName.Add(AddNameOftypes(itemVM, i,1));
                     itemVM.TypeName.Add(AddNameOftypes(itemVM, i,2));
-
-
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -159,7 +156,6 @@ namespace Toy.Controllers
 
         private string AddNameOftypes(ProducLIst itemVM, int id, int v)
         {
-           
             if (v == 2)
             {
                 TypeServise servise = new TypeServise();
@@ -216,8 +212,19 @@ namespace Toy.Controllers
             model.Quantity = entity.Quantity;
             model.Title = entity.Title;
             model.DateOfEdit = entity.Date;
-            type = entity.Type;
+            model.TypeString = entity.Type;
+            model.BaseTyoeString = entity.Basetype;
+
             frontImage = entity.Image;
+            var type = _type.GetAll();
+            GenericSelectedList<TypeSubject> listUser = new GenericSelectedList<TypeSubject>();
+
+            model.Type = listUser.GetSelectedListIthem(type);
+
+            var baseType = _basetype.GetAll();
+            GenericSelectedList<BaseType> listBAseType = new GenericSelectedList<BaseType>();
+
+            model.BaseType = listBAseType.GetSelectedListIthem(baseType);
 
             List<Images> img = new List<Images>();
             img = _image.GetAll(x => x.Subject_id == id);
@@ -240,8 +247,10 @@ namespace Toy.Controllers
             entity.Quantity = model.Quantity;
             entity.Date = DateTime.Today.ToString();
             entity.ID = _idElement;
-            entity.Type = type;
+            entity.Type = int.Parse(Request.Form["type"]);
+            entity.Basetype = int.Parse(Request.Form["basetype"]);
             entity.Image = frontImage;
+
 
             _product.Save(entity);
             if (photo.Length != 0)
@@ -253,7 +262,6 @@ namespace Toy.Controllers
             return Redirect("../ProductIndex?Curentpage=1");
         }
 
-
         [HttpGet]
         public IActionResult DeleteProduct(int id)
         {
@@ -261,8 +269,5 @@ namespace Toy.Controllers
             _image.Delete(x => x.Subject_id == id);
             return Redirect("../ProductIndex?Curentpage=1");
         }
-
-
-
     }
 }

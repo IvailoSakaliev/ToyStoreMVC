@@ -302,11 +302,20 @@ namespace Toy.Controllers
         {
             OrderList itemVM = new OrderList();
             itemVM = PopulateIndex(itemVM, Curentpage);
-
+            itemVM.QuantityOrderList = Populatequntity(itemVM.QuantityOrderList, itemVM.AllItems);
             return View(itemVM);
         }
 
+        private List<int> Populatequntity(List<int> quantityOrderList, IList<Order> allItems)
+        {
+            foreach (var item in allItems)
+            {
+                quantityOrderList.Add(item.Quantity);
+            }
+            return quantityOrderList;
+        }
 
+       
 
         protected virtual OrderList PopulateIndex(OrderList itemVM, int curentPage)
         {
@@ -335,8 +344,6 @@ namespace Toy.Controllers
                 {
                     if (OrderNumber == itemVM.AllItems[i].OrderNumber)
                     {
-
-
                         count++;
                         quantityOfOrder += itemVM.AllItems[i].Quantity;
                         totalPrice += itemVM.AllItems[i].Total;

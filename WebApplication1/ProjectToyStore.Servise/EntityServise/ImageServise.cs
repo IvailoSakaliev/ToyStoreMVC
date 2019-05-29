@@ -8,15 +8,15 @@ using System.Collections.Generic;
 namespace ProjectToyStore.Servise.EntityServise
 {
     public class ImageServise
-        :GenericServise<Images>
+        : GenericServise<Images>
     {
-        
+
         public ImageServise()
-            :base()
+            : base()
         {
         }
 
-       
+
 
         public string UploadImages(IFormFile[] photo, int productID)
         {
@@ -26,21 +26,18 @@ namespace ProjectToyStore.Servise.EntityServise
             }
             else
             {
-                int i = 1;
+
                 foreach (IFormFile item in photo)
                 {
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Galery/", item.FileName);
                     var stream = new FileStream(path, FileMode.Create);
                     item.CopyToAsync(stream);
-                    if (i != 1)
-                    {
-                        Images img = new Images();
-                        img.Path = "../images/Galery/" + item.FileName;
-                        img.Subject_id = productID;
-                        Save(img);
-                    }
-                    i++;
-                    
+
+                    Images img = new Images();
+                    img.Path = "../images/Galery/" + item.FileName;
+                    img.Subject_id = productID;
+                    Save(img);
+
                 }
             }
             return "Uploaded";

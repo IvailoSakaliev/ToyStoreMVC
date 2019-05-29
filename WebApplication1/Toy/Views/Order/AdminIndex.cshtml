@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="row informarionForUserAndPRoduct ">
-                        <div class="row"  style="padding:20px;">
+                        <div class="row" style="padding:20px;">
                             <div class="col-md-9 users">
                                 <h4>User information</h4>
                                 <h5>Name: @Model.User[i].Name</h5>
@@ -67,7 +67,8 @@
                                     <h5>Code: @Model.Product[count].Code</h5>
                                     <h5>Title: @Model.Product[count].Title</h5>
                                     <h5>Price: @Model.Product[count].Price</h5>
-                                    <h5>Quantity:@Model.Product[count].Quantity </h5>
+                                    <h5>In stock:@Model.Product[count].Quantity</h5>
+                                    <h5>Order Quantity:@Model.QuantityOrderList[count] </h5>
 
 
                                 </div>
@@ -79,7 +80,7 @@
             }
             else if (item.Status.ToString() == "InProces")
             {
-                <div class="addID" >
+                <div class="addID">
                     <div class="row orderInformation" style="background-color:yellow; color:black">
                         <div class="col-md-2"> @item.OrderNumber </div>
                         <div class="col-md-2"> @Model.QuantityList[i]</div>
@@ -87,7 +88,7 @@
                         <div class="col-md-2"> @item.Status</div>
                         <div class="col-md-2"> @Model.TotalPriceList[i]</div>
                         <div class="col-md-2">
-                            <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
+                            <span style="color:black" onclick="showDetailsForOrder(@i)" href="#">Details </span>
                         </div>
                     </div>
                     <div class="row informarionForUserAndPRoduct ">
@@ -118,9 +119,11 @@
                                     <h5>Title: @Model.Product[count].Title</h5>
                                     <h5>Price: @Model.Product[count].Price</h5>
                                     <h5>Quantity:@Model.Product[count].Quantity </h5>
+                                    <h5>Order Quantity:@Model.QuantityOrderList[count] </h5>
 
 
                                 </div>
+                                
                             }
                         </div>
 
@@ -129,7 +132,7 @@
             }
             else
             {
-                <div class="addID" style="background-color:red">
+                <div class="addID" style="background-color:red; color: white">
                     <div class="row orderInformation ">
                         <div class="col-md-2"> @item.OrderNumber </div>
                         <div class="col-md-2"> @Model.QuantityList[i]</div>
@@ -168,6 +171,9 @@
                                     <h5>Title: @Model.Product[count].Title</h5>
                                     <h5>Price: @Model.Product[count].Price</h5>
                                     <h5>Quantity:@Model.Product[count].Quantity </h5>
+                                    <div class="col-md-2"> @Model.TotalPriceList[i]</div>
+
+
 
 
                                 </div>

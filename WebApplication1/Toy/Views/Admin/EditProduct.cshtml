@@ -50,6 +50,40 @@
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label class="control-label">Type</label>
+                <select class="form-control" name="type">
+                    @foreach (var item in Model.Type)
+                    {
+                        if (item.Value == Model.TypeString.ToString())
+                        {
+                            <option value="@item.Value " selected>@item.Text </option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value ">@item.Text </option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Base Type</label>
+                <select class="form-control" name="basetype">
+                    @foreach (var item in Model.BaseType)
+                    {
+                        if (item.Value == Model.TypeString.ToString())
+                        {
+                            <option value="@item.Value " selected>@item.Text </option>
+                        }
+                        else
+                        {
+                            <option value="@item.Value ">@item.Text </option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="BaseType" class="text-danger"></span>
+            </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">

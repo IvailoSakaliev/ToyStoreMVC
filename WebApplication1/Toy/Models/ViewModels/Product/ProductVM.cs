@@ -44,7 +44,8 @@ namespace Toy.Models.ViewModels.Product
 
         public string FrontImage { get; set; }
 
-        public string TypeString { get; set; }
+        public int  TypeString { get; set; }
+        public int  BaseTyoeString { get; set; }
 
         [Required]
         public string DateOfEdit { get; set; }
