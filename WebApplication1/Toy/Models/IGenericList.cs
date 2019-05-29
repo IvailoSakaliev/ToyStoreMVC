@@ -22,5 +22,8 @@ namespace Toy.Models
         IList<User> User { get; set; }
         IList<Order> Order { get; set; }
         UserEditVm CurrentUser { get; set; }
+        IList<int> ProductCount { get; set; }
+        IList<double> TotalPriceList { get; set; }
+        List<int> QuantityOrderList { get; set; }
     }
 }

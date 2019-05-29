@@ -25,8 +25,8 @@ namespace ProjectToyStore.Servise.ProjectServise
 
         public EmailServises(Login user)
         {
-            _admin = GetDecriptedInformationForAdmin();
             _encript = new EncriptServises();
+            _admin = GetDecriptedInformationForAdmin();
             _userEmail = _encript.DencryptData(user.Email);
             _userID = user.ID;
             _smtpClient = new SmtpClient();
@@ -64,7 +64,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         private void SendRestorPasswordEmail()
         {
             _message.Subject = "Restor Password";
-            _message.Body = "Please enter link to restor your password in StudentSystem http://studentsystem.azurewebsites.net/SingIN/ChangePassword/" + _userID;
+            _message.Body = "Please enter link to restor your password in StudentSystem http://studentsystem.azurewebsites.net/Login/EnableAccount/" + _userID;
             _message.To.Add(_userEmail);
             _smtpClient.Send(_message);
         }
@@ -72,7 +72,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         private void SendConfirmEmail()
         {
             _message.Subject = "Confirm registration";
-            _message.Body = "Please to confirm your registration in StudentSystem http://studentsystem.azurewebsites.net/SingIN/Confirm/" + _userID;
+            _message.Body = "Please to confirm your registration in StudentSystem http://studentsystem.azurewebsites.net/Login/EnableAccount/" + _userID;
             _message.To.Add(_userEmail);
             _smtpClient.Send(_message);
         }
@@ -81,8 +81,8 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             var admin = GetByID(1);
             Login result = new Login();
-            result.Email = _encript.DencryptData("E83TdqkyHVLXtDnRuDysZZ9ftLt5ewXyCH/MJe6yL9E=");
-            result.Password = _encript.DencryptData("JlSAXTmP3aX+cXEEIQsEJA==")
+            result.Email = _encript.DencryptData(admin.Email.ToString());
+            result.Password = _encript.DencryptData(admin.Password.ToString());
             return result;
         }
     }

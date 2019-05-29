@@ -29,15 +29,25 @@ namespace Toy.Controllers
         [HttpGet]
         public IActionResult Details()
         {
-            id = int.Parse(_encript.DencryptData(HttpContext.Session.GetString("User_ID")));
+            id = int.Parse(HttpContext.Session.GetString("User_ID"));
             OrderList itemVM = new OrderList();
             User user =  _servise.GetByID(id);
             List<Order> orders = _order.GetAll(x => x.UserID == id);
+            itemVM = PopulateOrdersInformation(itemVM, orders);
             itemVM.CurrentUser = PopulateUserInformation(itemVM.CurrentUser, user);
-            itemVM.Order = PopulateOrdersInformation(itemVM.Order, orders);
             itemVM.Product = PopulateProductINformation(itemVM.Product, orders);
-            
+            itemVM.QuantityOrderList = Populatequntity(itemVM.QuantityOrderList, orders);
+
             return View(itemVM);
+        }
+
+        private List<int> Populatequntity(List<int> quantityOrderList, List<Order> orders)
+        {
+            foreach (var item in orders)
+            {
+                quantityOrderList.Add(item.Quantity);
+            }
+            return quantityOrderList;
         }
 
         private IList<Product> PopulateProductINformation(IList<Product> product, List<Order> orders)
@@ -49,13 +59,57 @@ namespace Toy.Controllers
             return product;
         }
 
-        private IList<Order> PopulateOrdersInformation(IList<Order> order, List<Order> orders)
+        private OrderList PopulateOrdersInformation(OrderList itemVM, List<Order> orders)
         {
-            foreach (var item in orders)
+            string OrderNumber = "";
+            int count = 0;
+            int quantityOfOrder = 0;
+            double totalPrice = 0;
+            List<Order> list = new List<Order>();
+
+            for (int i = 0; i < orders.Count; i++)
             {
-                order.Add(item);
+                if (OrderNumber == orders[i].OrderNumber)
+                {
+                    count++;
+                    quantityOfOrder += orders[i].Quantity;
+                    totalPrice += orders[i].Total;
+                    OrderNumber = orders[i].OrderNumber;
+                }
+                else
+                {
+                    list.Add(orders[i]);
+                    OrderNumber = orders[i].OrderNumber;
+                    if (i == 0)
+                    {
+                        count++;
+                        quantityOfOrder += orders[i].Quantity;
+                        totalPrice += orders[i].Total;
+                    }
+                    else
+                    {
+                        itemVM.ProductCount.Add(count);
+                        itemVM.QuantityList.Add(quantityOfOrder);
+                        itemVM.TotalPriceList.Add(totalPrice);
+                        count = 1;
+                        quantityOfOrder = orders[i].Quantity;
+                        totalPrice = orders[i].Total;
+                    }
+
+                }
+
+
             }
-            return order;
+
+            itemVM.ProductCount.Add(count);
+            itemVM.QuantityList.Add(quantityOfOrder);
+            itemVM.TotalPriceList.Add(totalPrice);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                itemVM.Items.Add(list[i]);
+            }
+            return itemVM;
         }
 
         private UserEditVm PopulateUserInformation(UserEditVm currentUser, User user)

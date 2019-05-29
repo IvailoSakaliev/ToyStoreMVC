@@ -156,6 +156,7 @@ namespace Toy.Controllers
             user.City = _encript.EncryptData(reg.City);
             user.Adress = _encript.EncryptData(reg.Adress);
             user.Telephone = _encript.EncryptData(reg.Telephone);
+            user.Image = "../images/userIcon.png";
             UserServise _userServise = new UserServise();
             _userServise.Save(user);
             return user;
@@ -164,6 +165,7 @@ namespace Toy.Controllers
         private string EnterLoginInformation( RegistrationVM reg)
         {
             Login login = new Login();
+            LoginVM loginVm = new LoginVM();
             login.Email = _encript.EncryptData(reg.Email);
             if (reg.Password == reg.ConfirmPassword)
             {
@@ -173,31 +175,54 @@ namespace Toy.Controllers
                 {
                     login.isRegisted = true;
                     login.Role = 1;
+                    _servise.Save(login);
+
+                    loginVm.Email = reg.Email;
+                    loginVm.Password = reg.Password;
+                    CreateCookie(loginVm);
+
+                    
+
                 }
                 else
                 {
                     login.isRegisted = false;
                     login.Role = 2;
+                    _servise.Save(login);
+
+                    login = new Login();
+                    login = _servise.GetLastElement();
+                    EmailServises _email = new EmailServises(login);
+                    _email.SendEmail(1);
                 }
                 
-                _servise.Save(login);
+               
+
             }
             else
             {
                 return "Password no match";
             }
-            EmailServises _email = new EmailServises(login);
-            _email.SendEmail(1);
+           
             return "OK";
         }
 
+        [HttpGet]
+        public IActionResult EnableAccount(int id)
+        {
+            Login entity = new Login();
+            entity = _servise.GetByID(id);
+            entity.isRegisted = true;
+            _servise.Save(entity);
+            return View();
+        }
         private void GoToSession()
         {
             HttpContext.Session.SetString("LoggedUser", _encript.EncryptData(_aut._LoggedUser.Role.ToString()));
             
             HttpContext.Session.SetString("UserFirstName", _encript.EncryptData(_aut._LoggedUser.Email));
 
-            HttpContext.Session.SetString("User_ID", _encript.EncryptData(_aut._LoggedUser.ID.ToString()));
+            HttpContext.Session.SetString("User_ID", _aut._LoggedUser.ID.ToString());
         }
 
         [HttpGet]

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using Toy.Models;
 
@@ -11,18 +12,20 @@ namespace Toy.Controllers
 
         public IActionResult Index()
         {
-            LoginServise _login = new LoginServise();
-            if (!_login.CheckForAdmin())
-            {
-                return Redirect("Login/Registration");
-            }
+           
+                LoginServise _login = new LoginServise();
+                if (!_login.CheckForAdmin())
+                {
+                    return Redirect("Login/Registration");
+                }
+            
             return View();
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-            
+
             return View();
         }
 

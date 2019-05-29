@@ -284,6 +284,10 @@ padding: 20px;
     display: none;
     background-color: white;
 }
+.informarionForUserAndPRoduct row
+{
+   padding-top: 0px !important;
+}
 .headers .col-md-4 span:hover
 {
     cursor: pointer;
@@ -582,7 +586,6 @@ padding: 20px;
 {
     background-color: white;
     padding-bottom: 20px;
-    height: 320px;
 }
 .orderinformation
 {

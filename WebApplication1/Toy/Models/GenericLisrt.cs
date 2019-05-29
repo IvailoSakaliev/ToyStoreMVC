@@ -29,6 +29,9 @@ namespace Toy.Models
         public IList<User> User { get; set; }
         public IList<Order> Order { get; set; }
         public UserEditVm CurrentUser { get; set; }
+        public IList<int> ProductCount { get; set; }
+        public IList<double> TotalPriceList { get; set; }
+        public List<int> QuantityOrderList { get; set; }
 
         public GenericList()
         {
@@ -41,6 +44,9 @@ namespace Toy.Models
             this.User = new List<User>();
             this.Order = new List<Order>();
             this.CurrentUser = new UserEditVm();
+            this.ProductCount = new List<int>();
+            this.TotalPriceList = new List<double>();
+            this.QuantityOrderList = new List<int>();
         }
 
 

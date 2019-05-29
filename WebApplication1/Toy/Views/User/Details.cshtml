@@ -19,7 +19,7 @@
         <div class="row userinfo">
             <h3>User Infomation</h3>
             <div class="col-md-3 ">
-                <div id="userIMG" style="background-image:url(../wwwroot/@Model.CurrentUser.Image)">
+                <div id="userIMG" style="background-image:url(../@Model.CurrentUser.Image)">
                 </div>
             </div>
             <div class="col-md-9">
@@ -46,64 +46,73 @@
                 <div class="col-md-2"> Action</div>
             </div>
             @{
+                int count = -1;
                 int i = 0;
-                foreach (var item in Model.Order)
+                foreach (var item in Model.Items)
                 {
                     if (item.Status.ToString() == "Supplier")
                     {
                         <div class="addID">
                             <div class="row orderInformation ">
                                 <div class="col-md-2"> @item.OrderNumber </div>
-                                <div class="col-md-2"> @item.Quantity</div>
+                                <div class="col-md-2"> @Model.QuantityList[i]</div>
                                 <div class="col-md-2"> @item.Date</div>
                                 <div class="col-md-2"> @item.Status</div>
-                                <div class="col-md-2"> @item.Total</div>
+                                <div class="col-md-2"> @Model.TotalPriceList[i]</div>
                                 <div class="col-md-2">
                                     <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
                                 </div>
                             </div>
                             <div class="row informarionForUserAndPRoduct ">
-                                <div class="col-md-4 product">
+                                <div class="row" style="padding: 0 30px;">
+                                    <h4>Products</h4>
+                                    @for (int j = 0; j < Model.ProductCount[i]; j++)
+                                    {
+                                        count++;
+                                    <div class="col-md-2 product">
+                                        <img width="100px" src="@Model.Product[count].Image" alt="Alternate Text" />
+                                        <h5>Code: @Model.Product[count].Code</h5>
+                                        <h5>Title: @Model.Product[count].Title</h5>
+                                        <h5>Price: @Model.Product[count].Price</h5>
+                                        <h5>Order Quantity:@Model.QuantityOrderList[count] </h5>
 
-                                    <h4>Product</h4>
-                                    <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
-                                    <h5>Code: @Model.Product[i].Code</h5>
-                                    <h5>Title: @Model.Product[i].Title</h5>
-                                    <h5>Price: @Model.Product[i].Price</h5>
-                                    <h5>Quantity:@Model.Product[i].Quantity </h5>
-
+                                    </div>
+                                    }
                                 </div>
+
                             </div>
                         </div>
                     }
                     else if (item.Status.ToString() == "InProces")
                     {
-                        <div class="addID">
-                            <div class="row orderInformation" style="background-color:yellow; color:black">
+                        <div class="addID" >
+                            <div class="row orderInformation " style="background-color:yellow; color:black">
                                 <div class="col-md-2"> @item.OrderNumber </div>
-                                <div class="col-md-2"> @item.Quantity</div>
+                                <div class="col-md-2"> @Model.QuantityList[i]</div>
                                 <div class="col-md-2"> @item.Date</div>
                                 <div class="col-md-2"> @item.Status</div>
-                                <div class="col-md-2"> @item.Total</div>
+                                <div class="col-md-2"> @Model.TotalPriceList[i]</div>
                                 <div class="col-md-2">
                                     <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
                                 </div>
                             </div>
                             <div class="row informarionForUserAndPRoduct ">
-                                <div class="col-md-4 product">
-
+                                <div class="row" style="padding: 0 30px;">
                                     <h4>Product</h4>
-                                    <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
-                                    <h5>Code: @Model.Product[i].Code</h5>
-                                    <h5>Title: @Model.Product[i].Title</h5>
-                                    <h5>Price: @Model.Product[i].Price</h5>
-                                    <h5>Quantity:@Model.Product[i].Quantity </h5>
-
+                                    @for (int j = 0; j < Model.ProductCount[i]; j++)
+                                    {
+                                        count++;
+                                    <div class="col-md-2 product">
+                                        <img width="100px" src="@Model.Product[count].Image" alt="Alternate Text" />
+                                        <h5>Code: @Model.Product[count].Code</h5>
+                                        <h5>Title: @Model.Product[count].Title</h5>
+                                        <h5>Price: @Model.Product[count].Price</h5>
+                                        <h5>Order Quantity:@Model.QuantityOrderList[count] </h5>
+                                    </div>
+                                    }
                                 </div>
 
-
                             </div>
-
                         </div>
                     }
                     else
@@ -111,33 +120,38 @@
                         <div class="addID">
                             <div class="row orderInformation " style="background-color:red">
                                 <div class="col-md-2"> @item.OrderNumber </div>
-                                <div class="col-md-2"> @item.Quantity</div>
+                                <div class="col-md-2"> @Model.QuantityList[i]</div>
                                 <div class="col-md-2"> @item.Date</div>
                                 <div class="col-md-2"> @item.Status</div>
-                                <div class="col-md-2"> @item.Total</div>
+                                <div class="col-md-2"> @Model.TotalPriceList[i]</div>
                                 <div class="col-md-2">
                                     <span style="color:white" onclick="showDetailsForOrder(@i)" href="#">Details </span>
                                 </div>
                             </div>
                             <div class="row informarionForUserAndPRoduct ">
-                                <div class="col-md-4 product">
-
+                                <div class="row" style="padding: 0 30px;">
                                     <h4>Product</h4>
-                                    <img width="100px" src="@Model.Product[i].Image" alt="Alternate Text" />
-                                    <h5>Code: @Model.Product[i].Code</h5>
-                                    <h5>Title: @Model.Product[i].Title</h5>
-                                    <h5>Price: @Model.Product[i].Price</h5>
-                                    <h5>Quantity:@Model.Product[i].Quantity </h5>
+                                    @for (int j = 0; j < Model.ProductCount[i]; j++)
+                                    {
+                                        count++;
+                                    <div class="col-md-2 product">
+                                        <img width="100px" src="@Model.Product[count].Image" alt="Alternate Text" />
+                                        <h5>Code: @Model.Product[count].Code</h5>
+                                        <h5>Title: @Model.Product[count].Title</h5>
+                                        <h5>Price: @Model.Product[count].Price</h5>
+                                        <h5>Order Quantity:@Model.QuantityOrderList[count] </h5>
 
+                                    </div>
+                                    }
                                 </div>
 
                             </div>
-
                         </div>
                     }
                     i++;
                 }
             }
+
         </div>
 
     </div>

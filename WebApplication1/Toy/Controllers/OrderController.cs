@@ -187,7 +187,7 @@ namespace Toy.Controllers
                 UserServise _login = new UserServise();
                 EncriptServises _encript = new EncriptServises();
                 User user = new User();
-                user = _login.GetByID(int.Parse(_encript.DencryptData(userID)));
+                user = _login.GetByID(int.Parse(userID));
                 model.FirstName = _encript.DencryptData(user.Name);
                 model.SecondName = _encript.DencryptData(user.SecondName);
                 model.City = _encript.DencryptData(user.City);
@@ -227,9 +227,15 @@ namespace Toy.Controllers
                     entity.OrderNumber = HttpContext.Session.GetString("OrderNumber");
                     entity.Date = DateTime.Today.ToString();
                     entity.Status = Status.Supplier;
-                    entity.UserID = int.Parse(_encript.DencryptData(userID));
+
+                    Product element = _product.GetByID(entity.SubjectID);
+                    entity.Total = (entity.Quantity * element.Price);
+                    _order.Save(entity);
+                    entity.UserID = int.Parse(userID);
                     _order.Save(entity);
 
+
+                    ChangewquantityOfPRoduct(element, entity.Quantity);
 
                 }
             }
@@ -251,7 +257,7 @@ namespace Toy.Controllers
 
                     Product element = _product.GetByID(entity.SubjectID);
 
-                    entity.Total =( entity.Quantity * element.Price);
+                    entity.Total = (entity.Quantity * element.Price);
                     _order.Save(entity);
                     ChangewquantityOfPRoduct(element, entity.Quantity);
                 }
@@ -309,7 +315,7 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            itemVM.AllItems = _order.GetAll(x=> x.Status == Status.InProces || x.Status == Status.Supplier);
+            itemVM.AllItems = _order.GetAll(x => x.Status == Status.InProces || x.Status == Status.Supplier);
             itemVM.Pages = itemVM.AllItems.Count / 12;
             double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
@@ -319,11 +325,58 @@ namespace Toy.Controllers
             itemVM.StartItem = 12 * curentPage;
             try
             {
+                string OrderNumber = "";
+                int count = 0;
+                int quantityOfOrder = 0;
+                double totalPrice = 0;
+                List<Order> list = new List<Order>();
+
+                for (int i = 0; i < itemVM.AllItems.Count; i++)
+                {
+                    if (OrderNumber == itemVM.AllItems[i].OrderNumber)
+                    {
+
+
+                        count++;
+                        quantityOfOrder += itemVM.AllItems[i].Quantity;
+                        totalPrice += itemVM.AllItems[i].Total;
+                        OrderNumber = itemVM.AllItems[i].OrderNumber;
+                    }
+                    else
+                    {
+                        itemVM.User.Add(PopulateUser(itemVM.AllItems[i]));
+                        list.Add(itemVM.AllItems[i]);
+                        OrderNumber = itemVM.AllItems[i].OrderNumber;
+                        if (i == 0)
+                        {
+                            count++;
+                            quantityOfOrder += itemVM.AllItems[i].Quantity;
+                            totalPrice += itemVM.AllItems[i].Total;
+                        }
+                        else
+                        {
+                            itemVM.ProductCount.Add(count);
+                            itemVM.QuantityList.Add(quantityOfOrder);
+                            itemVM.TotalPriceList.Add(totalPrice);
+                            count = 1;
+                            quantityOfOrder = itemVM.AllItems[i].Quantity;
+                            totalPrice = itemVM.AllItems[i].Total;
+                        }
+
+                    }
+
+                    itemVM.Product.Add(PopulateProduct(itemVM.AllItems[i]));
+                }
+
+                itemVM.ProductCount.Add(count);
+                itemVM.QuantityList.Add(quantityOfOrder);
+                itemVM.TotalPriceList.Add(totalPrice);
+
+
                 for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
-                    itemVM.Items.Add(itemVM.AllItems[i]);
-                    itemVM.Product.Add(PopulateProduct(itemVM.AllItems[i]));
-                    itemVM.User.Add(PopulateUser(itemVM.AllItems[i]));
+
+                    itemVM.Items.Add(list[i]);
 
                 }
             }
@@ -376,7 +429,7 @@ namespace Toy.Controllers
         [HttpPost]
         public JsonResult ChangeStatus(string id)
         {
-            List<Order> entity = _order.GetAll(x=> x.OrderNumber == id);
+            List<Order> entity = _order.GetAll(x => x.OrderNumber == id);
             foreach (var item in entity)
             {
                 item.Status = Status.InProces;
