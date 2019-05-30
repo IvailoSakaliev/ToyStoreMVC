@@ -1,0 +1,50 @@
+﻿@model Toy.Models.ViewModels.Contacts.ContactLIst
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Admin/_admin.cshtml";
+}
+
+<h2>Email from site</h2>
+<div class="row">
+    <div class="col-md-6  email">
+        <div class="row">
+            <div class="col-md-5"><h4>Email</h4></div>
+            <div class="col-md-3"><h4>Date</h4></div>
+
+            <div class="col-md-4"><h4>Action</h4></div>
+        </div>
+        @foreach (var item in Model.Items)
+        {
+            <div class="row">
+                <div class="col-md-5">@item.Email</div>
+                <div class="col-md-3">@item.Date</div>
+
+                <div class="col-md-4">
+                    <span class="link" style="color:green" onclick="GetDetailsForEmail(@item.ID)">Details</span>
+                    <span class="link" onclick="DeleteEmail(@item.ID)">Delete</span>
+                    <span class="link"><a href="SendEmailTOUser/@item.ID">Send</a></span>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6 infoEmail">
+        <p><font style="font-weight:bold">Date: </font><font id="date"></font></p>
+        <p><font style="font-weight:bold">From: </font><font id="from"></font></p>
+        <p><font style="font-weight:bold">Subject: </font><font id="subject"></font>  </p>
+        <p>
+            <font style="font-weight:bold">
+                Messege:</br>
+                <textarea class="form-control" col="20" rows="10" id="message"></textarea>
+        </p>
+    </div>
+</div>
+
+<div class="alert alert-success alertBox" style="margin-left:20%">
+   
+
+</div>
+
+<div class="alert alert-danger dangerBox" style="margin-left:20%">
+   
+
+</div>

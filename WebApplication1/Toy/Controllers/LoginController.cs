@@ -8,7 +8,7 @@ using ProjectToyStore.Data.Enum;
 using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
-using Toy.Authenticatiion;
+using Toy.Authentivation;
 using Toy.Models.ViewModels;
 using Toy.Models.ViewModels.Login;
 

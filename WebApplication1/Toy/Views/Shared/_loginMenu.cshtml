@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        @if (Context.Session.GetString("User_ID") == "1")
+        {
+            <li><a class="btn btn-danger adminButton" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
+        }
+        <li>
+            <div class="circle"></div>
+
+            <a asp-controller="Order" asp-action="Orders"><img width="20px" src="~/images/shop.png" /></a>
+        </li>
+        @{
+            if (Context.Session.GetString("User_ID") == ""
+                || Context.Session.GetString("User_ID") == null)
+            {
+                <li><a asp-area="" asp-controller="Login" asp-action="Registration">Registration</a></li>
+                <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
+
+            }
+            else
+            {
+
+                <li><a asp-controller="User" asp-action="Details">My Account</a></li>
+                <li><a asp-area="" asp-controller="Login" asp-action="LoggOut">Logout</a></li>
+
+
+            }
+        }
+
+    </ul>
+</div>

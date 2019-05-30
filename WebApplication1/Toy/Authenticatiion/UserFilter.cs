@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Toy.Authenticatiion
+namespace Toy.Authentivation
 {
     public class UserFilter
        : ActionFilterAttribute

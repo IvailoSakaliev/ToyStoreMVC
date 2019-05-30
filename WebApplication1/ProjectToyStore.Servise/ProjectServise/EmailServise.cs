@@ -38,6 +38,15 @@ namespace ProjectToyStore.Servise.ProjectServise
 
         public void SendEmail(int mode)
         {
+            EmailINfo(mode, null);
+
+        }
+        public void SendEmailFromAdmin(int mode, Contact model)
+        {
+            EmailINfo(mode, model);
+        }
+        private void EmailINfo(int mode, Contact model)
+        {
             _smtpClient.Host = "smtp.gmail.com";
             _smtpClient.UseDefaultCredentials = false;
             _smtpClient.Credentials = _basicCredential;
@@ -55,10 +64,12 @@ namespace ProjectToyStore.Servise.ProjectServise
                 case 2:
                     SendRestorPasswordEmail();
                     break;
+                case 3:
+                    SendEmailToUser(model);
+                    break;
                 default:
                     break;
             }
-
         }
 
         private void SendRestorPasswordEmail()
@@ -73,6 +84,13 @@ namespace ProjectToyStore.Servise.ProjectServise
         {
             _message.Subject = "Confirm registration";
             _message.Body = "Please to confirm your registration in StudentSystem http://studentsystem.azurewebsites.net/Login/EnableAccount/" + _userID;
+            _message.To.Add(_userEmail);
+            _smtpClient.Send(_message);
+        }
+        private void SendEmailToUser(Contact model)
+        {
+            _message.Subject = model.Name;
+            _message.Body = model.Message;
             _message.To.Add(_userEmail);
             _smtpClient.Send(_message);
         }

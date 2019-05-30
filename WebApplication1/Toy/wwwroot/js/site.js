@@ -190,6 +190,18 @@ function CloseGalery() {
     $('.navbar').fadeIn(600);
 }
 
+$(document).bind('keyup', function(e) {
+        if(e.which == 39){
+            $('.carousel').carousel('next');
+        }
+        else if(e.which == 37){
+            $('.carousel').carousel('prev');
+        }
+        else if (e.which == 27) {
+            CloseGalery();
+        }
+
+    });
 
 function DeleteOrderProduct(id) {
     var fullURL = window.location.href;
@@ -513,4 +525,94 @@ function CloseOrder(id) {
 
 function ChangeStatusColor(id) {
     alert(id);
+}
+function GetDetailsForEmail(id) {
+     $.ajax({
+                url: '/Contact/ChangeEmailInformation',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    $("#from").text(data.email);
+                    $("#subject").text(data.name);
+                    $("#message").val(data.message);
+                    $("#date").text(data.date);
+                    
+
+                },
+                error: function () {
+                   
+                }
+            });
+}
+function DeleteEmail(id) {
+     var fullURL = window.location.href;
+     $.ajax({
+                url: '/Contact/DeleteEmail',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                        window.location.href = fullURL;
+                },
+                error: function () {
+                    $(".dangerBox").html("Order can't close");
+                    $(".dangerBox").fadeIn(500);
+                    setTimeout(function() { $(".dangerBox").fadeOut(500); }, 4000);
+                }
+            });
+}
+
+function GetOrdersByOrderNumber() {
+    var filterValue = $("#orderNum").val();
+    $.ajax({
+                url: '/Order/OrderFilter',
+                type: 'POST',
+                dataType: 'json',
+                data: {filterValue: filterValue},
+                success: function (data) {
+                    var fullURL = window.location.href;
+                    var last = fullURL.lastIndexOf('=');
+                    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+                    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+                    var url = "../Order/ListOrders?Curentpage=" + page;
+                    $('.listOrder').load(url)
+                },
+                error: function () {
+                   
+                }
+            });
+}
+
+ 
+  
+function ChangeCookieVAlue() {
+     $.ajax({
+                url: '/Home/CookieAcsept',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: 1},
+                success: function (data) {
+                        $(".cookieBody").css("display", "none");
+                },
+                error: function () {
+                   
+                }
+            });
+}
+
+function RestoreOrderFilter() {
+     $.ajax({
+                url: '/Order/Restore',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: 1},
+                success: function (data) {
+                       var url = "../Order/ListOrders?Curentpage=1";
+                    $('.listOrder').load(url)
+                },
+                error: function () {
+                   
+                }
+            });
 }

@@ -18,6 +18,7 @@ namespace ProjectToyStore.Data
         public DbSet<Hash> Hashs { get; set; }
         public DbSet<TypeSubject> TypeSubjects { get; set; }
         public DbSet<BaseType> BaseTypes { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
 
 

@@ -33,54 +33,30 @@
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Toy</a>
                 </div>
             </div>
-            <div class="col-md-7">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        <li><a href="../../Product/Index?Curentpage=1" onclick="Restore()">Product</a></li>
-                    </ul>
+            @if (Context.Session.GetString("User_ID") == "1")
+            {
+                <div class="col-md-7">
+                    @Html.Partial("_fixedMenu")
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <div class="circle"></div>
-
-                            <a asp-controller="Order" asp-action="Orders"><img width="20px" src="~/images/shop.png" /></a>
-                        </li>
-                        @{
-                            if (Context.Session.GetString("User_ID") == ""
-                                || Context.Session.GetString("User_ID") == null)
-                            {
-                                <li><a asp-area="" asp-controller="Login" asp-action="Registration">Registration</a></li>
-                                <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
-
-                            }
-                            else
-                            {
-
-                                <li><a asp-controller="User" asp-action="Details">My Account</a></li>
-                                <li><a asp-area="" asp-controller="Login" asp-action="LoggOut">Logout</a></li>
-                                           
-                                if (Context.Session.GetString("User_ID") == "1")
-                                            {
-                                    <li><a class="btn btn-danger adminButton" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
-                                }
-                            }
-                        }
-
-                    </ul>
+                <div class="col-md-4">
+                    @Html.Partial("_loginMenu")
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-md-8">
+                    @Html.Partial("_fixedMenu")
+                </div>
+                <div class="col-md-3">
+                    @Html.Partial("_loginMenu")
+                </div>
+            }
 
         </div>
     </nav>
     <div class="row">
         <div class="container herder">
-            <div class="col-md-7">
+            <div class="col-md-7" style="padding:10px;">
                 <a href="~/Home/Index"><img src="~/images/Vavilonci.png" width="350px" ="Home" /></a>
 
             </div>
@@ -155,34 +131,34 @@
                             Пъзели
                             <span class="caret"></span>
                         </a>
-                            <ul class="dropdown-menu d1">
-                                <li><a onclick="ChangeType(18)" href="#">Aвтoмoбили и мoтopи</a></li>
-                                <li><a onclick="ChangeType(19)" href="#">Aнимaциoнни гepoи</a></li>
-                                <li><a onclick="ChangeType(20)" href="#">Глeдки и пeйзaжи</a></li>
-                                <li><a onclick="ChangeType(21)" href="#">Гopи, цвeтя и гpaдини</a></li>
-                                <li><a onclick="ChangeType(22)" href="#">Дeцa и бeбeтa </a></li>
-                                <li><a onclick="ChangeType(23)" href="#">Динoзaвpи </a></li>
-                                <li><a onclick="ChangeType(24)" href="#">Живoтни </a></li>
-                                <li><a onclick="ChangeType(25)" href="#">Зaмъци и xpaмoвe </a></li>
-                                <li><a onclick="ChangeType(26)" href="#">Koнe </a></li>
-                                <li><a onclick="ChangeType(27)" href="#">Kopaби и лoдки </a></li>
-                                <li><a onclick="ChangeType(28)" href="#">Kocмoc </a></li>
+                        <ul class="dropdown-menu d1">
+                            <li><a onclick="ChangeType(18)" href="#">Aвтoмoбили и мoтopи</a></li>
+                            <li><a onclick="ChangeType(19)" href="#">Aнимaциoнни гepoи</a></li>
+                            <li><a onclick="ChangeType(20)" href="#">Глeдки и пeйзaжи</a></li>
+                            <li><a onclick="ChangeType(21)" href="#">Гopи, цвeтя и гpaдини</a></li>
+                            <li><a onclick="ChangeType(22)" href="#">Дeцa и бeбeтa </a></li>
+                            <li><a onclick="ChangeType(23)" href="#">Динoзaвpи </a></li>
+                            <li><a onclick="ChangeType(24)" href="#">Живoтни </a></li>
+                            <li><a onclick="ChangeType(25)" href="#">Зaмъци и xpaмoвe </a></li>
+                            <li><a onclick="ChangeType(26)" href="#">Koнe </a></li>
+                            <li><a onclick="ChangeType(27)" href="#">Kopaби и лoдки </a></li>
+                            <li><a onclick="ChangeType(28)" href="#">Kocмoc </a></li>
 
-                            </ul>
-                            <ul class="dropdown-menu d2">
+                        </ul>
+                        <ul class="dropdown-menu d2">
 
-                                <li><a onclick="ChangeType(29)" href="#">Koтки </a></li>
-                                <li><a onclick="ChangeType(30)" href="#">Kyчeтa </a></li>
-                                <li><a onclick="ChangeType(31)" href="#">клaнини и eзepa </a></li>
-                                <li><a onclick="ChangeType(32)" href="#">кoдвoдeн cвят </a></li>
-                                <li><a onclick="ChangeType(33)" href="#">кoжapнa и пoлиция </a></li>
-                                <li><a onclick="ChangeType(34)" href="#">ктици </a></li>
-                                <li><a onclick="ChangeType(35)" href="#">Peки и вoдoпaди </a></li>
-                                <li><a onclick="ChangeType(36)" href="#">Caмoлeти и бaлoни </a></li>
-                                <li><a onclick="ChangeType(37)" href="#">Cгpaди и пocтpoйки</a></li>
-                                <li><a onclick="ChangeType(38)" href="#">Фaнтacтикa </a></li>
-                                <li><a onclick="ChangeType(39)" href="#">Фoтoгpaфии</a></li>
-                            </ul>
+                            <li><a onclick="ChangeType(29)" href="#">Koтки </a></li>
+                            <li><a onclick="ChangeType(30)" href="#">Kyчeтa </a></li>
+                            <li><a onclick="ChangeType(31)" href="#">клaнини и eзepa </a></li>
+                            <li><a onclick="ChangeType(32)" href="#">кoдвoдeн cвят </a></li>
+                            <li><a onclick="ChangeType(33)" href="#">кoжapнa и пoлиция </a></li>
+                            <li><a onclick="ChangeType(34)" href="#">ктици </a></li>
+                            <li><a onclick="ChangeType(35)" href="#">Peки и вoдoпaди </a></li>
+                            <li><a onclick="ChangeType(36)" href="#">Caмoлeти и бaлoни </a></li>
+                            <li><a onclick="ChangeType(37)" href="#">Cгpaди и пocтpoйки</a></li>
+                            <li><a onclick="ChangeType(38)" href="#">Фaнтacтикa </a></li>
+                            <li><a onclick="ChangeType(39)" href="#">Фoтoгpaфии</a></li>
+                        </ul>
                     </li>
                     <li><a onclick="ChangeType(42)" asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
                 </ul>
@@ -196,7 +172,22 @@
         <hr />
 
     </div>
+    @if (Context.Request.Cookies["CookieUsing"] == "" || Context.Request.Cookies["CookieUsing"] == null)
+    {
+        <div class="row cookieBody">
+            <div class="container">
+                <div class="col-md-11">
+                    <h5>Този сайт използва бисквитки за да гарантира на вас потребителите пълната функционалност окято предоставя.Във връзка с изпълнението и прилагането на Общ регламент относно защитата на данните (Регламент (ЕС) 2016/679), всяка ваша информация  е напълно защитена , като в бисквитките се съхраняват само настройки на сайта, като цвят и допълнителна функционалност, а при ваш избор на и-мей адреса ви за по-лесно влизане в нашата система. Уверява ме ви, че вашата информация е напълно защитена!</h5>
+                </div>
+                <div class="col-md-1">
 
+                    <button onclick="ChangeCookieVAlue()" style="margin-top:30%" class="btn bnt-primaty">Разбрах</button>
+
+
+                </div>
+            </div>
+        </div>
+    }
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -219,6 +210,7 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
 </body>
 
 <footer>
@@ -255,6 +247,7 @@
             <a href="#">©2019 VavilonIT Всички права запазени</a>
         </div>
     </div>
+
 
 </footer>
 </html>

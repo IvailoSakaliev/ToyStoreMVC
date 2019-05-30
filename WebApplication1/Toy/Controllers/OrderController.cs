@@ -19,6 +19,10 @@ namespace Toy.Controllers
         private ImageServise _image = new ImageServise();
         private OrderServise _order = new OrderServise();
         private int _orderNumber;
+        private static string _FilterOrder = "";
+        private static string _FilterDate = "";
+        private static List<Order> _listOrders;
+
 
         public IActionResult Index()
         {
@@ -225,7 +229,7 @@ namespace Toy.Controllers
                     entity.SubjectID = int.Parse(keyProduct[i]);
                     entity.Quantity = int.Parse(keyQuantity[i]);
                     entity.OrderNumber = HttpContext.Session.GetString("OrderNumber");
-                    entity.Date = DateTime.Today.ToString();
+                    entity.Date = DateTime.Today.ToString("dd/MM/yyyy");
                     entity.Status = Status.Supplier;
 
                     Product element = _product.GetByID(entity.SubjectID);
@@ -250,7 +254,7 @@ namespace Toy.Controllers
                     entity.SubjectID = int.Parse(keyProduct[i]);
                     entity.Quantity = int.Parse(keyQuantity[i]);
                     entity.OrderNumber = HttpContext.Session.GetString("OrderNumber");
-                    entity.Date = DateTime.Today.ToString();
+                    entity.Date = DateTime.Today.ToString("dd/MM/yyyy");
                     entity.Status = Status.Supplier;
                     user = _user.GetLastElement();
                     entity.UserID = user.ID;
@@ -296,6 +300,14 @@ namespace Toy.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult ListOrders(string Curentpage)
+        {
+            OrderList item = new OrderList();
+            item = PopulateIndex(item, int.Parse(Curentpage));
+            item.QuantityOrderList = Populatequntity(item.QuantityOrderList, item.AllItems);
+            return View(item);
+        }
 
         [HttpGet]
         public ActionResult AdminIndex(int Curentpage)
@@ -315,7 +327,7 @@ namespace Toy.Controllers
             return quantityOrderList;
         }
 
-       
+
 
         protected virtual OrderList PopulateIndex(OrderList itemVM, int curentPage)
         {
@@ -324,7 +336,21 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            itemVM.AllItems = _order.GetAll(x => x.Status == Status.InProces || x.Status == Status.Supplier);
+            if (_FilterOrder != "")
+            {
+                itemVM.AllItems = _listOrders.FindAll(x => x.OrderNumber.Contains(_FilterOrder));
+            }
+            else if (_FilterDate != "")
+            {
+                itemVM.AllItems = _listOrders.FindAll(x => x.Date.Contains(_FilterDate));
+            }
+            else
+            {
+                itemVM.AllItems = _order.GetAll(x => x.Status == Status.InProces || x.Status == Status.Supplier);
+                _listOrders = new List<Order>();
+                _listOrders = _order.GetAll(x => x.Status == Status.InProces || x.Status == Status.Supplier);
+            }
+            
             itemVM.Pages = itemVM.AllItems.Count / 12;
             double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
@@ -392,7 +418,7 @@ namespace Toy.Controllers
 
             }
 
-            return itemVM;
+              return itemVM;
         }
 
         private User PopulateUser(Order order)
@@ -455,6 +481,28 @@ namespace Toy.Controllers
             }
             return Json("ok");
         }
+
+        [HttpPost]
+        public JsonResult OrderFilter(string filterValue)
+        {
+            if (filterValue == null)
+            {
+                _FilterOrder = "";
+            }
+            else
+            {
+                _FilterOrder = filterValue;
+            }
+            return Json("ok");
+        }
+        [HttpPost]
+        public JsonResult Restore(int id)
+        {
+            _FilterDate = "";
+            _FilterOrder = "";
+            return Json("ok");
+        }
+
 
     }
 }

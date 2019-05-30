@@ -31,6 +31,25 @@ namespace ProjectToyStore.Data.Migrations
                     b.ToTable("BaseTypes");
                 });
 
+            modelBuilder.Entity("ProjectToyStore.Data.Models.Contact", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Date");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("ProjectToyStore.Data.Models.Hash", b =>
                 {
                     b.Property<int>("ID")

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectToyStore.Data.Models;
@@ -67,7 +68,7 @@ namespace Toy.Controllers
                 ModelState.AddModelError(string.Empty, "Please select type or basetype!");
                 return View(model);
             }
-            entity.Date = DateTime.Today.ToString();
+            entity.Date = DateTime.Today.ToString("dd/MM/yyyy");
             entity.Image = GetImagePath(photo);
 
             _product.Save(entity);
@@ -245,8 +246,13 @@ namespace Toy.Controllers
             entity.Description = model.Description;
             entity.Price = model.Price;
             entity.Quantity = model.Quantity;
-            entity.Date = DateTime.Today.ToString();
+            entity.Date = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             entity.ID = _idElement;
+            if (int.Parse(Request.Form["basetype"]) == -1 || int.Parse(Request.Form["type"]) == -1)
+            {
+                ModelState.AddModelError(string.Empty, "Please select type or base type!!!");
+                return View(model);
+            }
             entity.Type = int.Parse(Request.Form["type"]);
             entity.Basetype = int.Parse(Request.Form["basetype"]);
             entity.Image = frontImage;

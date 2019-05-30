@@ -5,7 +5,7 @@ using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
 using System;
 using System.Collections.Generic;
-using Toy.Authenticatiion;
+using Toy.Authentivation;
 using Toy.Models.ViewModels.Order;
 using Toy.Models.ViewModels.User;
 

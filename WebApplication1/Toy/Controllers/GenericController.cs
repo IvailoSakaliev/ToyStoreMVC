@@ -7,7 +7,7 @@ using ProjectToyStore.Data.Models;
 using ProjectToyStore.Servise;
 using ProjectToyStore.Servise.EntityServise;
 using ProjectToyStore.Servise.ProjectServise;
-using Toy.Authenticatiion;
+using Toy.Authentivation;
 using Toy.Authentication;
 using Toy.Filters;
 using Toy.Models;
@@ -81,7 +81,15 @@ namespace Toy.Controllers
 
                     for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                     {
-                        itemVM.Items.Add(itemVM.AllItems[i]);
+                        if (controllerName == "Contact")
+                        {
+                            itemVM.Items.Add(PopulateIndexContactInfo(itemVM.AllItems[i]));
+
+                        }
+                        else
+                        {
+                            itemVM.Items.Add(itemVM.AllItems[i]);
+                        }
                     }
                 }
             }
@@ -93,7 +101,10 @@ namespace Toy.Controllers
             return itemVM;
         }
 
-        
+        public  virtual TEntity PopulateIndexContactInfo(TEntity entity)
+        {
+            return null;
+        }
 
         private string GetActionName()
         {
