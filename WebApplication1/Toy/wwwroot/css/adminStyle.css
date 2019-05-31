@@ -2,6 +2,16 @@
 body {
 }
 
+.table input[type="text"]
+{
+    width: 80%;
+    margin: 0px !important;
+}
+.table th
+{
+    width: 20px !important;
+    border-top: 0px !important;
+}
 .siteIMG
 {
     display:inline-block

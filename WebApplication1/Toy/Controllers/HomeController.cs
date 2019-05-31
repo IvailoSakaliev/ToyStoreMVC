@@ -8,6 +8,7 @@ using Toy.Models;
 using Toy.Models.ViewModels.Contacts;
 using System;
 using System.Linq;
+using Toy.Models.ViewModels.Product;
 
 namespace Toy.Controllers
 {
@@ -16,11 +17,12 @@ namespace Toy.Controllers
 
         private IEncriptServises _encript;
         private ContactServise _contact;
-
+        private ProductServise _product;
         public HomeController()
         {
             _encript = new EncriptServises();
             _contact = new ContactServise();
+            _product = new ProductServise();
         }
         public IActionResult Index()
         {
@@ -32,7 +34,16 @@ namespace Toy.Controllers
                 return Redirect("Login/Registration");
             }
 
-            return View();
+            ProducLIst itemVM = new ProducLIst();
+            itemVM = PopulateIndex(itemVM);
+
+            return View(itemVM);
+        }
+
+        private ProducLIst PopulateIndex(ProducLIst itemVM)
+        {
+            itemVM.Items = _product.GetAll(x => x.Front == 1);
+            return itemVM;
         }
 
         public IActionResult About()

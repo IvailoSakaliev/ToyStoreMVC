@@ -1,0 +1,84 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListProducts</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                Code</br>
+                <input type="text" onblur="ChangeFilterOfProduct(1)" id="code" />
+            </th>
+            <th>
+                Title</br>
+
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Top
+            </th>
+            <th>
+                Date</br>
+
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Type</br>
+
+            </th>
+            <th>
+                Base Type</br>
+
+            </th>
+
+            <th>
+                Actions
+            </th>
+        </tr>
+        @{
+            int i = 0;
+            foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Code</td>
+                    <td>@item.Title</td>
+                    <td>@item.Price</td>
+                    <td>
+                        @if (item.Front == 1)
+                        {
+                            <input type="checkbox" checked onclick="ChangeTopProduct(@item.ID, 2)" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" onclick="ChangeTopProduct(@item.ID,1)" />
+                        }
+                    </td>
+                    <td>@item.Date</td>
+                    <td>@item.Quantity</td>
+                    <td>@Model.TypeName[i]</td>
+                    <td>@Model.BaseTypeName[i]</td>
+
+                    <td>
+                        <span>@Html.ActionLink("Edit", "EditProduct", new { id = item.ID }) |</span>
+                        <span>@Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID }) |</span>
+                    </td>
+                </tr>
+                i++;
+            }
+
+        }
+    </table>
+</body>
+</html>

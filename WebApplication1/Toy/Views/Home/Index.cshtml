@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Toy.Models.ViewModels.Product.ProducLIst
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -16,7 +17,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner homeCaruser">
         <div class="item active ">
-            <img src="~/images/Vavilonci.png"  alt="Los Angeles">
+            <img src="~/images/Vavilonci.png" alt="Los Angeles">
 
         </div>
 
@@ -67,7 +68,7 @@
 
 
 <div class="row video">
-    <div class="col-md-6"  style="padding:0px">
+    <div class="col-md-6" style="padding:0px">
         <video id="vid" width="100%"
                autoplay loop muted>
             <source src="~/images/Video/fasada2.mp4" type="video/mp4" />
@@ -75,11 +76,31 @@
     </div>
     <div class="col-md-6">
         text
-    </div> 
+    </div>
+</div>
+<div class="HomeProducts" style="background-color:white; padding:20px;height:300px">
+    <h4>Топ продукти</h4>
+    <div style="padding-left:60px; padding-top:20px;">
+        @foreach (var item in Model.Items)
+        {
+
+            <div class="col-md-3">
+                <div class="row img">
+                    <a href="../../Order/Details/@item.ID"><img src="@item.Image" alt="Alternate Text" width="200px" height="150px;" /></a>
+                </div>
+                <div class="row title">
+                    <p>@item.Title</p>
+                </div>
+                <div class="row price">
+                    <h4>@item.Price лв.</h4>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-       text
+        text
     </div>
     <div class="col-md-6 video" style="padding:0px">
         <video id="vid" width="100%"

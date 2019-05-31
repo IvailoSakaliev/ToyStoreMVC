@@ -104,6 +104,7 @@ function ChangePriceFrom() {
 }
 
 function Restore() {
+
     $.ajax({
         url: '/Product/RestorePage',
         type: 'POST',
@@ -583,7 +584,26 @@ function GetOrdersByOrderNumber() {
                 }
             });
 }
-
+function GetOrdersByOrderDate() {
+    var filterValue = $("#orderDate").val();
+    $.ajax({
+                url: '/Order/DateFilter',
+                type: 'POST',
+                dataType: 'json',
+                data: {filterValue: filterValue},
+                success: function (data) {
+                    var fullURL = window.location.href;
+                    var last = fullURL.lastIndexOf('=');
+                    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+                    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+                    var url = "../Order/ListOrders?Curentpage=" + page;
+                    $('.listOrder').load(url)
+                },
+                error: function () {
+                   
+                }
+            });
+}
  
   
 function ChangeCookieVAlue() {
@@ -615,4 +635,73 @@ function RestoreOrderFilter() {
                    
                 }
             });
+}
+
+function ChangeFilterOfProduct(id) {
+    var element;
+
+    switch(id)
+    {
+        case 1:element = $("#code").val();break;
+        case 2:element = $("#title").val();break;
+        case 3:element = $("#date").val();break;
+        case 4:element = $("#type").val();break;
+        case 5:element = $("#baseType").val();break;
+    }
+
+     $.ajax({
+                url: '/Admin/FilterProduct',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id ,element: element},
+                success: function (data) {
+                    var fullURL = window.location.href;
+                    var last = fullURL.lastIndexOf('=');
+                    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+                    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+                    var url = "../Admin/ListProducts?Curentpage=" + page;
+                    $('.ProductListItem').load(url)
+                },
+                error: function () {
+                   
+                }
+            });
+}
+
+function ChangeTopProduct(id, mode) {
+    $.ajax({
+                url: '/Admin/ChangetopProduct',
+                type: 'POST',
+                dataType: 'json',
+                data: {id:id , mode:mode},
+                success: function (data) {
+                    if (data == "ok") {
+                    alert("success change top product");
+                    }
+                    else
+                    {
+                        alert("Top product have be 4");
+                    }
+                },
+                error: function () {
+                   
+                }
+            });
+}
+
+function RestoreAdminProduct() {
+    
+    $.ajax({
+        url: '/Admin/Restore',
+        type: 'POST',
+        dataType: 'json',
+        data: { id :1 },
+        success: function (data) {
+            
+
+
+        },
+        error: function () {
+        }
+    });
 }

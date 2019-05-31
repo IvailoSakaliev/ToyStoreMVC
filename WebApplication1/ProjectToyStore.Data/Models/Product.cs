@@ -16,5 +16,6 @@ namespace ProjectToyStore.Data.Models
         public string Image { get; set; }
         public int Basetype { get; set; }
         public int Type { get; set; }
+        public int Front { get; set; }
     }
 }

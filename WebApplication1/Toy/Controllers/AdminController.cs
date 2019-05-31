@@ -22,6 +22,8 @@ namespace Toy.Controllers
         private static string frontImage;
         private static int _idElement;
 
+        private static string _code;
+
         public AdminController()
         {
             _product = new ProductServise();
@@ -130,7 +132,14 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            itemVM.AllItems = _product.GetAll();
+            if (_code != null)
+            {
+                itemVM.AllItems = _product.GetAll(x=> x.Code.Contains(_code));
+            }
+            else
+            {
+                itemVM.AllItems = _product.GetAll();
+            }
             itemVM.Pages = itemVM.AllItems.Count / 12;
             double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
@@ -140,6 +149,7 @@ namespace Toy.Controllers
             itemVM.StartItem = 12 * curentPage;
             try
             {
+               
                 for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
                     itemVM.Items.Add(itemVM.AllItems[i]);
@@ -154,6 +164,14 @@ namespace Toy.Controllers
 
             return itemVM;
         }
+
+
+
+
+        
+
+
+
 
         private string AddNameOftypes(ProducLIst itemVM, int id, int v)
         {
@@ -274,6 +292,56 @@ namespace Toy.Controllers
             _product.DeleteById(id);
             _image.Delete(x => x.Subject_id == id);
             return Redirect("../ProductIndex?Curentpage=1");
+        }
+
+        [HttpGet]
+        public IActionResult ListProducts(int Curentpage)
+        {
+            ProducLIst itemVM = new ProducLIst();
+            itemVM = PopulateIndex(itemVM, Curentpage);
+            return View(itemVM);
+        }
+
+        [HttpPost]
+        public JsonResult FilterProduct(int id , string element)
+        {
+            _code = element;
+            return Json("ok");
+        }
+
+        [HttpPost]
+        public JsonResult ChangetopProduct(int id , int mode)
+        {
+            string error = "";
+            if (mode == 1)
+            {
+                var list = _product.GetAll(x => x.Front == 1);
+                if (list.Count == 4)
+                {
+                    error = "4";
+                }
+                else
+                {
+                    Product product = _product.GetByID(id);
+                    product.Front = 1;
+                    _product.Save(product);
+                    error = "ok";
+                }
+            }
+            else
+            {
+                Product product = _product.GetByID(id);
+                product.Front = 0;
+                _product.Save(product);
+                error = "ok";
+            }
+            return Json(error);
+        }
+        [HttpPost]
+        public JsonResult Restore(int id)
+        {
+            _code = null;
+            return Json("ok");
         }
     }
 }

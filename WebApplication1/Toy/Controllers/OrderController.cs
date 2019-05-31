@@ -336,7 +336,11 @@ namespace Toy.Controllers
 
             itemVM.ControllerName = controllerName;
             itemVM.ActionName = actionname;
-            if (_FilterOrder != "")
+            if (_FilterDate!="" && _FilterOrder != "")
+            {
+                itemVM.AllItems = _listOrders.FindAll(x => x.OrderNumber.Contains(_FilterOrder) && x.Date.Contains(_FilterDate));
+            }
+            else   if (_FilterOrder != "")
             {
                 itemVM.AllItems = _listOrders.FindAll(x => x.OrderNumber.Contains(_FilterOrder));
             }
@@ -500,6 +504,19 @@ namespace Toy.Controllers
         {
             _FilterDate = "";
             _FilterOrder = "";
+            return Json("ok");
+        }
+        [HttpPost]
+        public JsonResult DateFilter(string filterValue)
+        {
+            if (filterValue == null)
+            {
+                _FilterDate = "";
+            }
+            else
+            {
+                _FilterDate = filterValue;
+            }
             return Json("ok");
         }
 

@@ -10,71 +10,9 @@
 <div id="total">
     <h3 id="price"></h3>
 </div>
-<table class="table">
-    <tr>
-        <th>
-            Code
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-            Type
-        </th>
-        <th>
-            Base Type
-        </th>
-
-        <th></th>
-    </tr>
-
-    @{ 
-        int i = 0;
-        foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>
-                    @item.Code
-                </td>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Price
-                </td>
-                <td>
-                    @item.Date
-                </td>
-                <td>
-                    @item.Quantity
-                </td>
-                <td>
-                    @Model.TypeName[i]
-                </td>
-                <td>
-                    @Model.BaseTypeName[i]
-                </td>
-
-                <td>
-                    <span>@Html.ActionLink("Edit", "EditProduct", new { id = item.ID }) |</span>
-                    <span>@Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID }) |</span>
-                </td>
-            </tr>
-            i++;
-        }
-
-    }
-
-</table>
+<div class="ProductListItem">
+       @Html.Partial("ListProducts")
+</div>
 <div style="text-align:right">
     @Html.Partial("_adminPageVM")
 </div>
