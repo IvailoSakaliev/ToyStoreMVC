@@ -12,7 +12,10 @@ body {
 }
 
 
-
+.HomeProducts
+{
+    margin-bottom: 20px;
+}
 
 .herder {
     padding: 10px;
@@ -192,7 +195,10 @@ span
 	height: 140px;
 	border-right: 1px solid #cccccc;
 }
-
+.menuLink:hover
+{
+    cursor: pointer;
+}
 /*footer*/
 footer{
     background-color:black;
@@ -208,6 +214,11 @@ footer{
 }
 .footerNav li a {
    color:white
+
+}
+.footerNav li a:hover {
+   cursor: pointer;
+
 }
 .footerNav h3{
     color:#999

@@ -108,7 +108,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Contact">За бебета </a>
+                        <a class="menuLink" onclick="ProductCategory(1)">За бебета </a>
                     </li>
 
                     <li class="dropdown">
@@ -160,7 +160,7 @@
                             <li><a onclick="ChangeType(39)" href="#">Фoтoгpaфии</a></li>
                         </ul>
                     </li>
-                    <li><a onclick="ChangeType(42)" asp-area="" asp-controller="Home" asp-action="Contact">Настолни игри и забавления </a></li>
+                    <li><a class="menuLink" onclick="ProductCategory(9)" >Настолни игри и забавления </a></li>
                 </ul>
             </div>
         </div>
@@ -220,21 +220,20 @@
                 <ul class="footerNav">
                     <h3>Menu</h3>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a href="../Product/Index?Curentpage=1">Product</a></li>
-                    <li><a href="../Product/Create">Create</a></li>
+
                 </ul>
             </div>
             <div class="col-md-4 secondnavFooter">
                 <ul class="footerNav">
                     <h3>Products</h3>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Играчки</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Образователни игри</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">За бебета</a></li>
-                    <li><a href="../Product/Index?Curentpage=1">Спорт и игра на открито</a></li>
-                    <li><a href="../Product/Create">Пъзели</a></li>
-                    <li><a href="../Product/Create">Настолни игри и забавления</a></li>
+                    <li><a onclick="ProductCategory(6)">Играчки</a></li>
+                    
+                    <li><a onclick="ProductCategory(1)">За бебета</a></li>
+                    <li><a onclick="ProductCategory(7)">Спорт и игра на открито</a></li>
+                    <li><a onclick="ProductCategory(8)">Пъзели</a></li>
+                    <li><a onclick="ProductCategory(9)">Настолни игри и забавления</a></li>
                 </ul>
             </div>
             <div class="col-md-4 social-link">
