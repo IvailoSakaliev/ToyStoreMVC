@@ -3,6 +3,20 @@
 
 // Write your JavaScript code.
 
+var modeSearch = 0;
+
+function VisibleSearch() {
+    var element = $(".search");
+    if (modeSearch == 0) {
+        element.fadeIn(200);
+        modeSearch = 1;
+    }
+    else
+    {
+        element.fadeOut(200);
+        modeSearch = 0;
+    }
+}
 
 function ChangeView(id) {
     var fullURL = window.location.href;
@@ -40,10 +54,7 @@ function GetCheck(id, page) {
 
 function ChangePriceTo() {
     var element = $("#PriceTo").val();
-    if (element == 0) {
-        alert("Please enter number > 0");
-    }
-    else {
+    
         $.ajax({
             url: '/Product/FilterPriceTo',
             type: 'POST',
@@ -68,14 +79,12 @@ function ChangePriceTo() {
             error: function () {
             }
         });
-    }
+    
 }
 
 function ChangePriceFrom() {
     var element = $("#priceOF").val();
-    if (element < 0) {
-        alert("Price to can't negative");
-    } else {
+    
         $.ajax({
             url: '/Product/FilterPriceFrom',
             type: 'POST',
@@ -100,7 +109,7 @@ function ChangePriceFrom() {
             error: function () {
             }
         });
-    }
+    
 }
 
 function Restore() {

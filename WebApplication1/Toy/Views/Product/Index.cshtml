@@ -5,21 +5,21 @@
 
 
 
-
-<div class="container" style="padding-top:20px;">
-    <div class="row infoField">
-        <div class="col-md-9">
-            @* free space for another functinos *@
-        </div>
-        <div class="col-md-3">
-            <div class=" viewButtons">
-                <div class="col-md-2">
-                    <img onclick="ChangeView(1)" src="~/images/list.png" width="30px" alt="Alternate Text" />
-                </div>
-                <div class="col-md-2">
-                    <img onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
-                </div>
-                <div class="col-md-8" style="padding-right:5px;">
+<div class="body-content">
+    <div style="padding-top:20px;">
+        <div class="row infoField">
+            <div class="col-md-9">
+                <h3>Продукти</h3>
+            </div>
+            <div class="col-md-3">
+                <div class=" viewButtons">
+                    <div class="col-md-2">
+                        <img onclick="ChangeView(1)" src="~/images/list.png" width="30px" alt="Alternate Text" />
+                    </div>
+                    <div class="col-md-2">
+                        <img onclick="ChangeView(2)" src="~/images/galery.png" style="padding-top:4px" width="30px" alt="Alternate Text" />
+                    </div>
+                    <div class="col-md-8" style="padding-right:5px;">
                         <select class="form-control" id="sortlist" onchange="ChangeSortOfProduct()">
                             <option value="0">Date</option>
                             <option value="1">Price min</option>
@@ -54,35 +54,35 @@
 
                 </div>
 
-                @*<div class="singleFilter">
+                <div class="singleFilter">
                     <h4>Подходящо за </h4>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Бебета</label>
+                        <input type="radio" name="group" value="1" class="custom-control-input" id="baby">
+                        <label class="custom-control-label" for="baby">Момчета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Възрастни</label>
+                        <input type="radio" name="group" value="2" class="custom-control-input" id="adult">
+                        <label class="custom-control-label" for="adult">Възрастни</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Момичета</label>
+                        <input type="radio" name="group" value="3" class="custom-control-input" id="boy">
+                        <label class="custom-control-label" for="boy">Момичета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Момчета</label>
+                        <input type="radio" name="group" value="4"class="custom-control-input" id="girl">
+                        <label class="custom-control-label" for="girl">Момчета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label class="custom-control-label" for="defaultUnchecked">Семейство</label>
+                        <input type="radio" name="group" value="5"class="custom-control-input" id="family">
+                        <label class="custom-control-label" for="family">Семейство</label>
                     </div>
-                </div>*@
+                </div>
                 <div class="singleFilter">
                 </div>
             </form>
         </div>
 
-        <div class="col-md-10 products">
+        <div class="col-md-10 products" >
             @if (ViewBag.Cookie == "1")
             {
                 @Html.Partial("ListProduct");
@@ -97,6 +97,6 @@
         </div>
 
     </div>
-    
-</div>
 
+
+</div>

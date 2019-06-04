@@ -25,20 +25,30 @@
 <body>
     @foreach (var item in Model.Items)
     {
-        <div class="productGalery">
-            <div class="row img">
-                <a href="../../Order/Details/@item.ID"><img src="@item.Image" alt="Alternate Text" /></a>
-            </div>
-            <div class="row title">
-                <p>@item.Title</p>
-            </div>
-            <div class="row price">
-                <h4>@item.Price лв.</h4>
-            </div>
-            <div class="row button ">
-                <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
-            </div>
+    <div class="productGalery">
+        <div class="row img">
+            <a href="../../Order/Details/@item.ID"><img src="@item.Image" alt="Alternate Text" /></a>
         </div>
+        <div class="row title">
+            <p>@item.Title</p>
+        </div>
+        <div class="row">
+            @if (item.Quantity > 0)
+            {
+                <span style="color:green"> В наличност</span>
+            }
+            else
+            {
+                <span style="color:red"> Не е в наличност</span>
+            }
+        </div>
+        <div class="row price">
+            <h4>@item.Price лв.</h4>
+        </div>
+        <div class="row button ">
+            <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
+        </div>
+    </div>
     }
     <div class="row">
         <div class="pageVM">

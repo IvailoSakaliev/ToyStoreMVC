@@ -14,15 +14,13 @@ namespace Toy.Controllers
     {
         ProductServise _productServise = new ProductServise();
         public static string _search { get; set; }
-        public static int _priceFrom { get; set; }
-        public static int _priceTo { get; set; }
+        public static List<Product> _priceFrom { get; set; }
+        public static List<Product> _priceTo { get; set; }
         public static string _subType { get; set; }
         public static List<Product> _list { get; set; }
         public static ProducLIst itemVM = new ProducLIst();
-        public static int _mode { get; set; }
-        public static int _singletype { get; set; }
-        public static int _sort { get; set; }
-
+        public static int _sort;
+        
         [HttpGet]
         public ActionResult Index(int Curentpage)
         {
@@ -117,87 +115,49 @@ namespace Toy.Controllers
             string actionname = GetActionName();
 
             itemVM.ControllerName = controllerName;
-            itemVM.ActionName = actionname;
-            if (_priceFrom != 0 && _priceTo != 0)
+            itemVM.ActionName = actionname; 
+            List<Product> list = new List<Product>();
+            list = FilterProducts();
+            
+
+            if (_sort == 1)
             {
-                if (_mode != 0)
+                if (list == null)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo && x.Basetype == _mode);
-                }else if(_singletype != 0)
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo && x.Type == _singletype);
+                    itemVM.AllItems = _productServise.GetAll().OrderBy(x => x.Price).ToList();
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Price <= _priceTo);
+                    itemVM.AllItems = list.OrderBy(x=> x.Price).ToList();
                 }
             }
-            else if (_priceTo != 0)
+            else if (_sort == 2)
             {
-                if (_mode != 0)
+                if (list == null)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo && x.Basetype == _mode);
-
-                }
-                else if (_singletype != 0)
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo && x.Type == _singletype);
-
+                    itemVM.AllItems = _productServise.GetAll().OrderByDescending(x => x.Price).ToList();
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price <= _priceTo);
-                }
-            }
-            else if (_priceFrom != 0)
-            {
-                if (_mode != 0)
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Basetype == _mode);
-                }
-                else if (_singletype != 0)
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom && x.Type == _singletype);
-                }
-                else
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Price >= _priceFrom);
+                    itemVM.AllItems = list.OrderByDescending(x => x.Price).ToList();
                 }
             }
             else
             {
-                if (_mode != 0)
+                if (list == null)
                 {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Basetype == _mode);
-                }
-                else if (_singletype != 0)
-                {
-                    itemVM.AllItems = _productServise.GetAll(x => x.Type == _singletype);
+                    itemVM.AllItems = _productServise.GetAll().OrderBy(x => x.Date).ToList();
                 }
                 else
                 {
-                    itemVM.AllItems = _productServise.GetAll();
+                    itemVM.AllItems = list.OrderBy(x => x.Date).ToList();
                 }
             }
 
-            List<Product> list = null;
-            if (_sort != 0)
-            {
-                if (_sort == 1)
-                {
-                    list = itemVM.AllItems.OrderBy(x => x.Price).ToList();
-                }
-                else if (_sort == 2)
-                {
-                    list = itemVM.AllItems.OrderByDescending(x => x.Price).ToList();
-                }
-                
+            
 
-            }
-            else
-            {
-                list = itemVM.AllItems.OrderByDescending(x => x.Date).ToList();
-            }
+
+
             itemVM.Pages = itemVM.AllItems.Count / 12;
             double doublePages = itemVM.AllItems.Count / 12.0;
             if (doublePages > itemVM.Pages)
@@ -209,7 +169,7 @@ namespace Toy.Controllers
             {
                 for (int i = itemVM.StartItem - 12; i < itemVM.StartItem; i++)
                 {
-                    itemVM.Items.Add(list[i]);
+                    itemVM.Items.Add(itemVM.AllItems[i]);
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -221,6 +181,8 @@ namespace Toy.Controllers
 
             return itemVM;
         }
+    
+    
         private string GetActionName()
         {
             return this.ControllerContext.RouteData.Values["action"].ToString();
@@ -230,8 +192,52 @@ namespace Toy.Controllers
         {
             return this.ControllerContext.RouteData.Values["controller"].ToString();
         }
+        public List<Product> FilterProducts()
+        {
+            List<Product> priceToFrom = new List<Product>();
+            List<Product> bacetypeTorazvitieNaUmeniqta = new List<Product>();
+            List<Product> _intersectlist = new List<Product>();
+            priceToFrom = InterSect(_priceFrom, _priceTo);
+            //bacetypeTorazvitieNaUmeniqta = InterSect(_baseType, _razvitie);
+            bacetypeTorazvitieNaUmeniqta = null;
+            return InterSect(priceToFrom, bacetypeTorazvitieNaUmeniqta);
+            
+        }
 
-       
+        private List<Product> InterSect(List<Product> firstList, List<Product> SecondList)
+        {
+            if (firstList == null && SecondList == null)
+            {
+                return null;
+            }
+            else if (firstList == null)
+            {
+                return SecondList;
+            }
+            else if (SecondList == null)
+            {
+                return firstList;
+            }
+            else
+            {
+                List<Product> intersect = new List<Product>();
+                foreach (var first in firstList)
+                {
+                    foreach (var second in SecondList)
+                    {
+                        if (second.Code == first.Code)
+                        {
+                            intersect.Add(first);
+                            break;
+                        }
+                    }
+                    
+                }
+                return intersect;
+            }
+
+        }
+
         [HttpPost]
         public JsonResult ChangeViewProducts(int id)
         {
@@ -249,7 +255,14 @@ namespace Toy.Controllers
         [HttpPost]
         public JsonResult FilterPriceTo(string element)
         {
-            _priceTo = int.Parse(element);
+            if (element == null || element == "")
+            {
+                _priceTo = null;
+            }
+            else
+            {
+                _priceTo = _productServise.GetAll(x => x.Price < int.Parse(element));
+            }
             return Json(Request.Cookies["ViewProducr"]);
         }
         
@@ -257,7 +270,14 @@ namespace Toy.Controllers
         [HttpPost]
         public JsonResult FilterPriceFrom(string element)
         {
-            _priceFrom = int.Parse(element);
+            if (element == null || element == "")
+            {
+                _priceFrom = null;
+            }
+            else
+            {
+                _priceFrom = _productServise.GetAll(x => x.Price > int.Parse(element));
+            }
             return Json(Request.Cookies["ViewProducr"]);
         }
         [HttpPost]
@@ -274,17 +294,15 @@ namespace Toy.Controllers
 
         private void Restore()
         {
-            _priceFrom = 0;
-            _priceTo = 0;
+            _priceFrom = null;
+            _priceTo = null;
             _subType = null;
-            _mode = 0;
-            _singletype = 0;
+            _sort = 0;
         }
 
         [HttpPost]
         public JsonResult ChangBaseTypeValue(int id)
         {
-            _mode = id;
             return Json("ok");
         }
 
@@ -292,7 +310,6 @@ namespace Toy.Controllers
         public JsonResult ChangeType(int id)
         {
             Restore();
-            _singletype = id;
             return Json("ok");
         }
 

@@ -1,7 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Http
 
-<div class="navbar-collapse collapse">
+<div class="navbar-collapse collapse" style="float:right">
     <ul class="nav navbar-nav">
+       
+        <li>
+            <div class="col-md-4 search">
+                <form action="../Product" method="post">
+                    <div class="col-md-9">
+                        <input class="form-control searchFiels" type="text" name="search" placeholder="Search ...." />
+                    </div>
+                    <div class="col-md-3">
+                        <button style="background-color:#f4ad42" class="form-control"><img src="~/images/search.png" alt="Search" /></button>
+                    </div>
+
+                </form>
+            </div>
+        </li>
         @if (Context.Session.GetString("User_ID") == "1")
         {
             <li><a class="btn btn-danger adminButton" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
@@ -10,6 +24,11 @@
             <div class="circle"></div>
 
             <a asp-controller="Order" asp-action="Orders"><img width="20px" src="~/images/shop.png" /></a>
+        </li>
+        <li class="drop_menu_search">
+            <img src="~/images/search.png" width="15px" alt="Search" onclick="VisibleSearch()" />
+
+
         </li>
         @{
             if (Context.Session.GetString("User_ID") == ""

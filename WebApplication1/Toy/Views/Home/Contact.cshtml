@@ -2,34 +2,36 @@
 @{
     ViewData["Title"] = "Contact";
 }
-<h3>Contact Us</h3>
 
-<div class="row" style="text-align:center; margin-bottom:20px">
-    <img style="margin-left:5%"src="~/images/Vavilonci.png" width="70%" alt="Alternate Text" />
-</div>
-<div class="row" style="background-color:white; ">
-    <div class="col-md-6">
-        <h3>Contact US</h3>
-        <form style="padding:10px;" action="Contact" method="post">
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Subject"></label>
-                <input asp-for="Subject" class="form-control" />
-                <span asp-validation-for="Subject"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Subject"></label>
-                <textarea rows="10" asp-for="Message" class="form-control"></textarea>
-                <span asp-validation-for="Message" ></span>
-            </div>
-            <input class="btn btn-warning" type="submit" name="message" value="Send" />
-        </form>
+<div class="body-content">
+    <h3>Contact Us</h3>
+    <div class="row" style="text-align:center; margin-bottom:20px">
+        <img style="margin-left:5%" src="~/images/Vavilonci.png" width="70%" alt="Alternate Text" />
     </div>
-    <div class="col-md-6 ">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2958.658700690741!2d24.76277781498299!3d42.13618925720318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd106545c6d6b%3A0x723bb8d9f717f602!2z0LHRg9C7LiDigJ7QodCw0L3QutGCINCf0LXRgtC10YDQsdGD0YDQs-KAnCAzOSwgNDAxNyDQmtCw0LzQtdC90LjRhtCwIDIsINCf0LvQvtCy0LTQuNCy!5e0!3m2!1sbg!2sbg!4v1559165186730!5m2!1sbg!2sbg" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div class="row" style="background-color:white; ">
+        <div class="col-md-6">
+            <h3>Contact US</h3>
+            <form style="padding:10px;" action="Contact" method="post">
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject"></label>
+                    <textarea rows="10" asp-for="Message" class="form-control"></textarea>
+                    <span asp-validation-for="Message"></span>
+                </div>
+                <input class="btn btn-warning" type="submit" name="message" value="Send" />
+            </form>
+        </div>
+        <div class="col-md-6 ">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2958.658700690741!2d24.76277781498299!3d42.13618925720318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd106545c6d6b%3A0x723bb8d9f717f602!2z0LHRg9C7LiDigJ7QodCw0L3QutGCINCf0LXRgtC10YDQsdGD0YDQs-KAnCAzOSwgNDAxNyDQmtCw0LzQtdC90LjRhtCwIDIsINCf0LvQvtCy0LTQuNCy!5e0!3m2!1sbg!2sbg!4v1559165186730!5m2!1sbg!2sbg" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
     </div>
 </div>

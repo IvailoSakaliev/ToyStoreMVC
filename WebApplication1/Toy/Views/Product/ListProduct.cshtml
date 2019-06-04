@@ -46,6 +46,16 @@
 
             </div>
             <div class="col-md-2">
+                <div class="row">
+                    @if (item.Quantity > 0)
+                    {
+                        <span style="color:green; margin:20px 20px;"> В наличност</span>
+                    }
+                    else
+                    {
+                        <span style="color:red ; margin:20px 20px;" > Не е в наличност</span>
+                    }
+                </div>
                 <div class="button ">
                     <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
                 </div>

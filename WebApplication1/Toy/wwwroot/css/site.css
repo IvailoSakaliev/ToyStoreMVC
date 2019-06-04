@@ -3,29 +3,102 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-    padding-top: 50px;
+    padding-top: 103px;
     padding-bottom: 20px;
     background-color: #eeeeee;
+    overflow-x: hidden;
+}
+.row .navigation
+{
+    background-color: black;
+    z-index: 999;
+}
+.row .navigation li a 
+{
+    color: #cccccc;
+}
+.row .navigation li a:hover
+{
+    background-color: black;
+    color: white !important;
+}
+
+.row .navigation .col-md-4 .col-md-8
+{
+    padding: 0px;
 }
 .dropdown-menu li a:hover {
     background-color: #cccccc;
 }
 
+.nav
+{
+    position: fixed;
+    top:0px;
+    z-index: 9;
+}
+.sub-menu
+{
+    display: block;
+    position: absolute;
+    width: 300px;
+    z-index: 999 !important;
+    background-color: black;
+}
+.sub-menu li
+{
+    z-index: 999;
+}
+.drop_menu_search
+{
+    padding: 15px 13px;
+}
+.drop_menu_search:hover
+{
+    cursor: pointer;
+}
+.secondNAvigation
+{
+    background-color:white;
+
+}
 
 .HomeProducts
 {
+    margin-top: 5px;
     margin-bottom: 20px;
+    background-color:white; 
+    padding:20px;
+    height:350px;
+}
+.HomeProducts .col-md-3
+{
+    text-align:center;
+}
+.HomeProducts .title
+{
+    word-wrap: break-word;
 }
 
+#myCarousel
+{
+    padding: 0px;
+    margin-left:-50px;
+    width: 107%; 
+}
 .herder {
     padding: 10px;
     height: 150px;
 }
 .search
 {
+    display: none;
     margin:0px;
     padding:0px;
-    margin-top:7%;
+    padding-top: 4%;
+    padding-right: 20px;
+    width: 250px;
+    float: left
 }
 .search .col-md-9
 {
@@ -54,11 +127,7 @@ body {
 }
 
 
-.secondNAvigation
-{
-    background-color:white;
 
-}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -169,6 +238,10 @@ span
 }
 
 /*list products*/
+.products
+{
+    background-color: white !important;
+}
 .productList
 {
 	padding: 5px;
@@ -630,6 +703,10 @@ footer{
     background-color: white;
     padding-bottom: 20px;
 }
+.userinfo h2
+{
+    padding-left: 10px;
+}
 .orderinformation
 {
     background-color: white;
@@ -674,6 +751,7 @@ footer{
 .homeCaruser img
 {
     margin:0 auto; 
+    width: 95%
 }
 
 /*cookie style*/

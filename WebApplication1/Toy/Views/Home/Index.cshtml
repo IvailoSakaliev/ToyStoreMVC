@@ -16,18 +16,18 @@
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner homeCaruser">
-        <div class="item active ">
-            <img src="~/images/Vavilonci.png" alt="Los Angeles">
+        <div class="item active " >
+            <img src="~/images/Covers/cover1.jpg" alt="Los Angeles">
 
         </div>
 
         <div class="item">
-            <img src="~/images/Vavilonci.png" alt="Los Angeles">
+            <img src="~/images/Covers/cover2.jpg"  width="100%" alt="Los Angeles">
 
         </div>
 
-        <div class="item">
-            <img src="~/images/Vavilonci.png" alt="Los Angeles">
+        <div class="item" >
+            <img src="~/images/Covers/cover3.jpg" alt="Los Angeles">
 
         </div>
     </div>
@@ -42,43 +42,8 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<div class="row menu">
-    <h4>Подходящо за</h4>
-    <div class="menu_item">
-        <img onclick="ProductCategory(1)" src="~/images/baby.png" alt="Alternate Text" />
-        <h4>Бебета</h4>
-    </div>
-    <div class="menu_item">
-        <img onclick="ProductCategory(2)" src="~/images/adult.png" alt="Alternate Text" />
-        <h4>Възрастни</h4>
-    </div>
-    <div class="menu_item">
-        <img onclick="ProductCategory(3)" src="~/images/woman.png" alt="Alternate Text" />
-        <h4>Момичета</h4>
-    </div>
-    <div class="menu_item">
-        <img onclick="ProductCategory(4)" src="~/images/men.png" alt="Alternate Text" />
-        <h4>Момчета</h4>
-    </div>
-    <div class="menu_item" style="border-right:0px">
-        <img onclick="ProductCategory(5)" src="~/images/family.png" alt="Alternate Text" />
-        <h4>Семейство</h4>
-    </div>
-</div>
 
-
-<div class="row video">
-    <div class="col-md-6" style="padding:0px">
-        <video id="vid" width="100%"
-               autoplay loop muted>
-            <source src="~/images/Video/fasada2.mp4" type="video/mp4" />
-        </video>
-    </div>
-    <div class="col-md-6">
-        text
-    </div>
-</div>
-<div class="HomeProducts" style="background-color:white; padding:20px;height:300px">
+<div class="HomeProducts">
     <h4>Топ продукти</h4>
     <div style="padding-left:60px; padding-top:20px;">
         @foreach (var item in Model.Items)
@@ -91,6 +56,16 @@
                 <div class="row title">
                     <p>@item.Title</p>
                 </div>
+                <div class="row">
+                    @if (item.Quantity > 0)
+                    {
+                        <span style="color:green"> В наличност</span>
+                    }
+                    else
+                    {
+                        <span style="color:red"> Не е в наличност</span>
+                    }
+                </div>
                 <div class="row price">
                     <h4>@item.Price лв.</h4>
                 </div>
@@ -98,6 +73,18 @@
         }
     </div>
 </div>
+<div class="row video">
+    <div class="col-md-6" style="padding:0px">
+        <video id="vid" width="100%"
+               autoplay loop muted>
+            <source src="~/images/Video/fasada2.mp4" type="video/mp4" />
+        </video>
+    </div>
+    <div class="col-md-6">
+        text
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6">
         text
