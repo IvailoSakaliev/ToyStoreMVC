@@ -19,7 +19,7 @@ namespace Toy.Controllers
         private AuthenticationServises _aut = new AuthenticationServises();
         private IEncriptServises _encript = new EncriptServises();
         private LoginServise _servise = new LoginServise();
-        
+        private static int userID;
 
         [HttpGet]
         public IActionResult Index()
@@ -101,12 +101,18 @@ namespace Toy.Controllers
 
                 }
             }
+            return RedirectToAction("GoToEmail");
+        }
+        [HttpGet]
+        public IActionResult GoToEmail()
+        {
+
             return View();
         }
-
         [HttpGet]
         public IActionResult Confirm()
         {
+
             return View();
         }
 
@@ -214,6 +220,38 @@ namespace Toy.Controllers
             entity = _servise.GetByID(id);
             entity.isRegisted = true;
             _servise.Save(entity);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RestorePassword(string id)
+        {
+            userID = int.Parse(_encript.DencryptData(id));
+            RegistrationVM model = new RegistrationVM();
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult RestorePassword(RegistrationVM model)
+        {
+            if (model.Password == model.ConfirmPassword)
+            {
+                Login entity = _servise.GetByID(userID);
+                entity.Password =_encript.EncryptData(model.Password);
+                _servise.Save(entity);
+                return RedirectToAction("SuccessChangePassword");
+            }
+           else
+            {
+                ModelState.AddModelError(string.Empty, "Паролите не съвпадат !");
+                return View(model);
+            }
+
+            
+        }
+
+        [HttpGet]
+        public IActionResult SuccessChangePassword()
+        {
             return View();
         }
         private void GoToSession()
