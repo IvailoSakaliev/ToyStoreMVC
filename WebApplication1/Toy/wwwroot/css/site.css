@@ -769,3 +769,24 @@ footer{
 {
     color: white;
 }
+
+.delivery
+{
+    border:1px solid #0097df;
+    border-radius: 15px;
+    width: 283px;
+    margin-right: 20px;
+}
+.delivery span
+{
+    margin-top: 20px;
+   color:#0097df;
+}
+.indexTextVideo
+{
+    text-align: center;
+    padding-left: 30px;
+    padding-top: 80px;
+    font-size: 20px;
+    color: #888;
+}

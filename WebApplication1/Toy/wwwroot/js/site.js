@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 var modeSearch = 0;
-
+var deleteFilters = 0;
 function VisibleSearch() {
     var element = $(".search");
     if (modeSearch == 0) {
@@ -20,7 +20,9 @@ function VisibleSearch() {
 
 function ChangeView(id) {
     var fullURL = window.location.href;
-    var page = fullURL.substr(fullURL.length - 1);
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
     GetCheck(id, page);
 }
 
@@ -32,8 +34,6 @@ function GetCheck(id, page) {
         dataType: 'json',
         data: { id: id, page: page },
         success: function (data) {
-            var fullURL = window.location.href;
-            var page = fullURL.substr(fullURL.length - 1);
             if (data == "1") {
 
                 var url = "../Product/ListProduct?Curentpage=" + page;
@@ -54,15 +54,17 @@ function GetCheck(id, page) {
 
 function ChangePriceTo() {
     var element = $("#PriceTo").val();
-    
+     var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
         $.ajax({
             url: '/Product/FilterPriceTo',
             type: 'POST',
             dataType: 'json',
             data: { element: element },
             success: function (data) {
-                var fullURL = window.location.href;
-                var page = fullURL.substr(fullURL.length - 1);
+                
                 if (data == "1") {
 
                     var url = "../Product/ListProduct?Curentpage=" + page;
@@ -84,15 +86,16 @@ function ChangePriceTo() {
 
 function ChangePriceFrom() {
     var element = $("#priceOF").val();
-    
+     var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
         $.ajax({
             url: '/Product/FilterPriceFrom',
             type: 'POST',
             dataType: 'json',
             data: { element: element },
             success: function (data) {
-                var fullURL = window.location.href;
-                var page = fullURL.substr(fullURL.length - 1);
                 if (data == "1") {
 
                     var url = "../Product/ListProduct?Curentpage=" + page;
@@ -256,15 +259,25 @@ function ChangeQuantityOfProduct(id) {
 }
 
 function ProductCategory(id) {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
          $.ajax({
                 url: '/Product/ChangBaseTypeValue',
                 type: 'POST',
                 dataType: 'json',
                 data: { id: id },
                 success: function (data) {
-                    if (data == "ok") {
-                        window.location.href = "../../Product/Index?Curentpage=1";
+                  if (data == "1") {
+                        var url = "../Product/ListProduct?Curentpage=" + page;
+                        $('.products').load(url)
                     }
+                    else if (data == "2") {
+                        var url = "../Product/GaleryProduct?Curentpage=" + page;
+                        $('.products').load(url);
+                    }
+
                     
 
                 },
@@ -290,6 +303,7 @@ function ChangeType(id) {
                 }
             });
 }
+
 
 $(document).ready(function () {
     var sessionValue = $('.session').text().trim();

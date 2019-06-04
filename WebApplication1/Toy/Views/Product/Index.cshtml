@@ -57,23 +57,23 @@
                 <div class="singleFilter">
                     <h4>Подходящо за </h4>
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" name="group" value="1" class="custom-control-input" id="baby">
-                        <label class="custom-control-label" for="baby">Момчета</label>
+                        <input type="radio" name="group" value="1" onchange="ProductCategory(1)" class="custom-control-input" id="baby">
+                        <label class="custom-control-label"  for="baby">Момчета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" name="group" value="2" class="custom-control-input" id="adult">
+                        <input type="radio" name="group" value="2" onchange="ProductCategory(2)" class="custom-control-input" id="adult">
                         <label class="custom-control-label" for="adult">Възрастни</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" name="group" value="3" class="custom-control-input" id="boy">
+                        <input type="radio" name="group" value="3" onchange="ProductCategory(3)" class="custom-control-input" id="boy">
                         <label class="custom-control-label" for="boy">Момичета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" name="group" value="4"class="custom-control-input" id="girl">
+                        <input type="radio" name="group" value="4" onchange="ProductCategory(4)" class="custom-control-input" id="girl">
                         <label class="custom-control-label" for="girl">Момчета</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="radio" name="group" value="5"class="custom-control-input" id="family">
+                        <input type="radio" name="group" value="5" onchange="ProductCategory(5)" class="custom-control-input" id="family">
                         <label class="custom-control-label" for="family">Семейство</label>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
         </div>
 
         <div class="col-md-10 products" >
-            @if (ViewBag.Cookie == "1")
+            @if (Context.Request.Cookies["ViewProducr"] == "1")
             {
                 @Html.Partial("ListProduct");
             }

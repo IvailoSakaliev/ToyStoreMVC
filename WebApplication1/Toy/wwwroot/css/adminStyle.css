@@ -1,5 +1,6 @@
 ﻿
 body {
+    padding:0px !important;
 }
 
 .table input[type="text"]
@@ -20,6 +21,7 @@ body {
     width: 100%;
     background-color: black;
     height: 1000px;
+    padding-top: 60px;
 }
 .navMenu
 {
@@ -49,4 +51,9 @@ body {
     width: 200px;
     height: 150px;
     background-size: 100%
+}
+
+.navbar 
+{
+    margin:0xp !important;
 }

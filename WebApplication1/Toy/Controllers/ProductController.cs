@@ -16,7 +16,8 @@ namespace Toy.Controllers
         public static string _search { get; set; }
         public static List<Product> _priceFrom { get; set; }
         public static List<Product> _priceTo { get; set; }
-        public static string _subType { get; set; }
+        public static List<Product> _baseType { get; set; }
+        public static List<Product> _subType { get; set; }
         public static List<Product> _list { get; set; }
         public static ProducLIst itemVM = new ProducLIst();
         public static int _sort;
@@ -27,7 +28,8 @@ namespace Toy.Controllers
             itemVM = new ProducLIst();
             itemVM.Filter = new PruductFilter();
             itemVM = GetElement(itemVM, Curentpage);
-            if (Request.Cookies["ViewProducr"] == null)
+            if (Request.Cookies["ViewProducr"] == null 
+                || Request.Cookies["ViewProducr"] == "")
             {
                 Response.Cookies.Append("ViewProducr", "2");
             }
@@ -199,7 +201,7 @@ namespace Toy.Controllers
             List<Product> _intersectlist = new List<Product>();
             priceToFrom = InterSect(_priceFrom, _priceTo);
             //bacetypeTorazvitieNaUmeniqta = InterSect(_baseType, _razvitie);
-            bacetypeTorazvitieNaUmeniqta = null;
+            bacetypeTorazvitieNaUmeniqta = InterSect(_baseType, _subType);
             return InterSect(priceToFrom, bacetypeTorazvitieNaUmeniqta);
             
         }
@@ -297,19 +299,22 @@ namespace Toy.Controllers
             _priceFrom = null;
             _priceTo = null;
             _subType = null;
+            _baseType = null;
             _sort = 0;
         }
 
         [HttpPost]
         public JsonResult ChangBaseTypeValue(int id)
         {
-            return Json("ok");
+            _baseType = _productServise.GetAll(x => x.Basetype == id);
+            return Json(Request.Cookies["ViewProducr"]);
         }
 
         [HttpPost]
         public JsonResult ChangeType(int id)
         {
             Restore();
+            _subType = _productServise.GetAll(x => x.Type == id);
             return Json("ok");
         }
 
