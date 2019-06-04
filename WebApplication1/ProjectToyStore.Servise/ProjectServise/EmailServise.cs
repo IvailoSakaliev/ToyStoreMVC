@@ -75,7 +75,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         private void SendRestorPasswordEmail()
         {
             _message.Subject = "Restor Password";
-            _message.Body = "Please enter link to restor your password in StudentSystem http://studentsystem.azurewebsites.net/Login/EnableAccount/" + _userID;
+            _message.Body = "Please enter link to restor your password in StudentSystem http://wwww.vavilonci.com/Login/EnableAccount/" + _userID;
             _message.To.Add(_userEmail);
             _smtpClient.Send(_message);
         }
@@ -83,7 +83,7 @@ namespace ProjectToyStore.Servise.ProjectServise
         private void SendConfirmEmail()
         {
             _message.Subject = "Confirm registration";
-            _message.Body = "Please to confirm your registration in Vavilonci htts://wwww.vavilonci.com/Login/EnableAccount/" + _userID;
+            _message.Body = "Please to confirm your registration in Vavilonci http://wwww.vavilonci.com/Login/EnableAccount/" + _userID;
             _message.To.Add(_userEmail);
             _smtpClient.Send(_message);
         }
