@@ -325,6 +325,13 @@ namespace Toy.Controllers
             return Json(Request.Cookies["ViewProducr"]);
         }
 
+        [HttpPost]
+        public JsonResult RestoreFilter()
+        {
+            Restore();
+            return Json(Request.Cookies["ViewProducr"]);
+        }
+
 
     }
 }

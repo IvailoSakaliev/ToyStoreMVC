@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 var modeSearch = 0;
-var deleteFilters = 0;
+
 function VisibleSearch() {
     var element = $(".search");
     if (modeSearch == 0) {
@@ -53,6 +53,7 @@ function GetCheck(id, page) {
 }
 
 function ChangePriceTo() {
+    ViewFilterDeleter();
     var element = $("#PriceTo").val();
      var fullURL = window.location.href;
     var last = fullURL.lastIndexOf('=');
@@ -64,13 +65,10 @@ function ChangePriceTo() {
             dataType: 'json',
             data: { element: element },
             success: function (data) {
-                
                 if (data == "1") {
-
                     var url = "../Product/ListProduct?Curentpage=" + page;
                     $('.products').load(url)
                 }
-
                 else if (data == "2") {
                     var url = "../Product/GaleryProduct?Curentpage=" + page;
                     $('.products').load(url);
@@ -85,6 +83,7 @@ function ChangePriceTo() {
 }
 
 function ChangePriceFrom() {
+    ViewFilterDeleter();
     var element = $("#priceOF").val();
      var fullURL = window.location.href;
     var last = fullURL.lastIndexOf('=');
@@ -97,9 +96,9 @@ function ChangePriceFrom() {
             data: { element: element },
             success: function (data) {
                 if (data == "1") {
-
                     var url = "../Product/ListProduct?Curentpage=" + page;
-                    $('.products').load(url)
+                    $('.products').load(url);
+
                 }
 
                 else if (data == "2") {
@@ -259,6 +258,7 @@ function ChangeQuantityOfProduct(id) {
 }
 
 function ProductCategory(id) {
+    ViewFilterDeleter();
     var fullURL = window.location.href;
     var last = fullURL.lastIndexOf('=');
     var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
@@ -270,8 +270,10 @@ function ProductCategory(id) {
                 data: { id: id },
                 success: function (data) {
                   if (data == "1") {
+                        $(".delteFilter").css("display", "block");$(".delteFilter").css("display", "block");
                         var url = "../Product/ListProduct?Curentpage=" + page;
-                        $('.products').load(url)
+                        $('.products').load(url);
+
                     }
                     else if (data == "2") {
                         var url = "../Product/GaleryProduct?Curentpage=" + page;
@@ -727,4 +729,43 @@ function RestoreAdminProduct() {
         error: function () {
         }
     });
+}
+
+function RestoreFilter() {
+    var fullURL = window.location.href;
+    var last = fullURL.lastIndexOf('=');
+    var differenceBetweenLastAndFullUrl = fullURL.length+1 - last;
+    var page = fullURL.substr(last + 1, differenceBetweenLastAndFullUrl);
+        $.ajax({
+                url: '/Product/RestoreFilter',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                     if (data == "1") {
+                            $("#PriceTo").val("");
+                            $("#priceOF").val("");
+                            $(".delteFilter").slideUp(200);
+                            $('.singleFilter input').prop('checked', false);
+
+                            var url = "../Product/ListProduct?Curentpage=" + page;
+                            $('.products').load(url)
+                        }
+                        else if (data == "2") {
+                            $("#PriceTo").val("");
+                            $("#priceOF").val("");
+                            $(".delteFilter").slideUp(200);
+                            $('.singleFilter input').prop('checked', false);
+                            var url = "../Product/GaleryProduct?Curentpage=" + page;
+                            $('.products').load(url);
+                        }
+                            
+
+                },
+                error: function () {
+                }
+            });
+}
+function ViewFilterDeleter() {
+    $(".delteFilter").slideDown(500);
 }

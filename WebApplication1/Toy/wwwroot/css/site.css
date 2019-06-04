@@ -790,3 +790,17 @@ footer{
     font-size: 20px;
     color: #888;
 }
+
+.delteFilter
+{
+    display: none;
+}
+.delteFilter button
+{
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 5px 10px;
+    width: 100%;
+    color:white;
+}

@@ -24,49 +24,62 @@
     </environment>
 </head>
 <body>
-    @foreach (var item in Model.Items)
-    {
-        <div class=" row productList">
-            <div class="col-md-3 img">
-                <a href="../../Order/Details/@item.ID"><img src="@item.Image" alt="Alternate Text" /></a>
-            </div>
-            <div class="col-md-7">
-                <div class="row code">
-                    <h4>@item.Code</h4>
-                </div>
-                <div class="row title">
-                    <h4>@item.Title</h4>
-                </div>
-                <div class="row desc">
-                    <h5>@item.Description</h5>
-                </div>
-                <div class="row price">
-                    <h4>@item.Price лв.</h4>
-                </div>
+    @{
+        if (Model.Items.Count != 0)
+        {
 
-            </div>
-            <div class="col-md-2">
-                <div class="row">
-                    @if (item.Quantity > 0)
-                    {
-                        <span style="color:green; margin:20px 20px;"> В наличност</span>
-                    }
-                    else
-                    {
-                        <span style="color:red ; margin:20px 20px;" > Не е в наличност</span>
-                    }
+            foreach (var item in Model.Items)
+            {
+
+
+                <div class=" row productList">
+                    <div class="col-md-3 img">
+                        <a href="../../Order/Details/@item.ID"><img src="@item.Image" alt="Alternate Text" /></a>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="row code">
+                            <h4>@item.Code</h4>
+                        </div>
+                        <div class="row title">
+                            <h4>@item.Title</h4>
+                        </div>
+                        <div class="row desc">
+                            <h5>@item.Description</h5>
+                        </div>
+                        <div class="row price">
+                            <h4>@item.Price лв.</h4>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            @if (item.Quantity > 0)
+                            {
+                                <span style="color:green; margin:20px 20px;"> В наличност</span>
+                            }
+                            else
+                            {
+                                <span style="color:red ; margin:20px 20px;"> Не е в наличност</span>
+                            }
+                        </div>
+                        <div class="button ">
+                            <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="button ">
-                    <a href="../../Order/Details/@item.ID" class="btn btn-success ">Виж повече</a>
-                </div>
-            </div>
-        </div>
+            }
+        }
+        else
+        {
+            <h3 style="margin-top:50px; color:red">Няма намерени продукти в тази категория</h3>
+
+        }
     }
-        <div class="row">
-            <div class="pageVM">
-                @Html.Partial("_pageVm");
-            </div>
+    <div class="row">
+        <div class="pageVM">
+            @Html.Partial("_pageVm");
         </div>
+    </div>
 
 </body>
 </html>
