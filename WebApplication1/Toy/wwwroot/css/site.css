@@ -486,9 +486,9 @@ footer{
 .alertBox,.dangerBox
 {
     position: fixed;
-    top: 100px;
+    top: 170px;
     width: 500px;
-    margin-left:33% !important;
+    margin-left:31% !important;
     display:none;
     border:1px solid black;
     color:black;
