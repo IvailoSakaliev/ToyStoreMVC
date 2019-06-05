@@ -22,30 +22,30 @@
 <body>
     <div class="row nav">
         <div class="col-md-3" style="background-color:white; padding:5px;">
-            <a href="~/Home/Index"><img style="margin-left:25%"  src="~/images/Vavilonci.png" width="53%" height="92px;"/></a>
+            <a href="~/Home/Index"><img style="margin-left:25%" src="~/images/Vavilonci.png" width="53%" height="91px;" /></a>
         </div>
-        <div class="col-md-9 " >
+        <div class="col-md-9 ">
             <div class="row navigation ">
                 <nav>
-                        
-                        @if (Context.Session.GetString("User_ID") == "1")
-                        {
-                            <div class="col-md-4">
-                                @Html.Partial("_fixedMenu")
-                            </div>
-                            <div class="col-md-8" >
-                                @Html.Partial("_loginMenu")
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-md-4">
-                                @Html.Partial("_fixedMenu")
-                            </div>
-                            <div class="col-md-8">
-                                @Html.Partial("_loginMenu")
-                            </div>
-                        }
+
+                    @if (Context.Session.GetString("User_ID") == "1")
+                    {
+                        <div class="col-md-4">
+                            @Html.Partial("_fixedMenu")
+                        </div>
+                        <div class="col-md-8">
+                            @Html.Partial("_loginMenu")
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-4">
+                            @Html.Partial("_fixedMenu")
+                        </div>
+                        <div class="col-md-8">
+                            @Html.Partial("_loginMenu")
+                        </div>
+                    }
 
                 </nav>
             </div>
@@ -150,12 +150,12 @@
 
 
 
-    
-            
-            
 
 
-    
+
+
+
+
     <partial name="_CookieConsentPartial" />
 
     <div>
@@ -217,19 +217,20 @@
                 </ul>
             </div>
             <div class="col-md-4 secondnavFooter">
-                <ul class="footerNav">
-                    <h3>Products</h3>
-                    <li><a onclick="ProductCategory(6)">Играчки</a></li>
-                    
-                    <li><a onclick="ProductCategory(1)">За бебета</a></li>
-                    <li><a onclick="ProductCategory(7)">Спорт и игра на открито</a></li>
-                    <li><a onclick="ProductCategory(8)">Пъзели</a></li>
-                    <li><a onclick="ProductCategory(9)">Настолни игри и забавления</a></li>
+                <ul class="footerNav contactsFooter">
+                    <h3>Contacts</h3>
+                    <li>
+                        Tel: 0893287557
+                        
+                    </li>
+                    <li>Adres: Plovdiv, Sankt Peterburg 39</li>
+                       
+
                 </ul>
             </div>
             <div class="col-md-4 social-link">
                 <h3>Follow us</h3>
-                <a href="#"><img src="~/images/social/facebook.png" width="50px" alt="facebook" /></a>
+                <a href="https://www.facebook.com/Vavilonci-343693393003676/"><img src="~/images/social/facebook.png" width="50px" alt="facebook" /></a>
             </div>
 
         </div>

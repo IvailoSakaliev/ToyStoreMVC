@@ -66,7 +66,7 @@ body {
 .HomeProducts
 {
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     background-color:white; 
     padding:20px;
     height:350px;
@@ -606,7 +606,6 @@ footer{
 
 .video
 {
-    padding: 30px;
 }
 /*User page*/
 
@@ -789,7 +788,8 @@ footer{
     padding-left: 30px;
     padding-top: 80px;
     font-size: 20px;
-    color: white;
+    color: #337ab7;
+    font-family: 
 }
 
 .delteFilter
@@ -804,4 +804,10 @@ footer{
     padding: 5px 10px;
     width: 100%;
     color:white;
+}
+
+.contactsFooter li 
+{
+    color:white;
+    list-style: none;
 }
