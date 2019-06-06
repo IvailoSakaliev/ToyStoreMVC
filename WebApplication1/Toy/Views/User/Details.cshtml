@@ -8,35 +8,43 @@
         <div class="col-md-3">
             <div class="userimage" style="background-image:url(../wwwroot/@Model.CurrentUser.Image)"></div>
             <ul class="useroption">
-                <li><a href="Details"><h4>Information</h4></a></li>
-                <li><h4 onclick="ChangeEmailUser() " style="color:red">Change Email</h4></li>
-                <li><h4 onclick="ChangePasswordUser() " style="color:red">Change Password</h4></li>
+                <li><a href="Details"><h4>ИНформация</h4></a></li>
+                <li><h4 onclick="ChangeEmailUser() " style="color:red">Промяна на  Email</h4></li>
+                <li><h4 onclick="ChangePasswordUser() " style="color:red">Промяна на парола</h4></li>
 
 
             </ul>
         </div>
         <div class="col-md-9 ">
             <div class="row userinfo">
-                <h3>User Infomation</h3>
+                <h3>Информация за потребител</h3>
                 <div class="col-md-3 ">
                     <div id="userIMG" style="background-image:url(../@Model.CurrentUser.Image)">
                     </div>
                 </div>
                 <div class="col-md-9">
                     <a class="changeUserInfo" href="#" onclick="ChangeDetails()"><img src="~/images/pen.png" width="15px" alt="Alternate Text" />  Edit</a>
-                    <h4>Username : <b>@Model.CurrentUser.FirstName</b></h4>
-                    <h4>Second Name : <b>@Model.CurrentUser.SecondName</b></h4>
-                    <h4>City : <b>@Model.CurrentUser.City</b></h4>
-                    <h4>
-                        Adress : <b>@Model.CurrentUser.Adress</b><h4>
-                            <h4>Telephone :<b> @Model.CurrentUser.Telephone</b></h4>
+                    <div class="col-md-5">
+                        <h4>Потребителско име : </h4>
+                        <h4>Фамилия :</h4>
+                        <h4>Град :</h4>
+                        <h4> Адрес : <h4>
+                         <h4>Телефон :</h4>
+                    </div>
+                    <div class="col-md-5">
+                        <h4><b>@Model.CurrentUser.FirstName</b></h4>
+                        <h4><b>@Model.CurrentUser.SecondName</b></h4>
+                        <h4><b>@Model.CurrentUser.City</b></h4>
+                        <h4><b>@Model.CurrentUser.Adress</b></h4>
+                        <h4><b>@Model.CurrentUser.Telephone</b></h4>
+                    </div>
 
                 </div>
             </div>
 
             <div class="row orderinformation">
                 <div id="mode" style="visibility:hidden">0</div>
-                <h3>Orders</h3>
+                <h3>Поръчки</h3>
                 <div class="row headers">
                     <div class="col-md-2">  OrderNumber</div>
                     <div class="col-md-2"> Quantity</div>
