@@ -39,7 +39,7 @@
                 <div class="col-md-4 bying">
                     <div class="form-group">
                         <h4>Единична цена: </h4>
-                        <h4 class="priceOfProduct">@Model.Price лв.</h4>
+                        <h4> <font class="priceOfProduct" style="font-weightbold">@Model.Price</font> лв.</h4>
                         <label class="control-label">Количество</label>
                         <select class=" form-control quantity" onchange="leaveChange()">
                             @foreach (var item in Model.Quantity)
@@ -57,6 +57,7 @@
                     }
                     else
                     {
+                        <span style="color:green">В наличност</span>
                         <button onclick="SetOrderInSession()" class="btn btn-primary orderBY" type="submit" name="by">Добави в количката</button>
                     }
 

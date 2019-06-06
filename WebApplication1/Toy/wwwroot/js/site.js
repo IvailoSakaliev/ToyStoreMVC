@@ -188,7 +188,7 @@ function leaveChange() {
     var price = $(".priceOfProduct").text();
     var total = $(".total");
     var result = quantity * price;
-    total.html("Общо: " + result+ "лв.");
+    total.html("Общо: " + result + "лв.");
 }
 
 function OpenGalery()
